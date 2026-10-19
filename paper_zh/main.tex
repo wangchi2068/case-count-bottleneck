@@ -16,7 +16,11 @@
   \setmainfont{Liberation Serif}
 }
 \IfFontExistsTF{SimSun}{
-  \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
+  \IfFontExistsTF{SimHei}{
+    \setCJKmainfont[BoldFont=SimHei]{SimSun}
+  }{
+    \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
+  }
 }{
   \IfFontExistsTF{Songti SC}{
     \setCJKmainfont{Songti SC}
@@ -102,7 +106,7 @@
 
 \newif\ifblind
 \blindfalse
-\externaldocument{build/supplement}
+\externaldocument{supplement}
 
 \title{\textbf{环境方差与报告异质性下再生数估计的不可约误差与监测设计}}
 \ifblind
@@ -130,6 +134,7 @@
 \FloatBarrier
 \bibliographystyle{plainnat}
 \small
+\sloppy
 \emergencystretch=1.5em
 \setlength{\bibsep}{1.2pt}
 \bibliography{bibliography}

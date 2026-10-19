@@ -15,7 +15,11 @@
   \setmainfont{Liberation Serif}
 }
 \IfFontExistsTF{SimSun}{
-  \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
+  \IfFontExistsTF{SimHei}{
+    \setCJKmainfont[BoldFont=SimHei]{SimSun}
+  }{
+    \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
+  }
 }{
   \IfFontExistsTF{Songti SC}{
     \setCJKmainfont{Songti SC}
