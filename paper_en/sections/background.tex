@@ -89,7 +89,7 @@ Defining the variance balance scale $m_\times = A / v_R$, the error variance sat
   \item \textbf{Variance partition:} The sampling share of total variance is $1 / (1 + m/m_\times)$; at $m = m_\times$, the sampling variance exactly equals the environmental variance floor.
   \item \textbf{Diminishing returns to scale doubling:} Doubling sample volume from $m$ to $2m$ reduces total variance by a fraction of $1 / [2(1 + m/m_\times)]$.
   \item \textbf{Elasticity:} $V(m)$ is strictly decreasing and strictly convex, with scale elasticity $\epsilon_m = -m_\times / (m + m_\times)$, which equals $-1/2$ at $m = m_\times$.
-  \item \textbf{Optimality bound:} In the class of estimators conditionally unbiased for $R_t$, $V(m)$ is the minimum mean squared error for $\Rbar$. Under H4, it is also the minimum mean squared prediction error for one-step-ahead growth $y = C_{t+1}/m$.
+  \item \textbf{Optimality bound:} In the class of estimators conditionally unbiased for $R_t$, $V(m)$ is the minimum mean squared error for $\Rbar$. Under H4 with $R_{t+1}$ independent of past history $\mathcal{F}_t$, it is also the minimum mean squared prediction error for one-step-ahead growth $y = C_{t+1}/m$.
 \end{enumerate}
 \end{proposition}
 
@@ -100,7 +100,7 @@ Equation~\eqref{eq:var-average} follows directly from the law of total variance:
   \E(\tilde{\theta} - \Rbar)^2 = \E\big[\Var(\tilde{\theta}\mid R_t)\big] + v_R \ge v_R + \E\big[1/\mathcal{I}(R_t)\big] = v_R + \frac{A}{m},
   \label{eq:unbiased-bound}
 \end{equation}
-with equality attained by $\widehat{R}_t = C_t/m$. Furthermore, under H4, any predictor $\hat{y}$ based on history $\mathcal{F}_t$ forecasting $y = C_{t+1}/m$ satisfies
+with equality attained by $\widehat{R}_t = C_t/m$. For the one-step prediction result, we additionally assume that $R_{t+1}$ is independent of $\mathcal{F}_t$. Under this condition, any predictor $\hat{y}$ based on history $\mathcal{F}_t$ forecasting $y = C_{t+1}/m$ satisfies
 \begin{equation}
   \E(\hat{y} - y)^2 \ge \Var(y \mid \mathcal{F}_t) = v_R + \frac{A}{m},
   \label{eq:predict-bound}

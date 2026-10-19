@@ -4,15 +4,7 @@
 \subsection{Branching and observation models}
 \label{sec:meth-assumptions}
 
-The epidemiological branching and surveillance observation process is formulated in Section~\ref{sec:bg-model}: conditional on instantaneous reproduction number $R_t$, secondary cases follow the negative-binomial distribution in Eq.~\eqref{eq:offspring}, which upon independent binomial thinning with probability $\rho$ yields the reported count in Eq.~\eqref{eq:observed}, with expected reporting volume $m = \rho n$. Assumptions H1--H6 define the probability space:
-\begin{enumerate}[label=H\arabic*]
-  \item Conditional on $R_t$, individual secondary cases are independent negative-binomial random variables, and case ascertainment follows independent binomial thinning.
-  \item Infections in period $t$ share a common reproduction number $R_t$; environmental stochasticity operates at the generation-period scale.
-  \item The overdispersion parameter $k$ and reporting probability $\rho$ are known or exogenously identifiable constants.
-  \item The active ancestor volume $n$ is statistically independent of ambient transmission conditions: $\E(R_t \mid n) = \Rbar$ and $\Var(R_t \mid n) = v_R$; for one-step forecasts, $R_{t+1}$ is independent of information history $\mathcal{F}_t$.
-  \item Reporting probability $p_t \in (0, 1]$ is a stationary stochastic process independent of $\{R_t\}$ and $n$, with $\E(p_t) = \rho$, $\Var(p_t) = \sigma^2$, relative volatility $\tau = \sigma/\rho$, and standardised rate $u_t = p_t/\rho$.
-  \item Conditional on environmental trajectories $(R_1, \dots, R_T)$ and reporting rates $(p_1, \dots, p_T)$, observed counts across periods are mutually independent.
-\end{enumerate}
+The epidemiological branching and surveillance observation process is formulated in Section~\ref{sec:bg-model} under foundational Assumptions H1--H4 (binomial observation, homogeneous branching, exogenous overdispersion, and predetermined ancestor scale) and extended in Section~\ref{sec:bg-reporting} under Assumptions H5--H6 (stochastic reporting and conditional independence).
 
 Assumption~H4 holds naturally when $n$ is fixed by active contact-tracing design. In passive surveillance, $n_t$ is the dynamic realization of prior transmission; renewal process and dynamic autoregressive simulations (Sections~\ref{sec:meth-renewal} and~\ref{sec:meth-sim}) relax this independence. Assumption~H5 accommodates both binomial sampling fluctuations and institutional reporting shifts, differing in whether $\sigma^2$ scales with $\rho$.
 
