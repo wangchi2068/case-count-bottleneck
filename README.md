@@ -80,15 +80,20 @@ case-count-bottleneck/
 
 ---
 
-## 📄 成果文件直接阅读
+## 📄 成果文件直接下载与阅读 (Release v1.0.0)
 
-- **英文投稿正文（Epidemics）**：[`paper_en/build/main.pdf`](paper_en/build/main.pdf)
-- **英文补充材料**：[`paper_en/build/supplement.pdf`](paper_en/build/supplement.pdf)
-- **中文论文正文**：[`paper_zh/build/main.pdf`](paper_zh/build/main.pdf)
-- **补充材料**：[`paper_zh/build/supplement.pdf`](paper_zh/build/supplement.pdf)
-- **汇报简报**：[`advisor-briefing.pdf`](advisor-briefing.pdf)
-- **理论推导手册 PDF（45页详尽版）**：[`derivation-handout.pdf`](derivation-handout.pdf)
-- **理论推导手册 Markdown**：[`derivation-handout.md`](derivation-handout.md)
+本项目已正式发布 [**Release v1.0.0**](https://github.com/wangchi2068/case-count-bottleneck/releases/tag/v1.0.0)，所有编译后的完整 PDF 文件均提供免渲染的 CDN 直接下载链接：
+
+| 成果文件 | 语言/说明 | 页数 | 仓库源码相对链接 | Release 直接下载链接 |
+|---|---|---|---|---|
+| **中文论文正文** | 中文定稿 (ctexart) | 24 页 | [`paper_zh/build/main.pdf`](paper_zh/build/main.pdf) | [**paper_zh-main.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/paper_zh-main.pdf) |
+| **中文补充材料** | 中文补充材料 (S1–S8) | 14 页 | [`paper_zh/build/supplement.pdf`](paper_zh/build/supplement.pdf) | [**paper_zh-supplement.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/paper_zh-supplement.pdf) |
+| **英文投稿正文** | 英文评审稿 (elsarticle) | 36 页 | [`paper_en/build/main.pdf`](paper_en/build/main.pdf) | [**paper_en-main.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/paper_en-main.pdf) |
+| **英文补充材料** | 英文补充材料 | 17 页 | [`paper_en/build/supplement.pdf`](paper_en/build/supplement.pdf) | [**paper_en-supplement.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/paper_en-supplement.pdf) |
+| **理论推导手册** | 45页详尽推导手册 PDF | 45 页 | [`derivation-handout.pdf`](derivation-handout.pdf) | [**derivation-handout.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/derivation-handout.pdf) |
+| **汇报简报** | 汇报简报 PDF | 13 页 | [`advisor-briefing.pdf`](advisor-briefing.pdf) | [**advisor-briefing.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/advisor-briefing.pdf) |
+
+- **推导讲义源码（Markdown 版）**：[`derivation-handout.md`](derivation-handout.md)（Raw 直达：`https://raw.githubusercontent.com/wangchi2068/case-count-bottleneck/main/derivation-handout.md`）
 
 ---
 
