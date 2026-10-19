@@ -7,7 +7,7 @@
 
 \subsection{\texorpdfstring{命题~\ref{prop:current} 的证明}{命题 1 的证明}}
 
-记 $c$ 为 $C_t$ 的观测值，$\theta=\rho R_t$。由式~\eqref{eq:report-dist}，对数似然为 $\ell(R_t)=\text{常数}+nk\log[k/(k+\theta)]+c\log[\theta/(k+\theta)]$。对 $R_t$ 求导并整理，得分函数为：
+记 $c$ 为 $C_t$ 的观测值，$\theta=\rho R_t$。由式~\eqref{eq:report-dist}，对数似然为 $\ell(R_t)=\text{const}+nk\log[k/(k+\theta)]+c\log[\theta/(k+\theta)]$。对 $R_t$ 求导并整理，得分函数为：
 \begin{equation}
   \dot\ell(R_t)=\frac{c}{R_t}-\frac{(c+nk)\rho}{k+\rho R_t}
   =\mathcal I(R_t)\,(\widehat R_t-R_t),\qquad

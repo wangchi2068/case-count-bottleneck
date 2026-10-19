@@ -190,13 +190,13 @@
 \section{复现包}
 \label{sec:s-repro}
 
-分析代码、数据快照的校验值与结果文件公开于 \url{https://github.com/wangchi2068/case-count-inference-bottleneck}，投稿时另在 Zenodo 存档并给出 DOI。
+分析代码、数据快照的校验值与结果文件公开于 \url{https://github.com/wangchi2068/case-count-bottleneck}，投稿时另在 Zenodo 存档并给出 DOI。
 
 \paragraph{结构} \nolinkurl{code/} 为全部分析脚本，\nolinkurl{analysis/} 为结果文件（\nolinkurl{reanalysis_results.json}、\nolinkurl{r3_results.json}、\nolinkurl{r4_results.json}）、事先写定的分析方案与数字地图，\nolinkurl{data/} 为派生面板与外部数据，\nolinkurl{logs/} 为运行日志。论文中每个数字对应的结果键列在 \nolinkurl{analysis/reproduction_map.md}，共抽取 1,638 个数字，其中 1,550 个映射到结果键，其余为年份、参数设定与理论部分的闭式计算。
 
 \paragraph{环境} Python 3.11.2、numpy 2.4.6、scipy 1.17.1、pandas 3.0.6、matplotlib 3.11.2，不调用外部接口（独立数据脚本首次运行时从公开接口下载，文件已存在时不再访问网络）。参考硬件为 4 核 CPU、8 GiB 内存，无 GPU。
 
-\paragraph{数据} 主数据为 NHSN 州级每周住院数据（Weekly Hospital Respiratory Data Metrics by Jurisdiction）的论文快照，sha256 为 \nolinkurl{e48c2ea9\ldots c20c330}。该数据集持续回填，逐值复现须使用快照；ILINet、FluSurv-NET 与 HHS Protect 文件的来源与校验值见代码目录的说明文件。
+\paragraph{数据} 主数据为 NHSN 州级每周住院数据（Weekly Hospital Respiratory Data Metrics by Jurisdiction）的论文快照，sha256 为 \texttt{e48c2ea9\dots c20c330}。该数据集持续回填，逐值复现须使用快照；ILINet、FluSurv-NET 与 HHS Protect 文件的来源与校验值见代码目录的说明文件。
 
 \paragraph{种子} 主种子为 20261017。首轮州聚类重抽用主种子；跨病原重抽为 20261022；日分辨率更新过程零假设为 20261058，乘性报告噪声增长期模型为 20261059，报告率网格为 20261060，一周两代为 20261061，独立数据为 20261062。每格的随机数流只由种子与格号决定，与进程数和完成顺序无关。
 

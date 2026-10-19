@@ -114,7 +114,7 @@ SPLITS = {
     "fig_05_levers_budget.pdf": 0.520,
     "fig_06_renewal_scale.pdf": 0.5045,
     "fig_09_denominator_noise.pdf": 0.483,
-    "fig_11_reporting_adjustment.pdf": 0.450,
+    "fig_11_reporting_adjustment.pdf": 0.420,
     "fig_13_scale_vs_seasons.pdf": 0.528,
     "fig_14_peak_decomp.pdf": 0.5015,
     "fig_15_period_season_iqr.pdf": 0.454,
