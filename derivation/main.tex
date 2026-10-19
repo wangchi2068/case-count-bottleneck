@@ -1,0 +1,138 @@
+\documentclass[11pt,a4paper]{ctexart}
+
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{
+  \setmainfont{Times New Roman}
+}{
+  \setmainfont{Liberation Serif}
+}
+\IfFontExistsTF{SimSun}{
+  \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
+}{
+  \IfFontExistsTF{Songti SC}{
+    \setCJKmainfont{Songti SC}
+  }{
+    \IfFontExistsTF{STSong}{
+      \setCJKmainfont{STSong}
+    }{
+      \setCJKmainfont{Noto Serif CJK SC}
+    }
+  }
+}
+
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[round,authoryear]{natbib}
+\usepackage[colorlinks=true,linkcolor=teal!80!black,citecolor=blue!80!black,urlcolor=teal!80!black]{hyperref}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}理论推导手册：环境方差与报告异质性下再生数估计}
+\fancyhead[R]{\small\color{gray}王驰 $\cdot$ 西安科技大学}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 数学记号宏定义
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\NB}{\mathrm{NB}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\CV}{\mathrm{CV}}
+\newcommand{\Rbar}{\bar{R}}
+\newcommand{\mx}{m_\times}
+\newcommand{\mxH}{m_{\times,H}}
+
+\newtheorem{definition}{定义}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}{命题}[section]
+\newtheorem{corollary}{推论}[section]
+\newtheorem{remark}{注}[section]
+
+% 自定义高质感彩色方框
+\newtcolorbox{theorembox}[1]{
+  colback=blue!3!white,
+  colframe=blue!60!black,
+  fonttitle=\bfseries\sffamily,
+  title={#1},
+  arc=2mm,
+  boxrule=0.8pt,
+  breakable,
+  enhanced,
+  drop shadow=black!10
+}
+
+\newtcolorbox{derivationbox}[1]{
+  colback=gray!4!white,
+  colframe=gray!60!black,
+  fonttitle=\bfseries\sffamily,
+  title={#1},
+  arc=1.5mm,
+  boxrule=0.6pt,
+  breakable,
+  enhanced
+}
+
+\newtcolorbox{insightbox}[1]{
+  colback=teal!4!white,
+  colframe=teal!70!black,
+  fonttitle=\bfseries\sffamily,
+  title={#1},
+  arc=1.5mm,
+  boxrule=0.6pt,
+  breakable,
+  enhanced
+}
+
+\title{\Huge\bfseries\color{blue!80!black} 环境方差与报告异质性下再生数估计的\\完整数学推导手册\\[12pt]
+\Large\normalfont\color{gray!80!black} 从微观分支过程、信息论界限到监测设计预算优化的分步推导与证明}
+\author{\large\textbf{王驰}\\[4pt]
+\normalsize 西安科技大学 安全科学与工程学院\\[2pt]
+\small\texttt{wangc@bostech.com.cn}}
+\date{\small 2026年10月 $\cdot$ 完整推导版}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+\noindent 本手册针对论文《环境方差与报告异质性下再生数估计的不可约误差与监测设计》（及英文手稿 \emph{Limits to improving reproduction number estimates by increasing case counts: Environmental variability, reporting heterogeneity, and surveillance design}）提供完备、自洽、详尽到每一步代数展开的数学推导与理论证明。手册从负二项分支过程与二项稀疏的概率母函数（PGF）保持定理出发，严格区分条件瞬时再生数 $R_t$（估计目标 1）与跨期平均再生数 $\bar{R}$（估计目标 2）；完整证明了条件无偏估计类中 Cramér--Rao 下界的达到性、全方差公式展开下的环境方差底板 $v_R + A/m$、方差平衡规模 $m_\times$ 的物理几何性质、报告异质性引入的不可识别边界与诊断性报告签名 $F(w, \psi)$、覆盖度与报告率的决策反转边界 $m > \rho^2\nu/k$、一阶自回归与空间汇总下的预算阈值 $\mathcal{B}^\dagger$、环境方差估计量 $\hat{v}_R$ 的渐近平台 $\Omega_\infty/T$ 与季节相对误差下界 $\sqrt{2/S}$、动态更新过程中的二阶 Delta 展开以及线性收缩经验贝叶斯估计的方差—偏差权衡。手册旨在为学术报告、理论答辩及同行评议提供无可辩驳的数学支撑底本。
+\end{abstract}
+
+\vspace{10pt}
+\tableofcontents
+\newpage
+
+\input{sections/part01_notation}
+\input{sections/part02_branching}
+\input{sections/part03_target1}
+\input{sections/part04_target2}
+\input{sections/part05_scale_returns}
+\input{sections/part06_reporting_heterogeneity}
+\input{sections/part07_ranking_reversal}
+\input{sections/part08_lag_signature}
+\input{sections/part09_budget_ar1}
+\input{sections/part10_vR_precision}
+\input{sections/part11_hypothesis_testing}
+\input{sections/part12_renewal_delta}
+\input{sections/part13_shrinkage}
+\input{sections/part14_parag_comparison}
+\input{sections/part15_defense_qa}
+
+\newpage
+\bibliographystyle{plainnat}
+\small
+\setlength{\bibsep}{2pt}
+\bibliography{bibliography}
+
+\end{document}

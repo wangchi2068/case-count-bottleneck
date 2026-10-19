@@ -1,0 +1,99 @@
+\section{决策反转定理：提高报告率与扩大覆盖面的排序}
+\label{sec:part07}
+
+\subsection{边际收益差值的显式导数展开}
+
+在考虑报告异质性 $V_H$ 时，公共卫生决策者再次面临路线选择：是将有限资金用于激励医疗机构提高填报完整度 $\rho$，还是扩大监测覆盖的哨点网络与人群 $n$？
+
+\begin{theorembox}{推论 1 的完全证明（策略优劣反转定理）}
+将报告相对方差 $\tau^2$ 视为平均报告率 $\rho$ 的泛函 $\tau^2(\rho)$。在假设 H2--H6 下：
+\begin{enumerate}[label=(\roman*)]
+  \item 提高报告率相较于扩大覆盖面的相对边际方差压制优势严格取决于判别式：
+  \begin{equation}
+    \Delta_{\rho, n} \equiv -\rho\frac{\partial V_H}{\partial \rho} - \left(-n\frac{\partial V_H}{\partial n}\right) = \frac{\Rbar^2 + v_R}{kn} \left[ -\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(kn + 1) - (1 + \tau^2) \right].
+    \label{eq:reversal-condition}
+  \end{equation}
+  \item 若报告波动源于制度性或政策性切换（$\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho} = 0$），扩大覆盖面 $n$ \textbf{恒处严格绝对占优地位}。
+  \item 若报告波动源于二项/贝塔抽样抽样误差（$\tau^2 = \frac{1-\rho}{\rho(\nu+1)}$），当且仅当预期规模超过临界阈值时发生反转：
+  \begin{equation}
+    \boxed{\, m > \frac{\rho^2 \nu}{k} \,}
+    \label{eq:reversal-threshold}
+  \end{equation}
+  在临界点以上，提高报告率 $\rho$ 的边际价值反超扩大覆盖面 $n$。
+\end{enumerate}
+\end{theorembox}
+
+\begin{proof}
+将方差公式式~\eqref{eq:vH-closed} 显式展开为 $n$ 与 $\rho$ 的函数：
+\begin{equation}
+  V_H(n, \rho) = v_R + \tau^2(\rho)(\Rbar^2 + v_R) + \frac{\Rbar}{\rho n} + \frac{[1 + \tau^2(\rho)](\Rbar^2 + v_R)}{kn}.
+\end{equation}
+分别计算对数偏导数（即对比例扩增的边际弹性贡献）：
+\begin{align}
+  -\rho\frac{\partial V_H}{\partial \rho} &= -\rho \left[ \frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(\Rbar^2+v_R) - \frac{\Rbar}{\rho^2 n} + \frac{\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(\Rbar^2+v_R)}{kn} \right] \nonumber \\
+  &= -\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(\Rbar^2+v_R) + \frac{\Rbar}{\rho n} - \frac{\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(\Rbar^2+v_R)}{kn}, \\
+  -n\frac{\partial V_H}{\partial n} &= -n \left[ -\frac{\Rbar}{\rho n^2} - \frac{(1+\tau^2)(\Rbar^2+v_R)}{kn^2} \right] \nonumber \\
+  &= \frac{\Rbar}{\rho n} + \frac{(1+\tau^2)(\Rbar^2+v_R)}{kn}.
+\end{align}
+计算边际效益差 $\Delta_{\rho, n} = -\rho\frac{\partial V_H}{\partial \rho} - (-n\frac{\partial V_H}{\partial n})$。
+注意到公共项 $\frac{\Rbar}{\rho n}$ 精确对消：
+\begin{align}
+  \Delta_{\rho, n} &= -\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(\Rbar^2+v_R) - \frac{\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(\Rbar^2+v_R)}{kn} - \frac{(1+\tau^2)(\Rbar^2+v_R)}{kn} \nonumber \\
+  &= \frac{\Rbar^2+v_R}{kn} \left[ -kn\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho} - \rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho} - (1+\tau^2) \right] \nonumber \\
+  &= \frac{\Rbar^2+v_R}{kn} \left[ -\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(kn + 1) - (1 + \tau^2) \right].
+\end{align}
+式~\eqref{eq:reversal-condition} 获证。
+
+\paragraph{情况 1：制度型波动。}
+当波动来自医院填报口径切换或法案调整时，系统的相对离散度 $\tau$ 取决于管理标准，不随基础报告率 $\rho$ 的提高而必然衰减，即 $\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho} = 0$。代入式~\eqref{eq:reversal-condition}：
+\begin{equation}
+  \Delta_{\rho, n} = \frac{\Rbar^2+v_R}{kn} \big[ 0 - (1+\tau^2) \big] = -\frac{(1+\tau^2)(\Rbar^2+v_R)}{kn} < 0.
+\end{equation}
+差值恒严格为负。这意味着：扩大覆盖面 $n$ 带来的方差下降永远严格大于提高报告率 $\rho$。
+
+\paragraph{情况 2：贝塔--二项抽样型波动。}
+设每个周期的报告概率 $p_t$ 自身是由有效规模为 $\nu$ 的哨点样本抽样确定的，即满足共轭贝塔先验 $p_t \sim \Beta(\rho\nu, (1-\rho)\nu)$。根据贝塔分布的方差公式：
+\begin{equation}
+  \Var(p_t) = \frac{(\rho\nu)[(1-\rho)\nu]}{\nu^2(\nu + 1)} = \frac{\rho(1-\rho)}{\nu + 1}.
+\end{equation}
+计算相对方差 $\tau^2$ 及其对 $\rho$ 的微商：
+\begin{align}
+  \tau^2(\rho) &= \frac{\Var(p_t)}{\rho^2} = \frac{1-\rho}{\rho(\nu + 1)} = \frac{1}{\nu+1}\left( \frac{1}{\rho} - 1 \right), \\
+  \frac{\mathrm{d}\tau^2}{\mathrm{d}\rho} &= -\frac{1}{\rho^2(\nu + 1)} < 0 \implies -\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho} = \frac{1}{\rho(\nu + 1)}.
+\end{align}
+同时计算常数项：
+\begin{equation}
+  1 + \tau^2 = 1 + \frac{1-\rho}{\rho(\nu + 1)} = \frac{\rho(\nu+1) + 1 - \rho}{\rho(\nu + 1)} = \frac{\rho\nu + 1}{\rho(\nu + 1)}.
+\end{equation}
+将微商项代入判别式括号内部：
+\begin{align}
+  -\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(kn + 1) - (1 + \tau^2) &= \frac{1}{\rho(\nu+1)}(kn + 1) - \frac{\rho\nu + 1}{\rho(\nu+1)} \nonumber \\
+  &= \frac{(kn + 1) - (\rho\nu + 1)}{\rho(\nu + 1)} \nonumber \\
+  &= \frac{kn - \rho\nu}{\rho(\nu + 1)}.
+\end{align}
+因此，提高报告率占优的充要条件是括号内为正：
+\begin{equation}
+  \Delta_{\rho, n} > 0 \iff kn - \rho\nu > 0 \iff kn > \rho\nu.
+\end{equation}
+两端同乘报告率 $\rho$ 并利用期望规模定义 $m = \rho n$：
+\begin{equation}
+  k(\rho n) > \rho^2 \nu \iff km > \rho^2 \nu \iff m > \frac{\rho^2 \nu}{k}.
+\end{equation}
+定理获证。
+\end{proof}
+
+\begin{derivationbox}{数值算例 7.1：决策反转阈值的实际量级}
+\begin{itemize}
+  \item \textbf{中等抽样哨点规模 ($\nu = 100$)：}
+  设定流感基准参数 $\rho = 0.25, k = 0.35$：
+  \begin{equation}
+    m^* = \frac{0.25^2 \times 100}{0.35} = \frac{6.25}{0.35} \approx 17.86 \text{ 例}.
+  \end{equation}
+  当监测系统单期捕获病例数 $m > 17.9$ 例时，抽样波动的方差压制优势倒向提高报告率！
+  \item \textbf{高精度哨点规模 ($\nu = 1{,}000$)：}
+  \begin{equation}
+    m^* = \frac{0.25^2 \times 1000}{0.35} \approx 178.6 \text{ 例}.
+  \end{equation}
+  系统必须维持在每周近 180 例以上的高负荷时，报告率的提升才会压倒人群覆盖的扩展。
+\end{itemize}
+\end{derivationbox}

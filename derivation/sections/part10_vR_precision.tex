@@ -1,0 +1,148 @@
+\section{环境方差估计量 $\hat{v}_R$ 的有限样本精度与信息界限}
+\label{sec:part10}
+
+\subsection{修正矩估计量 $\hat{v}_R$ 的严格代数构造}
+
+由于环境方差 $v_R$ 自身必须从有限期数和有限规模的报告数据中估计，我们推导其修正矩估计量。
+
+\begin{derivationbox}{推导 10.1：解二阶总体矩方程得出估计量}
+设单期标准化观测序列为 $Y_t \equiv C_t / m$。各期规模同为 $m = \rho n$。
+由式~\eqref{eq:var-closed}，未标准化的总报告数边际方差为：
+\begin{align}
+  \Var(C_t) &= m^2 V(m) = m^2 \left( v_R + \frac{A}{m} \right) = m^2 v_R + m A \nonumber \\
+  &= m^2 v_R + m \left[ \Rbar + \frac{\rho(\Rbar^2 + v_R)}{k} \right] \nonumber \\
+  &= m^2 v_R + m \Rbar + \frac{\rho m \Rbar^2}{k} + \frac{\rho m}{k} v_R.
+\end{align}
+合并含待估参数 $v_R$ 的项：
+\begin{equation}
+  \Var(C_t) = v_R \left( m^2 + \frac{\rho m}{k} \right) + m \Rbar + \frac{\rho m \Rbar^2}{k} = v_R \left( \frac{k m^2 + \rho m}{k} \right) + m \Rbar + \frac{\rho m \Rbar^2}{k}.
+\end{equation}
+用样本二阶中心矩 $S_C^2 \equiv \frac{1}{T-1}\sum_{t=1}^T (C_t - \bar{C})^2$ 替换 $\Var(C_t)$，用样本均值 $\bar{C}$ 替换 $m\Rbar$（即 $\Rbar = \bar{C}/m$）：
+\begin{align}
+  S_C^2 &= v_R \left( \frac{k m^2 + \rho m}{k} \right) + \bar{C} + \frac{\rho m}{k} \left( \frac{\bar{C}}{m} \right)^2 \nonumber \\
+  &= v_R \left( \frac{k m^2 + \rho m}{k} \right) + \bar{C} + \frac{\rho \bar{C}^2}{km}.
+\end{align}
+移项解 $v_R$：
+\begin{equation}
+  v_R \left( \frac{k m^2 + \rho m}{k} \right) = S_C^2 - \bar{C} - \frac{\rho \bar{C}^2}{km} = \frac{k m S_C^2 - k m \bar{C} - \rho \bar{C}^2}{km}.
+\end{equation}
+两侧同乘以 $k$，同除以 $m^2(km + \rho)$：
+\begin{equation}
+  \hat{v}_R = \frac{k m S_C^2 - k m \bar{C} - \rho \bar{C}^2}{m^2 (km + \rho)}.
+  \label{eq:vhat-raw}
+\end{equation}
+若用标准化样本统计量 $\bar{Y} = \bar{C}/m, S_Y^2 = S_C^2 / m^2$ 表示：
+\begin{equation}
+  \hat{v}_R = \frac{S_Y^2 - \left( \frac{\bar{Y}}{m} + \frac{\rho \bar{Y}^2}{km} \right)}{1 + \frac{\rho}{km}} = \frac{S_Y^2 - \varpi(\bar{Y})}{1 + \frac{\rho}{km}}, \qquad \varpi(y) \equiv \frac{y}{m} + \frac{\rho y^2}{km}.
+  \label{eq:r3-vhat}
+\end{equation}
+式~\eqref{eq:r3-vhat} 获证。
+\end{derivationbox}
+
+\subsection{有限样本方差公式与极限平台 $\Omega_\infty / T$}
+
+\begin{theorembox}{补充命题 S1 的证明（环境方差估计精度的极限平台）}
+在独立同分布环境下，当单期规模 $m \to \infty$ 时，估计方差 $T \Var(\hat{v}_R)$ 不会趋向于 0，而是收敛至不可跨越的渐近平台：
+\begin{equation}
+  \lim_{m \to \infty} T \Var(\hat{v}_R) = \Omega_\infty \equiv \E(R_t - \Rbar)^4 - v_R^2 = \Var\big((R_t - \Rbar)^2\big).
+  \label{eq:omega-inf-def}
+\end{equation}
+若 $R_t \sim \text{Gamma}(\xi, \vartheta)$，则极限平台具有严格代数闭式：
+\begin{equation}
+  \Omega_\infty = v_R^2 \left( 2 + \frac{6 v_R}{\Rbar^2} \right).
+  \label{eq:omega-gamma-closed}
+\end{equation}
+\end{theorembox}
+
+\begin{proof}
+根据抽样方差的经典有限样本四阶矩理论 \citep{casella2002statistical}，样本方差的精确方差为：
+\begin{equation}
+  \Var(S_Y^2) = \frac{\mu_{4Y}}{T} - \frac{T - 3}{T(T - 1)} \sigma_Y^4,
+\end{equation}
+其中 $\mu_{4Y} \equiv \E(Y_t - \E Y_t)^4$ 为四阶中心矩，$\sigma_Y^2 = \Var(Y_t)$。
+将 $\hat{v}_R = \frac{S_Y^2 - \varpi(\bar{Y})}{1 + \rho/(km)}$ 在 $\bar{Y} = \Rbar$ 处进行一阶一阶泰勒展开：
+\begin{equation}
+  \varpi(\bar{Y}) = \varpi(\Rbar) + \varpi'(\Rbar)(\bar{Y} - \Rbar) + O\left(\frac{1}{mT}\right), \qquad \varpi'(y) = \frac{1 + 2\rho y/k}{m}.
+\end{equation}
+代入计算协方差与方差组合：
+\begin{equation}
+  \Var(\hat{v}_R) = \frac{1}{\left(1 + \frac{\rho}{km}\right)^2} \left[ \frac{\mu_{4Y}}{T} - \frac{T - 3}{T(T - 1)} \sigma_Y^4 - 2\varpi'\frac{\mu_{3Y}}{T} + (\varpi')^2 \frac{\sigma_Y^2}{T} \right] \left(1 + O\left(\frac{1}{mT}\right)\right).
+  \label{eq:r3-omega}
+\end{equation}
+利用阶乘矩已知 $\Cov(S_Y^2, \bar{Y}) = \frac{\mu_{3Y}}{T}, \Var(\bar{Y}) = \frac{\sigma_Y^2}{T}$，得出式~\eqref{eq:r3-omega}。
+
+当 $m \to \infty$ 时，$Y_t \equiv C_t/m \xrightarrow{a.s.} R_t$，$\varpi' \to 0$，$1 + \frac{\rho}{km} \to 1$。
+四阶矩收敛至真实环境的四阶矩 $\mu_{4Y} \to \mu_{4R}$，中心方差收敛至 $\sigma_Y^2 \to v_R$。因此：
+\begin{equation}
+  \lim_{m \to \infty} T \Var(\hat{v}_R) = \mu_{4R} - \frac{T-3}{T-1} v_R^2 \xrightarrow{T \to \infty} \mu_{4R} - v_R^2 \equiv \Omega_\infty.
+\end{equation}
+若 $R_t \sim \text{Gamma}(\xi, \vartheta)$，其均值为 $\xi\vartheta = \Rbar$，方差为 $\xi\vartheta^2 = v_R$。
+解出形状参数与尺度参数：
+\begin{equation}
+  \xi = \frac{\Rbar^2}{v_R}, \qquad \vartheta = \frac{v_R}{\Rbar}.
+\end{equation}
+伽马分布的四阶中心矩为：
+\begin{equation}
+  \mu_{4R} = 3\xi(\xi + 2)\vartheta^4 = 3\left( \frac{\Rbar^2}{v_R} \right)\left( \frac{\Rbar^2}{v_R} + 2 \right)\left( \frac{v_R}{\Rbar} \right)^4 = 3 v_R^2 \left( 1 + \frac{2 v_R}{\Rbar^2} \right).
+\end{equation}
+代入 $\Omega_\infty$ 的定义：
+\begin{equation}
+  \Omega_\infty = \mu_{4R} - v_R^2 = 3 v_R^2 \left( 1 + \frac{2 v_R}{\Rbar^2} \right) - v_R^2 = 2 v_R^2 + \frac{6 v_R^3}{\Rbar^2} = v_R^2 \left( 2 + \frac{6 v_R}{\Rbar^2} \right).
+\end{equation}
+式~\eqref{eq:omega-gamma-closed} 获证。
+\end{proof}
+
+\subsection{多流行季联合推断与季节方差下界（Corollary 2 证明）}
+
+在多年季节性传染病（如流感、RSV）中，环境方差包含跨年份的宏观季节效应。设每个流行季 $s \in \{1, \dots, S\}$ 具有不可约的季节特异性冲击：
+\begin{equation}
+  R_{s, t} = \Rbar + \eta_s + \omega_{s, t}, \qquad \eta_s \overset{\text{iid}}{\sim} \mathcal{N}(0, v_S).
+\end{equation}
+
+\begin{theorembox}{推论 2 的完全证明（季节方差估计精度的下界界限）}
+无论每个流行季内部覆盖多少个辖区（$J \to \infty$）、采集多少周的序列（$T \to \infty$）、捕获多少例病例（$m \to \infty$），季层面方差 $v_S$ 的任意无偏估计量的相对标准误差（RSE）均存在不可逾越的统计下界：
+\begin{equation}
+  \text{RSE}(\hat{v}_S) \equiv \frac{\sqrt{\Var(\hat{v}_S)}}{v_S} \ge \sqrt{\frac{2}{S}}.
+  \label{eq:rse-bound}
+\end{equation}
+当季节全局均值未知，采用样本方差估计时，下界提升为 $\sqrt{\frac{2}{S - 1}}$。
+\end{theorembox}
+
+\begin{proof}
+构建系统参数、潜变量与全部微观观测数据的马尔可夫链：
+\begin{equation}
+  v_S \longrightarrow (\eta_1, \dots, \eta_S) \longrightarrow \{R_{s,t}\} \longrightarrow \{C_{s,t}\}.
+\end{equation}
+根据 Fisher 信息量的数据处理不等式（Data Processing Inequality）：
+\begin{equation}
+  \mathcal{I}_{\text{data}}(v_S) \le \mathcal{I}_{\eta_{1:S}}(v_S).
+\end{equation}
+右侧是在完美、无噪声直接观测到 $S$ 个季节真实潜在冲击 $\eta_1, \dots, \eta_S \overset{\text{iid}}{\sim} \mathcal{N}(0, v_S)$ 时的理想信息量。
+由于零均值正态随机样本关于方差参数的对数似然为：
+\begin{equation}
+  \ell(v_S) = -\frac{S}{2}\ln(2\pi) - \frac{S}{2}\ln(v_S) - \frac{1}{2v_S}\sum_{s=1}^S \eta_s^2,
+\end{equation}
+求二阶导数并取负期望：
+\begin{equation}
+  \frac{\partial^2 \ell}{\partial v_S^2} = \frac{S}{2 v_S^2} - \frac{1}{v_S^3}\sum_{s=1}^S \eta_s^2 \implies \mathcal{I}_{\eta_{1:S}}(v_S) = -\E\left( \frac{\partial^2 \ell}{\partial v_S^2} \right) = \frac{S}{2 v_S^2}.
+\end{equation}
+因此，全样本关于 $v_S$ 的 Fisher 信息量绝对不可能超过 $\frac{S}{2 v_S^2}$。
+由 Cramér--Rao 下界，对任意无偏估计量 $\hat{v}_S$：
+\begin{equation}
+  \Var(\hat{v}_S) \ge \frac{1}{\mathcal{I}_{\text{data}}(v_S)} \ge \frac{1}{\frac{S}{2 v_S^2}} = \frac{2 v_S^2}{S}.
+\end{equation}
+两端开平方并除以 $v_S$：
+\begin{equation}
+  \frac{\sqrt{\Var(\hat{v}_S)}}{v_S} \ge \sqrt{\frac{2}{S}}.
+\end{equation}
+若季节宏观均值未知，样本方差 $S_\eta^2 = \frac{1}{S-1}\sum_{s=1}^S (\eta_s - \bar{\eta})^2$ 的自由度为 $S-1$，方差等于 $\frac{2 v_S^2}{S-1}$，下界相应为 $\sqrt{\frac{2}{S-1}}$。证毕。
+\end{proof}
+
+\begin{derivationbox}{数值评价 10.1：多季流行病监测的精度瓶颈}
+代入真实世界可获得的流行季数量：
+\begin{itemize}
+  \item $S = 3$ 季（本文主分析样本）：$\sqrt{2/S} = \sqrt{2/3} \approx 0.816 \approx 0.82$；均值未知时 $\sqrt{2/(3-1)} = 1.00$。这意味着相对标准差高达 100\%，置信区间极宽，必然跨越 0。
+  \item $S = 4$ 季（纳入 2025--2026 样本外季）：$\sqrt{2/4} \approx 0.707 \approx 0.71$；均值未知时 $\sqrt{2/3} \approx 0.82$。
+\end{itemize}
+这在数学上彻底解释了：为什么无论纳入多少个州、多么庞大的住院病例，季随机效应估计的方差区间依然极为宽阔。这种不确定性是由大自然的季节轮回次数决定的，无法依靠在单季内堆砌病例来解决。
+\end{derivationbox}

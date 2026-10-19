@@ -1,0 +1,145 @@
+\section{估计目标 2（跨期平均再生数 $\bar{R}$）的方差分解}
+\label{sec:part04}
+
+\subsection{估计误差的正交分解}
+
+当监测目标从瞬时状态 $R_t$ 转向跨期总体均值 $\Rbar \equiv \E(R_t)$ 时，估计误差的基准参照系发生根本转变。自然估计量 $\widehat{R}_t = C_t/m$ 的总误差可严格拆分为两部分：
+\begin{equation}
+  \widehat{R}_t - \Rbar = \underbrace{(\widehat{R}_t - R_t)}_{\text{抽样与观测误差}} + \underbrace{(R_t - \Rbar)}_{\text{环境外生波动误差}}.
+  \label{eq:error-split}
+\end{equation}
+
+\begin{derivationbox}{推导 4.1：正交交叉项为零的严格证明}
+计算总误差的均方值（MSE）：
+\begin{align}
+  \E\big[(\widehat{R}_t - \Rbar)^2 \mid n\big] &= \E\Big\{ \big[(\widehat{R}_t - R_t) + (R_t - \Rbar)\big]^2 \ \Big|\ n \Big\} \nonumber \\
+  &= \E\big[(\widehat{R}_t - R_t)^2 \mid n\big] + \E\big[(R_t - \Rbar)^2 \mid n\big] + 2\,\E\big[(\widehat{R}_t - R_t)(R_t - \Rbar) \mid n\big].
+\end{align}
+考察交叉项。利用重期望法则，先对给定当期环境 $R_t$ 取条件期望：
+\begin{align}
+  \E\big[(\widehat{R}_t - R_t)(R_t - \Rbar) \mid n\big] &= \E\Big\{ \E\big[(\widehat{R}_t - R_t)(R_t - \Rbar) \mid n, R_t\big] \ \Big|\ n \Big\} \nonumber \\
+  &= \E\Big\{ (R_t - \Rbar) \, \E(\widehat{R}_t - R_t \mid n, R_t) \ \Big|\ n \Big\}.
+\end{align}
+根据推导 3.1 中证明的无偏性，$\E(\widehat{R}_t - R_t \mid n, R_t) = 0$ 恒成立。因此：
+\begin{equation}
+  \E\big[(\widehat{R}_t - R_t)(R_t - \Rbar) \mid n\big] = \E\big[ (R_t - \Rbar) \cdot 0 \mid n \big] \equiv 0.
+\end{equation}
+这证明抽样误差与环境波动在概率空间中\textbf{严格正交}，二者协方差恒等于零。因此总均方误差等于方差之和：
+\begin{equation}
+  \E\big[(\widehat{R}_t - \Rbar)^2 \mid n\big] = \E\big[(\widehat{R}_t - R_t)^2 \mid n\big] + \Var(R_t \mid n).
+\end{equation}
+\end{derivationbox}
+
+\subsection{全方差公式展开与闭式解 $v_R + A/m$}
+
+\begin{theorembox}{命题 2 的完全证明（跨期平均估计的方差分解）}
+在假设 H1--H4 下，自然估计量 $\widehat{R}_t = C_t / (\rho n)$ 关于跨期均值 $\Rbar$ 的边际方差服从解析闭式：
+\begin{equation}
+  V(m) \equiv \Var(\widehat{R}_t \mid n) = v_R + \frac{A}{m},
+  \label{eq:var-closed}
+\end{equation}
+其中环境方差 $v_R = \Var(R_t)$，预期报告规模 $m = \rho n$，规模项系数 $A$ 严格由下式给出：
+\begin{equation}
+  A \equiv \Rbar + \frac{\rho(\Rbar^2 + v_R)}{k}.
+  \label{eq:A-closed}
+\end{equation}
+\end{theorembox}
+
+\begin{proof}
+根据全方差公式（Eve's law）：
+\begin{equation}
+  \Var(\widehat{R}_t \mid n) = \underbrace{\E\big[\Var(\widehat{R}_t \mid n, R_t) \mid n\big]}_{\text{条件方差的期望（抽样项）}} + \underbrace{\Var\big[\E(\widehat{R}_t \mid n, R_t) \mid n\big]}_{\text{条件均值的方差（环境项）}}.
+  \label{eq:eve-law}
+\end{equation}
+我们分别计算这两项：
+\begin{enumerate}
+  \item \textbf{第二项（环境方差项）：}
+  由条件无偏性，$\E(\widehat{R}_t \mid n, R_t) = R_t$。结合假设 H4（祖代规模 $n$ 外生独立于环境扰动）：
+  \begin{equation}
+    \Var\big[\E(\widehat{R}_t \mid n, R_t) \mid n\big] = \Var(R_t \mid n) = \Var(R_t) \equiv v_R.
+  \end{equation}
+  此项不包含任何样本规模变量（既无 $n$，亦无 $\rho$），构成了方差下确界。
+
+  \item \textbf{第一项（抽样随机性在环境上的边际平均）：}
+  将式~\eqref{eq:var-target1-exact} 代入外层期望：
+  \begin{align}
+    \E\big[\Var(\widehat{R}_t \mid n, R_t) \mid n\big] &= \E\left[ \frac{R_t}{\rho n} + \frac{R_t^2}{kn} \ \Bigg|\ n \right] \nonumber \\
+    &= \frac{\E(R_t \mid n)}{\rho n} + \frac{\E(R_t^2 \mid n)}{kn}.
+    \label{eq:step-sampling-exp}
+  \end{align}
+  利用方差与二阶原点矩的基本关系：
+  \begin{equation}
+    \E(R_t^2 \mid n) = \Var(R_t \mid n) + [\E(R_t \mid n)]^2 = v_R + \Rbar^2.
+  \end{equation}
+  将其代入式~\eqref{eq:step-sampling-exp}：
+  \begin{equation}
+    \E\big[\Var(\widehat{R}_t \mid n, R_t) \mid n\big] = \frac{\Rbar}{\rho n} + \frac{\Rbar^2 + v_R}{kn}.
+  \end{equation}
+  提取公分母 $m = \rho n$：
+  \begin{align}
+    \frac{\Rbar}{\rho n} + \frac{\Rbar^2 + v_R}{kn} &= \frac{\Rbar}{m} + \frac{\rho(\Rbar^2 + v_R)}{k(\rho n)} \nonumber \\
+    &= \frac{1}{m} \left[ \Rbar + \frac{\rho(\Rbar^2 + v_R)}{k} \right] \equiv \frac{A}{m}.
+  \end{align}
+\end{enumerate}
+将两项相加，即得 $V(m) = v_R + \frac{A}{m}$。
+\end{proof}
+
+\begin{insightbox}{数学细节洞见 4.1：为什么超传播项中含有 $v_R$？}
+仔细观察 $A$ 的表达式：$A = \Rbar + \frac{\rho(\Rbar^2 + v_R)}{k}$。
+很多初学者容易误以为分子应当是 $\Rbar^2$。为什么环境方差 $v_R$ 会再次出现在抽样项分子中？
+其数学根源在于：负二项分布的方差正比于均值的\textbf{二次方}（$R_t^2/k$）。
+由于平方函数是凸函数，根据 Jensen 不等式，环境扰动使得 $\E(R_t^2) = \Rbar^2 + v_R > \Rbar^2$。
+当暴发环境出现极端高值（如 $R_t \gg 1$）时，超传播引发的病例聚集呈现非线性的爆炸式放大。因此，环境方差本身不仅作为常数平移量 $v_R$ 进入底板，还通过过离散机制\textbf{反向放大了抽样项本身的离散度}！
+\end{insightbox}
+
+\subsection{对 $R_t$ 条件无偏估计类的通用最优性界限}
+
+\begin{theorembox}{定理 4.1（条件无偏估计类的统一最小均方误差下界）}
+设 $\widetilde{\Theta}$ 为满足 $\E(\tilde{\theta} \mid R_t) = R_t$ 的所有单期估计量构成的集合。则对任意 $\tilde{\theta} \in \widetilde{\Theta}$，其估计跨期均值 $\Rbar$ 的均方误差必然满足：
+\begin{equation}
+  \E\big[(\tilde{\theta} - \Rbar)^2\big] \ge v_R + \frac{A}{m},
+\end{equation}
+且当且仅当 $\tilde{\theta} = \widehat{R}_t = C_t/m$ 时取等号。
+\end{theorembox}
+
+\begin{proof}
+根据推导 4.1 的正交分解，对于任意 $\tilde{\theta} \in \widetilde{\Theta}$：
+\begin{equation}
+  \E\big[(\tilde{\theta} - \Rbar)^2\big] = \Var(R_t) + \E\big[(\tilde{\theta} - R_t)^2\big] = v_R + \E\big[ \Var(\tilde{\theta} \mid R_t) \big].
+\end{equation}
+根据命题 1，给定 $R_t$ 时，由单参数指数族 Cramér--Rao 定理，任何条件无偏估计量的条件方差均受 Fisher 信息倒数的下界约束：
+\begin{equation}
+  \Var(\tilde{\theta} \mid R_t) \ge \frac{1}{\mathcal{I}(R_t)} = \frac{R_t}{\rho n} + \frac{R_t^2}{kn}.
+\end{equation}
+两侧对环境分布取数学期望：
+\begin{equation}
+  \E\big[ \Var(\tilde{\theta} \mid R_t) \big] \ge \E\left[ \frac{1}{\mathcal{I}(R_t)} \right] = \E\left[ \frac{R_t}{\rho n} + \frac{R_t^2}{kn} \right] = \frac{A}{m}.
+\end{equation}
+两端加上常数 $v_R$，即得出下界：
+\begin{equation}
+  \E\big[(\tilde{\theta} - \Rbar)^2\big] \ge v_R + \frac{A}{m}.
+\end{equation}
+由于自然估计量 $\widehat{R}_t$ 处处达到此条件下界，等号成立。证毕。
+\end{proof}
+
+\subsection{一步前瞻预测的最优性证明}
+
+\begin{derivationbox}{推导 4.2：预测下界式~\eqref{eq:predict-bound} 的展开}
+考虑预测问题：根据截至第 $t$ 期的历史信息集 $\mathcal{F}_t$，预测下一代经标准化的新发报告量 $y = C_{t+1}/m$。
+设 $\hat{y} \in \mathcal{F}_t$ 为任意前瞻预测量。在假设 H4 下，$R_{t+1}$ 独立于 $\mathcal{F}_t$。
+利用预测均方误差的标准偏置-方差分解：
+\begin{align}
+  \E\big[(\hat{y} - y)^2 \mid \mathcal{F}_t\big] &= \E\big[(\hat{y} - \E(y \mid \mathcal{F}_t) + \E(y \mid \mathcal{F}_t) - y)^2 \mid \mathcal{F}_t\big] \nonumber \\
+  &= \big(\hat{y} - \E(y \mid \mathcal{F}_t)\big)^2 + \Var(y \mid \mathcal{F}_t).
+\end{align}
+由独立性，$\E(y \mid \mathcal{F}_t) = \E(C_{t+1}/m) = \Rbar$。因此：
+\begin{equation}
+  \Var(y \mid \mathcal{F}_t) = \Var\left( \frac{C_{t+1}}{m} \right) = V(m) = v_R + \frac{A}{m}.
+\end{equation}
+故预测误差为：
+\begin{equation}
+  \E\big[(\hat{y} - y)^2 \mid \mathcal{F}_t\big] = (\hat{y} - \Rbar)^2 + v_R + \frac{A}{m} \ge v_R + \frac{A}{m}.
+  \label{eq:predict-bound}
+\end{equation}
+当且仅当选择前瞻预测量 $\hat{y} = \Rbar$ 时，第一项非负平方项被压缩至 0，达到理论预测极限。
+\end{derivationbox}

@@ -1,0 +1,119 @@
+\section{估计目标 1（条件瞬时再生数 $R_t$）的精确推导}
+\label{sec:part03}
+
+\subsection{自然估计量的定义与无偏性}
+
+在给定当期真实环境所确定的瞬时再生数 $R_t$ 时，自然插值估计量定义为观测病例数除以预期报告规模：
+\begin{equation}
+  \widehat{R}_t \equiv \frac{C_t}{m} = \frac{C_t}{\rho n}.
+  \label{eq:estimator-def}
+\end{equation}
+
+\begin{derivationbox}{推导 3.1：条件均值与条件方差}
+由式~\eqref{eq:der-ct-dist}，条件期望满足：
+\begin{equation}
+  \E(\widehat{R}_t \mid R_t) = \frac{\E(C_t \mid n, R_t)}{\rho n} = \frac{\rho n R_t}{\rho n} = R_t,
+\end{equation}
+证明该估计量关于条件目标 $R_t$ 是\textbf{严格无偏}的。
+
+其条件方差为：
+\begin{align}
+  \Var(\widehat{R}_t \mid R_t) &= \frac{\Var(C_t \mid n, R_t)}{(\rho n)^2} \nonumber \\
+  &= \frac{\rho n R_t + \rho^2 n R_t^2 / k}{\rho^2 n^2} \nonumber \\
+  &= \frac{R_t}{\rho n} + \frac{R_t^2}{kn} \nonumber \\
+  &= \frac{R_t}{m} + \frac{\rho R_t^2}{km} = \frac{R_t (k + \rho R_t)}{k \rho n}.
+  \label{eq:var-target1-exact}
+\end{align}
+\end{derivationbox}
+
+\subsection{对数似然函数与得分函数（Score Function）}
+
+为探究估计量 $\widehat{R}_t$ 的统计效率，我们显式写出给定祖代规模 $n$ 时，观测值 $C_t = c$ 的条件对数似然函数。
+
+\begin{derivationbox}{推导 3.2：得分函数解析分解}
+由式~\eqref{eq:der-ct-dist}，观测值 $c$ 的条件概率质量函数为：
+\begin{equation}
+  P(C_t = c \mid R_t) = \frac{\Gamma(c + nk)}{c! \, \Gamma(nk)} \left( \frac{k}{k + \rho R_t} \right)^{nk} \left( \frac{\rho R_t}{k + \rho R_t} \right)^c.
+\end{equation}
+取自然对数，得到对数似然函数 $\ell(R_t) \equiv \ln P(C_t = c \mid R_t)$：
+\begin{equation}
+  \ell(R_t) = \ln\Gamma(c + nk) - \ln(c!) - \ln\Gamma(nk) + nk\ln k + c\ln(\rho R_t) - (c + nk)\ln(k + \rho R_t).
+\end{equation}
+对参数 $R_t$ 求一阶偏导数，得到得分函数（Score function）$\dot{\ell}(R_t)$：
+\begin{align}
+  \dot{\ell}(R_t) &= \frac{\partial \ell(R_t)}{\partial R_t} = \frac{c}{R_t} - \frac{(c + nk)\rho}{k + \rho R_t} \nonumber \\
+  &= \frac{c(k + \rho R_t) - (c + nk)\rho R_t}{R_t(k + \rho R_t)} \nonumber \\
+  &= \frac{ck + c\rho R_t - c\rho R_t - nk\rho R_t}{R_t(k + \rho R_t)} \nonumber \\
+  &= \frac{k(c - \rho n R_t)}{R_t(k + \rho R_t)}.
+  \label{eq:score-raw}
+\end{align}
+在式~\eqref{eq:score-raw} 的分子中提取因子 $k\rho n$：
+\begin{equation}
+  \dot{\ell}(R_t) = \frac{k\rho n}{R_t(k + \rho R_t)} \left( \frac{c}{\rho n} - R_t \right) = \mathcal{I}(R_t) \, (\widehat{R}_t - R_t),
+  \label{eq:score-factorized}
+\end{equation}
+其中定义尺度因子：
+\begin{equation}
+  \mathcal{I}(R_t) \equiv \frac{k\rho n}{R_t(k + \rho R_t)} = \frac{n}{\frac{R_t}{\rho} + \frac{R_t^2}{k}}.
+  \label{eq:fisher-def}
+\end{equation}
+\end{derivationbox}
+
+\subsection{Fisher 信息量与 Cramér--Rao 下界达到性证明}
+
+\begin{theorembox}{命题 1 的完全证明（Cramér--Rao 下界达到性）}
+在假设 H1--H4 下：
+\begin{enumerate}[label=(\alph*)]
+  \item 观测样本 $C_t$ 关于参数 $R_t$ 的 Fisher 信息量严格等于式~\eqref{eq:fisher-def} 中的 $\mathcal{I}(R_t)$；
+  \item 自然估计量 $\widehat{R}_t$ 的条件方差严格达到 Cramér--Rao 下界：
+  \begin{equation}
+    \Var(\widehat{R}_t \mid R_t) = \frac{1}{\mathcal{I}(R_t)}.
+  \end{equation}
+\end{enumerate}
+\end{theorembox}
+
+\begin{proof}
+根据定义，Fisher 信息量是得分函数的二阶原点矩（在满足正则条件下亦等于其方差）：
+\begin{align}
+  \mathcal{I}_{\text{true}}(R_t) &\equiv \Var\big(\dot{\ell}(R_t) \mid R_t\big) \nonumber \\
+  &= \Var\left( \mathcal{I}(R_t)(\widehat{R}_t - R_t) \ \Big|\ R_t \right) \nonumber \\
+  &= [\mathcal{I}(R_t)]^2 \, \Var(\widehat{R}_t \mid R_t).
+\end{align}
+将式~\eqref{eq:var-target1-exact} 的方差代入：
+\begin{align}
+  \mathcal{I}_{\text{true}}(R_t) &= \left( \frac{k\rho n}{R_t(k + \rho R_t)} \right)^2 \left( \frac{R_t(k + \rho R_t)}{k\rho n} \right) \nonumber \\
+  &= \frac{k\rho n}{R_t(k + \rho R_t)} = \mathcal{I}(R_t).
+\end{align}
+由此立即得出：
+\begin{equation}
+  \Var(\widehat{R}_t \mid R_t) = \frac{1}{\mathcal{I}(R_t)}.
+\end{equation}
+根据经典参数统计推断定理 \citep{casella2002statistical}，Cramér--Rao 不等式取等号的\textbf{充要条件}是：对数似然的得分函数可以表示为参数与待估无偏统计量之差的线性函数：
+\begin{equation}
+  \frac{\partial \ell(R_t)}{\partial R_t} = A(R_t) \big[ T(C_t) - g(R_t) \big].
+\end{equation}
+对照式~\eqref{eq:score-factorized}，此处 $T(C_t) = \widehat{R}_t = \frac{C_t}{\rho n}$，$g(R_t) = R_t$，$A(R_t) = \mathcal{I}(R_t)$。该条件对\textbf{每一个有限样本量 $n$ 均严格恒等成立}，证明完成。
+\end{proof}
+
+\subsection{UMVUE（一致最小方差无偏估计）的唯一性证明}
+
+\begin{theorembox}{定理 3.1（Lehmann--Scheffé 唯一最优性定理）}
+在估计目标 1 下，自然估计量 $\widehat{R}_t = C_t/m$ 不仅达到了 Cramér--Rao 界，而且是全参数空间内唯一的均匀最小方差无偏估计（UMVUE）。
+\end{theorembox}
+
+\begin{proof}
+重写式~\eqref{eq:der-ct-dist} 中 $C_t$ 的概率质量函数：
+\begin{align}
+  P(C_t = c \mid R_t) &= \frac{\Gamma(c + nk)}{c! \, \Gamma(nk)} \left( \frac{k}{k + \rho R_t} \right)^{nk} \left( \frac{\rho R_t}{k + \rho R_t} \right)^c \nonumber \\
+  &= h(c) \exp\left\{ c \ln\left( \frac{\rho R_t}{k + \rho R_t} \right) + nk \ln\left( \frac{k}{k + \rho R_t} \right) \right\},
+\end{align}
+其中 $h(c) = \frac{\Gamma(c+nk)}{c!\,\Gamma(nk)}$。这表明条件分布族属于标准的\textbf{单参数正则指数族（One-parameter exponential family）}。
+其自然参数为：
+\begin{equation}
+  \upsilon(R_t) \equiv \ln\left( \frac{\rho R_t}{k + \rho R_t} \right) = \ln\left( 1 - \frac{k}{k + \rho R_t} \right).
+\end{equation}
+当真实再生数 $R_t$ 遍历物理取值区间 $(0, \infty)$ 时，自然参数 $\upsilon$ 单调连续地遍历区间 $(-\infty, 0)$。
+因为自然参数空间包含实轴上的非退化开区间，根据指数族的完备性定理 \citep{lehmann2005testing}，充分统计量 $T(C_t) = C_t$ 是\textbf{完备充分统计量（Complete sufficient statistic）}。
+
+由于自然估计量 $\widehat{R}_t = \frac{C_t}{\rho n}$ 是完备充分统计量 $C_t$ 的单变量确定性 Borel 可测函数，且已证 $\E(\widehat{R}_t \mid R_t) = R_t$ 无偏，根据 \textbf{Lehmann--Scheffé 定理}，任何以完备充分统计量为自变量的无偏估计量必为唯一的 UMVUE。证毕。
+\end{proof}

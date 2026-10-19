@@ -1,0 +1,129 @@
+\section{记号系统、概率分布与核心假设}
+\label{sec:part01}
+
+\subsection{数学符号全览}
+
+为了使推导过程具备完全的自洽性与可溯源性，下表系统总结了本推导手册及论文全文所使用的全部核心数学符号。
+
+\begin{center}
+\small
+\begin{longtable}{@{}llll@{}}
+\toprule
+\textbf{符号} & \textbf{数学含义} & \textbf{量纲 / 典型取值} & \textbf{出现小节} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{符号} & \textbf{数学含义} & \textbf{量纲 / 典型取值} & \textbf{出现小节} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$t$ & 离散世代传播时期（周或代） & 时间（整数） & \S\ref{sec:part02} \\
+$n$ & 当期上一代有效感染者人数（祖代规模） & 人数（整数） & \S\ref{sec:part02} \\
+$X_{i,t}$ & 第 $t$ 期第 $i$ 名感染者产生的继发感染数 & 人数（非负整数） & \S\ref{sec:part02} \\
+$R_t$ & 第 $t$ 期的条件瞬时再生数（$X_{i,t}$ 的条件期望） & 无量纲，$[0, \infty)$ & \S\ref{sec:part02} \\
+$k$ & 负二项超传播离散参数（Dispersion parameter） & 无量纲，流感 $\sim 0.35$ & \S\ref{sec:part02} \\
+$I_t$ & 第 $t$ 期产生的新发感染总数（$\sum_{i=1}^n X_{i,t}$） & 人数（非负整数） & \S\ref{sec:part02} \\
+$\rho$ & 预期报告概率（Reporting completeness） & 概率，$[0, 1]$ & \S\ref{sec:part02} \\
+$C_t$ & 第 $t$ 期监测捕获的报告确诊病例数 & 例数（非负整数） & \S\ref{sec:part02} \\
+$m$ & 预期报告规模（Expected reporting scale，$m \equiv \rho n$） & 例数 / 期 & \S\ref{sec:part02} \\
+$\widehat{R}_t$ & 自然估计量（Natural plug-in estimator，$C_t / m$） & 无量纲 & \S\ref{sec:part03} \\
+$\Rbar$ & 跨期边际平均再生数（$\E(R_t)$） & 无量纲，$\sim 1.15$ 或 $1.67$ & \S\ref{sec:part04} \\
+$v_R$ & 跨期环境方差（Environmental variance，$\Var(R_t)$） & 无量纲，$\sim 0.04$ & \S\ref{sec:part04} \\
+$A$ & 边际方差规模项系数（Scale coefficient） & 无量纲 & \S\ref{sec:part04} \\
+$\mx$ & 方差平衡规模（Variance balance scale，$A / v_R$） & 例数，基准 $\sim 53.1$ & \S\ref{sec:part05} \\
+$p_t$ & 第 $t$ 期实际发生的随机报告概率 & 概率，$[0, 1]$ & \S\ref{sec:part06} \\
+$\tau$ & 报告率的相对变异系数（$\sigma / \rho$） & 无量纲，基准 $\sim 0.15$ & \S\ref{sec:part06} \\
+$u_t$ & 标准化报告率（$p_t / \rho$，$\E(u_t)=1$） & 无量纲 & \S\ref{sec:part06} \\
+$v_H$ & 报告异质性方差（Reporting variance，$\tau^2(\Rbar^2+v_R)$） & 无量纲 & \S\ref{sec:part06} \\
+$A_H$ & 计入报告波动后的修正规模项系数 & 无量纲 & \S\ref{sec:part06} \\
+$\mxH$ & 报告异质性修正后的平衡规模 & 例数，基准 $\sim 30.4$ & \S\ref{sec:part06} \\
+$U$ & 统计可识别复合参数（$(1+\tau^2)(\Rbar^2+v_R)$） & 无量纲 & \S\ref{sec:part06} \\
+$\nu$ & 二项型报告抽样的先验样本量（Beta-Binomial 参数） & 样本数 & \S\ref{sec:part07} \\
+$D_t$ & 加权回溯分母规模（Surveillance denominator） & 例数 / 周 & \S\ref{sec:part08} \\
+$G_t$ & 经验周增长比统计量（$C_{t+1}/D_t$） & 无量纲 & \S\ref{sec:part08} \\
+$w_s$ & 世代间隔或回溯加权分布权重 & 权重向量，$\sum w_s = 1$ & \S\ref{sec:part08} \\
+$\psi$ & 报告冲击的周间一阶自相关系数 & 相关系数，$[-1, 1]$ & \S\ref{sec:part08} \\
+$F(w, \psi)$ & 报告签名卷积核函数 & 无量纲 & \S\ref{sec:part08} \\
+$q_1, q_2$ & 改变分母回溯权重引起的截距比值 & 无量纲比值 & \S\ref{sec:part08} \\
+$T$ & 连续观测的总期数 & 周期数 & \S\ref{sec:part09} \\
+$\phi$ & 环境波动 $R_t$ 的时间一阶自相关系数 & 相关系数，$[-1, 1]$ & \S\ref{sec:part09} \\
+$T_{\mathrm{eff}}$ & 方差估计的有效观测期数 & 周期数 & \S\ref{sec:part09} \\
+$\mathcal{B}$ & 监测总财政/资源预算 & 资金 / 成本单位 & \S\ref{sec:part09} \\
+$c_0$ & 每多监测一期的固定运维成本 & 成本单位 / 期 & \S\ref{sec:part09} \\
+$c_1$ & 每多追踪捕获一例报告病例的边际成本 & 成本单位 / 例 & \S\ref{sec:part09} \\
+$\mathcal{B}^\dagger$ & 自相关环境下规模/期数决策反转的关键预算阈值 & 成本单位 & \S\ref{sec:part09} \\
+$J$ & 空间协同监测的辖区（州/市）数量 & 辖区数 & \S\ref{sec:part09} \\
+$\bar{c}$ & 空间辖区间环境扰动的平均两两相关系数 & 相关系数，$[-1, 1]$ & \S\ref{sec:part09} \\
+$\hat{v}_R$ & 环境方差的无偏修正矩估计量 & 无量纲 & \S\ref{sec:part10} \\
+$\Omega_\infty$ & 环境方差估计方差在规模无穷大时的极限平台 & 无量纲 & \S\ref{sec:part10} \\
+$S$ & 观测到的独立流行季（Epidemic seasons）数目 & 季节数 & \S\ref{sec:part10} \\
+$v_S$ & 流行季层面的共同随机效应方差 & 无量纲 & \S\ref{sec:part10} \\
+$\beta(n, \delta)$ & 检出 $R_t=1+\delta$ 暴发增长的统计功效（Power） & 概率，$[0, 1]$ & \S\ref{sec:part11} \\
+$\Lambda_t$ & 更新过程中的真实感染压力（Infection pressure） & 人数 & \S\ref{sec:part12} \\
+$\CV(\Lambda)$ & 感染压力的变异系数 & 无量纲 & \S\ref{sec:part12} \\
+$\lambda$ & 线性收缩估计量的收缩权重系数 & 无量纲，$[0, 1]$ & \S\ref{sec:part13} \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\subsection{负二项分布的标准参数化约定}
+
+在统计物理、生态学与流行病学中，负二项分布存在多种不同的参数化方式。本手册严格采用概率母函数（PGF）在分支过程中最自然的“失败次数（Number of failures）”参数化约定：
+\begin{definition}[负二项分布 $\NB(r, p)$]
+设随机变量 $Y \sim \NB(r, p)$，其中 $r > 0$ 为正实数（分散参数），$p \in (0, 1]$ 为单次伯努利试验的成功概率。其概率质量函数（PMF）为：
+\begin{equation}
+  P(Y = y) = \frac{\Gamma(y + r)}{y! \, \Gamma(r)} \, p^r (1 - p)^y, \qquad y = 0, 1, 2, \dots
+  \label{eq:nb-pmf}
+\end{equation}
+其概率母函数定义为 $G_Y(s) \equiv \E(s^Y)$：
+\begin{align}
+  G_Y(s) &= \sum_{y=0}^\infty s^y \frac{\Gamma(y+r)}{y!\,\Gamma(r)} p^r (1-p)^y 
+  = p^r \sum_{y=0}^\infty \binom{-r}{y} (-1)^y [(1-p)s]^y \nonumber \\
+  &= p^r \big(1 - (1-p)s\big)^{-r} = \left( \frac{p}{1 - (1-p)s} \right)^r.
+  \label{eq:nb-pgf}
+\end{align}
+\end{definition}
+
+利用概率母函数的求导性质，可立即导出其理论矩：
+\begin{itemize}
+  \item 一阶导数与数学期望：
+  \begin{equation}
+    G_Y'(s) = r \left( \frac{p}{1 - (1-p)s} \right)^{r-1} \frac{p(1-p)}{\big(1-(1-p)s\big)^2} = \frac{r(1-p)}{p} \left( \frac{p}{1 - (1-p)s} \right)^{r+1},
+  \end{equation}
+  令 $s = 1$，得到数学期望：
+  \begin{equation}
+    \E(Y) = G_Y'(1) = \frac{r(1-p)}{p}.
+    \label{eq:nb-mean}
+  \end{equation}
+  \item 二阶导数与方差：
+  \begin{equation}
+    G_Y''(s) = \frac{r(r+1)(1-p)^2}{p^2} \left( \frac{p}{1 - (1-p)s} \right)^{r+2},
+  \end{equation}
+  令 $s = 1$，得到二阶阶乘矩 $\E[Y(Y-1)] = G_Y''(1) = \frac{r(r+1)(1-p)^2}{p^2}$。由方差公式：
+  \begin{align}
+    \Var(Y) &= \E[Y(Y-1)] + \E(Y) - [\E(Y)]^2 \nonumber \\
+    &= \frac{r(r+1)(1-p)^2}{p^2} + \frac{r(1-p)}{p} - \frac{r^2(1-p)^2}{p^2} \nonumber \\
+    &= \frac{r(1-p)^2}{p^2} + \frac{r(1-p)}{p} = \frac{r(1-p)}{p^2}.
+    \label{eq:nb-var}
+  \end{align}
+\end{itemize}
+
+\subsection{公理化核心假设体系（H1--H6）}
+
+推导基于以下六条统计与流行病学假设。前四条界定了理想单期监测基准，后两条拓展至动态现实场景：
+
+\begin{theorembox}{核心假设公理系统}
+\begin{description}
+  \item[H1（负二项分支与独立二项观测）：] 给定当期繁殖条件 $R_t$，各感染者的继发感染数相互独立，且服从参数为 $r=k, p=k/(k+R_t)$ 的负二项分布；各新发感染者独立地以概率 $\rho \in (0, 1]$ 被监测系统捕获上报。
+  \item[H2（同世代环境共享）：] 处于同一传播世代 $t$ 内的全体感染个体共享同一个外生再生数 $R_t$；环境随机性作用于“世代”或“周”整体，而非个体层面。
+  \item[H3（外生参数已知性）：] 超传播过离散参数 $k$ 与平均报告率 $\rho$ 属于病原体生物学与监测系统的固有外生参数，在推导基准中视为已知。
+  \item[H4（祖代规模的外生独立性）：] 上一代感染规模 $n$ 由前瞻性调查设计（如主动接触者追踪）固定，统计独立于当期环境随机扰动，即满足：
+  \begin{equation}
+    \E(R_t \mid n) = \Rbar, \qquad \Var(R_t \mid n) = v_R.
+  \end{equation}
+  对于一步前瞻预测，进一步要求 $R_{t+1}$ 独立于截至第 $t$ 期的全部历史观测信息集 $\mathcal{F}_t$。
+  \item[H5（随机报告率过程）：] 报告率 $p_t \in (0, 1]$ 构成平稳随机过程，与真实的传播动力学过程 $\{R_t\}$ 及祖代规模 $n$ 相互独立。其一阶矩与方差为 $\E(p_t) = \rho$，$\Var(p_t) = \sigma^2$。定义相对报告波动率为 $\tau \equiv \sigma / \rho$，标准化报告率为 $u_t \equiv p_t / \rho$（满足 $\E(u_t) = 1, \Var(u_t) = \tau^2$）。
+  \item[H6（多期条件独立性）：] 在给定环境扰动轨道 $(R_1, \dots, R_T)$ 与报告率轨道 $(p_1, \dots, p_T)$ 的条件下，各期的报告病例生成过程相互独立。
+\end{description}
+\end{theorembox}

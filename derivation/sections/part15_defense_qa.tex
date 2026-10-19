@@ -1,0 +1,73 @@
+\section{理论答辩与核心追问指南}
+\label{sec:part15}
+
+为了在学术报告、学位论文答辩或同行评议中能够清晰、准确、有理有据地回应质疑，本节整理了五大最关键的追问与标准应答方案。
+
+\subsection{追问 1：大样本下根据大数定律方差必趋于 0，你的下界 $v_R$ 是否违背了中心极限定理？}
+
+\begin{derivationbox}{标准答辩要点}
+\textbf{核心回应：完全不违背。关键在于严格区分“估计目标 1”与“估计目标 2”。}
+\begin{enumerate}
+  \item 如果估计目标是\textbf{当期的条件瞬时值 $R_t$}（估计目标 1），在给定当期环境时，根据中心极限定理与大数定律，自然估计量 $\widehat{R}_t = C_t/m$ 的方差为：
+  \begin{equation}
+    \Var(\widehat{R}_t \mid R_t) = \frac{R_t}{m} + \frac{\rho R_t^2}{km} \xrightarrow{m \to \infty} 0.
+  \end{equation}
+  它确实严格单调收敛于 0，并达到了 Cramér--Rao 下界，完全符合经典大样本理论。
+  \item 但如果估计目标是\textbf{跨期平均再生数 $\Rbar$}（估计目标 2），估计误差由两部分复合而成：
+  \begin{equation}
+    \widehat{R}_t - \Rbar = \underbrace{(\widehat{R}_t - R_t)}_{\to 0} + \underbrace{(R_t - \Rbar)}_{\text{不随 } m \text{ 改变}}.
+  \end{equation}
+  第一部分是微观抽样误差，随规模 $m \to \infty$ 确切收敛至 0；但第二部分是客观自然界在每一世代发生的物理波动。因为我们只是在\textbf{单期内}增加了病例样本量，并没有跨越时间采集更多独立的天气与人群接触样本，所以 $R_t$ 本身相对于长期均值的偏离不会因为你在这一周内测了 1000 人还是 100 万人而消失。全方差公式给出的正是 $v_R + A/m \to v_R$。
+\end{enumerate}
+\end{derivationbox}
+
+\subsection{追问 2：你的结论是否意味着“增加监测病例规模没有用处”？}
+
+\begin{derivationbox}{标准答辩要点}
+\textbf{核心回应：绝非没有用处。方差函数 $V(m)$ 处处严格单调递减，扩大规模始终能压低方差，但其边际效率随规模急剧衰减。}
+\begin{enumerate}
+  \item 方差函数的一阶导数处处为负：$V'(m) = -A/m^2 < 0$。因此增加病例数始终是有益的。
+  \item 关键在于\textbf{性价比与边际替代}：
+  \begin{itemize}
+    \item 当规模较小（$m \ll \mx$）时，总方差中抽样项占 90\% 以上，此时扩大病例规模是最核心的抓手，翻倍扩样可压制近 50\% 的方差；
+    \item 当规模跨越平衡点（$m > \mx$）后，可约抽样项在总方差中已降至 20\% 以下。此时若继续将经费用于单期扩样，面临极其微弱的边际回报；
+    \item 此时应当将资源\textbf{边际转向增加独立观测周期数 $T$、跨区域空间汇总 $J$ 或统一报告口径 $\tau \to 0$}，因为这些杠杆直接作用于单期扩样无法消除的 $v_R$ 与 $v_H$。
+  \end{itemize}
+\end{enumerate}
+\end{derivationbox}
+
+\subsection{追问 3：为什么美国流感实证截距 $a = 0.0991$ 显著大于理论单代情景 $v_R/\Rbar^2 \approx 0.014$--$0.028$？}
+
+\begin{derivationbox}{标准答辩要点}
+\textbf{核心回应：实证拟合截距捕捉的是经验模型中未被规模项解释的全部非抽样误差，由三方面机制共同放大：}
+\begin{enumerate}
+  \item \textbf{世代聚合与潜变量不确定性：}流感世代间隔约为 3 天，周度监测数据聚合了约两代感染。根据第~\ref{sec:part12} 节定理 12.1，时间序列更新过程引入了潜在感染压力的相对方差 $\CV^2(\Lambda_{t+1}) (\Rbar^2 + v_R)$，将理论截距抬升数倍；
+  \item \textbf{未观测的微观报告波动：}NHSN 医院填报比例代理仅能记录“医院是否提交数据”，无法记录已填报医院内部由于就诊门槛、检测盒短缺造成的微观漏报率波动 $\tau$。根据式~\eqref{eq:vH-def}，任何未被代理变量捕捉的残余报告异质性 $v_H = \tau^2(\Rbar^2+v_R)$ 都会机械并入经验截距；
+  \item \textbf{审慎定性：}正文因此严格遵循审慎原则，明确指出“拟合截距反映该经验模型中未被规模项解释的误差成分，不能将其唯一、简单地归因于纯生物学环境方差”。
+\end{enumerate}
+\end{derivationbox}
+
+\subsection{追问 4：平衡规模 $\mx = 53.1$ 例是否意味着“一个辖区每周只要采 53 例就足够了”？}
+
+\begin{derivationbox}{标准答辩要点}
+\textbf{核心回应：完全不是。平衡规模是比较基准，而非满足特定性能的操作阈值。}
+\begin{enumerate}
+  \item $\mx$ 的唯一定义是抽样项等于环境项的方差切分点（$\frac{A}{\mx} = v_R$）。
+  \item 监测系统需要多少病例，必须\textbf{严格取决于任务类型}：
+  \begin{itemize}
+    \item 如果任务是\textbf{长期趋势与基准评估（目标 2）}：当达到 53 例左右时，抽样误差已经与环境背景噪音同量级，继续单点扩样的边际收益已经大幅收窄；
+    \item 如果任务是\textbf{暴发早预警（目标 1）}：在小样本离散情境下，若要以 80\% 的统计功效可靠检出 15\% 的疫情回升，根据第~\ref{sec:part11} 节推导，必须稳定捕获 $m \approx 527$ 例（是 $\mx$ 的 10 倍）。
+  \end{itemize}
+  因此，监测设计必须将预警哨点（追求大样本、高敏感度）与趋势评估哨点进行结构性解耦。
+\end{enumerate}
+\end{derivationbox}
+
+\subsection{追问 5：在时间正相关环境（$\phi > 0$）下，为什么预算小时要做大单期，预算大时要做多期？}
+
+\begin{derivationbox}{标准答辩要点}
+\textbf{核心回应：这是信息边际冗余与抽样方差非线性爆炸之间的精妙权衡。}
+\begin{enumerate}
+  \item \textbf{当总经费很低（$\mathcal{B} < \mathcal{B}^\dagger$）时：}若教条地将微薄的资金切分成许多期，会导致每一期的样本量极其微小（如每周只有 2--3 例）。由于抽样方差按 $1/m$ 呈双曲线爆炸，极度匮乏的单期样本会造成巨大的离散噪声，甚至频繁出现零病例导致估计崩溃。此时将资金聚合在少数几期、把单期做实做大，边际回报最高；
+  \item \textbf{当总经费充裕（$\mathcal{B} > \mathcal{B}^\dagger$）时：}单期样本早已越过平衡规模，继续扩大单期规模所能削减的方差已极其有限。而环境存在正自相关意味着相邻周提供的信息高度重叠。此时最优策略必须是拉长时间跨度、增加采样期数 $T$，尽可能收集跨越不同自相关周期的独立环境扰动样本。
+\end{enumerate}
+\end{derivationbox}

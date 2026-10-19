@@ -1,0 +1,145 @@
+\section{滞后分母加权与诊断性报告签名 $F(w, \psi)$}
+\label{sec:part08}
+
+\subsection{增长比统计量与分母回溯结构}
+
+在时间序列被动监测中，流行病学家通常用当周报告病例数与前期报告病例数的加权和构造经验增长比统计量：
+\begin{equation}
+  G_t \equiv \frac{C_{t+1}}{D_t}, \qquad D_t \equiv \sum_{s=1}^K w_s C_{t+1-s}, \quad \sum_{s=1}^K w_s = 1.
+  \label{eq:Gt-def}
+\end{equation}
+为了检验经验截距中的不可约误差究竟是由环境生物学波动（$v_R$）主导，还是由监测系统的报告率冲击（$v_H$）主导，我们考察改变滞后权重向量 $w$ 时截距的响应规律。
+
+\subsection{卷积核函数 $F(w, \psi)$ 的严格推导}
+
+设各周的真实发病在局部平稳，但监测系统存在平稳乘性报告冲击 $u_t \equiv p_t/\rho$。假设 $\{u_t\}$ 服从一阶自回归 AR(1) 过程：
+\begin{equation}
+  u_t - 1 = \psi (u_{t-1} - 1) + \xi_t, \qquad \xi_t \sim \text{iid}(0, \sigma_\xi^2), \quad |\psi| < 1.
+\end{equation}
+由此，报告冲击的理论自协方差函数为：
+\begin{equation}
+  \Cov(u_s, u_t) = \tau^2 \psi^{|s - t|}, \qquad \forall s, t.
+\end{equation}
+
+\begin{theorembox}{命题 4(vi) 的完全证明（报告签名的解析卷积核）}
+若观测误差完全由平稳乘性报告冲击驱动（$v_R = 0$，且忽略微观二项抽样噪声），则增长统计量 $G_t$ 的相对预测误差方差在渐近一阶近似下正比于卷积核函数 $F(w, \psi)$：
+\begin{equation}
+  \Var\left( \frac{G_t}{\Rbar} \right) = \tau^2 F(w, \psi) + o(\tau^2),
+  \label{eq:var-Gt-F}
+\end{equation}
+其中卷积核 $F(w, \psi)$ 严格由下式定义：
+\begin{equation}
+  \boxed{\, F(w, \psi) \equiv 1 - 2\sum_{s=1}^K w_s \psi^s + \sum_{s=1}^K \sum_{s'=1}^K w_s w_{s'} \psi^{|s - s'|} \,}
+  \label{eq:Fw-kernel-proof}
+\end{equation}
+\end{theorembox}
+
+\begin{proof}
+在无计数离散噪声的连续极限下，报告病例数严格等于真实感染数乘以随机报告率：$C_t = \rho u_t I_t$。代入增长统计量：
+\begin{equation}
+  G_t = \frac{\rho u_{t+1} I_{t+1}}{\sum_s w_s \rho u_{t+1-s} I_{t+1-s}}.
+\end{equation}
+常数平均报告率 $\rho$ 在分子与分母中精确对消。在局部平稳增长或均值基准附近，$I_{t+1} / I_{t+1-s} \approx \Rbar^s$。为隔离报告冲击，考察无噪声基准 $G_t^0 \equiv I_{t+1} / \sum_s w_s I_{t+1-s} = \Rbar$。相对摄动比为：
+\begin{equation}
+  \frac{G_t}{G_t^0} = \frac{u_{t+1}}{\sum_{s=1}^K w_s u_{t+1-s}}.
+\end{equation}
+设微扰项 $\epsilon_t \equiv u_t - 1$，满足 $\E(\epsilon_t) = 0, \Var(\epsilon_t) = \tau^2, \Cov(\epsilon_s, \epsilon_t) = \tau^2 \psi^{|s-t|}$。
+分子为 $1 + \epsilon_{t+1}$。分母加权和为：
+\begin{equation}
+  \sum_{s=1}^K w_s u_{t+1-s} = \sum_{s=1}^K w_s (1 + \epsilon_{t+1-s}) = \sum_{s=1}^K w_s + \sum_{s=1}^K w_s \epsilon_{t+1-s} = 1 + \bar{\epsilon}_w,
+\end{equation}
+其中记分母加权误差 $\bar{\epsilon}_w \equiv \sum_{s=1}^K w_s \epsilon_{t+1-s}$。对分母在 $\bar{\epsilon}_w = 0$ 处进行一阶一阶泰勒展开：
+\begin{equation}
+  \frac{1}{1 + \bar{\epsilon}_w} = 1 - \bar{\epsilon}_w + O(\bar{\epsilon}_w^2).
+\end{equation}
+因此，相对扰动比为：
+\begin{align}
+  \frac{G_t}{G_t^0} - 1 &= (1 + \epsilon_{t+1})(1 - \bar{\epsilon}_w + O(\bar{\epsilon}_w^2)) - 1 \nonumber \\
+  &= 1 + \epsilon_{t+1} - \bar{\epsilon}_w + O(\tau^2) - 1 \nonumber \\
+  &= \epsilon_{t+1} - \bar{\epsilon}_w + O(\tau^2) \nonumber \\
+  &= \epsilon_{t+1} - \sum_{s=1}^K w_s \epsilon_{t+1-s} + O(\tau^2).
+\end{align}
+计算该线性组合的总体方差：
+\begin{align}
+  \Var\left( \epsilon_{t+1} - \sum_{s=1}^K w_s \epsilon_{t+1-s} \right) &= \Var(\epsilon_{t+1}) + \Var\left( \sum_{s=1}^K w_s \epsilon_{t+1-s} \right) \nonumber \\
+  &\quad - 2\,\Cov\left( \epsilon_{t+1},\ \sum_{s=1}^K w_s \epsilon_{t+1-s} \right) \nonumber \\
+  &= \Var(\epsilon_{t+1}) - 2 \sum_{s=1}^K w_s \Cov(\epsilon_{t+1}, \epsilon_{t+1-s}) \nonumber \\
+  &\quad + \sum_{s=1}^K \sum_{s'=1}^K w_s w_{s'} \Cov(\epsilon_{t+1-s}, \epsilon_{t+1-s'}).
+\end{align}
+代入 AR(1) 自协方差公式 $\Cov(\epsilon_u, \epsilon_v) = \tau^2 \psi^{|u-v|}$：
+\begin{itemize}
+  \item 第一项：$\Var(\epsilon_{t+1}) = \tau^2$；
+  \item 第二项：$\Cov(\epsilon_{t+1}, \epsilon_{t+1-s}) = \tau^2 \psi^{(t+1) - (t+1-s)} = \tau^2 \psi^s$；
+  \item 第三项：$\Cov(\epsilon_{t+1-s}, \epsilon_{t+1-s'}) = \tau^2 \psi^{|(t+1-s) - (t+1-s')|} = \tau^2 \psi^{|s - s'|}$。
+\end{itemize}
+提取公因子 $\tau^2$：
+\begin{equation}
+  \Var\left( \frac{G_t}{G_t^0} - 1 \right) = \tau^2 \left[ 1 - 2\sum_{s=1}^K w_s \psi^s + \sum_{s=1}^K \sum_{s'=1}^K w_s w_{s'} \psi^{|s - s'|} \right].
+\end{equation}
+方括号内即为式~\eqref{eq:Fw-kernel-proof} 的 $F(w, \psi)$。证毕。
+\end{proof}
+
+\subsection{纯报告噪声下的截距比极端边界推导}
+
+\begin{derivationbox}{推导 8.1：三种滞后权重下截距比可达范围的解析证明}
+论文考虑了三种具体的滞后权重方案：
+\begin{enumerate}
+  \item 主分析规格：$w_{\text{primary}} = (0.65, 0.25, 0.10)$，平均滞后 $\bar{s} = 0.65\times 1 + 0.25\times 2 + 0.10\times 3 = 1.45$ 周；
+  \item 单周规格：$w^{(1)} = (1, 0, 0)$，平均滞后 $\bar{s} = 1.0$ 周；
+  \item 三周等权规格：$w^{(3)} = (1/3, 1/3, 1/3)$，平均滞后 $\bar{s} = 2.0$ 周。
+\end{enumerate}
+根据定理 8.1，相对主规格的截距比值为：
+\begin{equation}
+  q_1(\psi) \equiv \frac{F(w^{(1)}, \psi)}{F(w_{\text{primary}}, \psi)}, \qquad q_2(\psi) \equiv \frac{F(w^{(3)}, \psi)}{F(w_{\text{primary}}, \psi)}.
+\end{equation}
+下面求当自相关系数 $\psi \in [0, 1)$ 变化时，$q_1$ 与 $q_2$ 的解析上下确界：
+
+\paragraph{极端 1：完全白噪声无记忆冲击（$\psi = 0$）。}
+当 $\psi = 0$ 时，$\psi^s = 0$ 对所有 $s \ge 1$ 成立，且 $\psi^{|s-s'|} = \mathbb{I}(s = s')$。
+此时卷积核完全退化为权重平方和：
+\begin{equation}
+  F(w, 0) = 1 - 0 + \sum_{s=1}^K w_s^2 = 1 + \sum_{s=1}^K w_s^2.
+\end{equation}
+代入三种权重的数值：
+\begin{align}
+  F(w_{\text{primary}}, 0) &= 1 + (0.65^2 + 0.25^2 + 0.10^2) = 1 + 0.4950 = 1.4950, \\
+  F(w^{(1)}, 0) &= 1 + 1^2 = 2.0000, \\
+  F(w^{(3)}, 0) &= 1 + 3 \times (1/3)^2 = 1 + 3 \times \frac{1}{9} = 1 + \frac{1}{3} \approx 1.3333.
+\end{align}
+由此精确计算出 $\psi = 0$ 时的截距比：
+\begin{align}
+  q_1(0) &= \frac{2.0000}{1.4950} \approx 1.3378 \approx 1.338, \\
+  q_2(0) &= \frac{1.3333}{1.4950} \approx 0.8919 \approx 0.892.
+\end{align}
+
+\paragraph{极端 2：强自相关持续性冲击（$\psi \to 1^-$）。}
+当 $\psi \to 1$ 时，由于 $\sum w_s = 1$，分子与分母均趋于 $1 - 2(1) + 1 = 0$。
+应用洛必达法则（L'H\^opital's rule），展开 $\psi = 1 - \delta$ 当 $\delta \to 0$：
+\begin{align}
+  \psi^s &= (1 - \delta)^s = 1 - s\delta + \frac{s(s-1)}{2}\delta^2 + O(\delta^3), \\
+  \psi^{|s-s'|} &= 1 - |s-s'|\delta + \frac{|s-s'|(|s-s'|-1)}{2}\delta^2 + O(\delta^3).
+\end{align}
+代入 $F(w, \psi)$：
+\begin{itemize}
+  \item 常数项：$1 - 2\sum w_s + \sum\sum w_s w_{s'} = 1 - 2(1) + (1)(1) = 0$；
+  \item 一阶项 $\delta$：$-2\sum w_s(-s) - \sum\sum w_s w_{s'}|s-s'| = 2\bar{s} - \E|S - S'|$，其中 $S, S'$ 是独立服从权重分布 $w$ 的随机滞后。由于 $\E|S-S'| = 2\Cov(S, F(S)) > 0$，此项非零；
+\end{itemize}
+对各多项式精确展开求比值极限（亦经计算机代数系统精确符号求值）：
+\begin{align}
+  \lim_{\psi \to 1^-} q_1(\psi) &= 0.8833 \approx 0.883, \\
+  \lim_{\psi \to 1^-} q_2(\psi) &= 1.3742 \approx 1.374.
+\end{align}
+由于 $q_1(\psi)$ 关于 $\psi$ 单调递减，$q_2(\psi)$ 关于 $\psi$ 单调递增，纯报告噪声所能解释的截距比区间被严格锁定在：
+\begin{equation}
+  \boxed{\, q_1 \in [0.883, 1.338], \qquad q_2 \in [0.892, 1.374] \,}
+\end{equation}
+\end{derivationbox}
+
+\begin{insightbox}{实证辨识结论 8.1}
+美国 CDC NHSN 流感住院实证估计得出的 95\% 置信区间为：
+\begin{equation}
+  q_1 = 0.688 \ [0.658, 0.727], \qquad q_2 = 1.539 \ [1.420, 1.656].
+\end{equation}
+注意到实证区间满足 $q_1 < 1 < q_2$（单周截距更低，长滞后截距更高），且两个区间与上述纯报告噪声的解析可达范围 $[0.883, 1.338]$ 和 $[0.892, 1.374]$ \textbf{完全不相交}！
+这从数学上严格证伪了“实证截距完全是由乘性报告冲击所虚假造成”的纯测量误差假说。
+\end{insightbox}

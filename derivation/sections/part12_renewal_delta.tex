@@ -1,0 +1,146 @@
+\section{动态更新过程与分母噪声二阶 Delta 展开}
+\label{sec:part12}
+
+\subsection{更新方程与感染压力不确定性分解}
+
+在被动时间序列监测中，真实的祖代感染人数 $n$ 是不可观测的潜变量。根据流行病学更新方程（Renewal equation）\citep{fraser2007estimating, cori2013new}，第 $t+1$ 周产生的新发感染由历史上所有前序世代的发病共同激活，其宏观真实感染压力定义为：
+\begin{equation}
+  \Lambda_{t+1} \equiv \sum_{s=1}^\infty w_s I_{t+1-s},
+\end{equation}
+其中 $w_s$ 为离散化的世代间隔概率分布（满足 $\sum_s w_s = 1$）。由于真实发病数 $I_{t+1-s}$ 存在二项漏报，历史信息集 $\mathcal{F}_t$ 所能掌握的仅有报告病例的加权和 $D_t = \sum_s w_s C_{t+1-s}$。
+
+\begin{theorembox}{定理 12.1（时间序列下感染压力不确定性的方差膨胀定理）}
+设 $m \equiv \rho\,\E(\Lambda_{t+1} \mid \mathcal{F}_t)$ 为预期报告感染压力。条件在历史信息集 $\mathcal{F}_t$ 下，报告病例数 $C_{t+1}$ 的相对预测方差严格服从三项分解：
+\begin{equation}
+  \frac{\Var(C_{t+1} \mid \mathcal{F}_t)}{\big[\rho\,\E(\Lambda_{t+1} \mid \mathcal{F}_t)\big]^2} = v_R + \frac{A}{m} + \CV^2(\Lambda_{t+1} \mid \mathcal{F}_t)\,(\Rbar^2 + v_R),
+  \label{eq:info-decomp-der}
+\end{equation}
+其中 $\CV(\Lambda_{t+1} \mid \mathcal{F}_t) \equiv \frac{\sqrt{\Var(\Lambda_{t+1} \mid \mathcal{F}_t)}}{\E(\Lambda_{t+1} \mid \mathcal{F}_t)}$ 为给定报告数据下潜在真实感染压力的变异系数。
+\end{theorembox}
+
+\begin{proof}
+记 $\bar{\Lambda} \equiv \E(\Lambda_{t+1} \mid \mathcal{F}_t)$，则 $m = \rho \bar{\Lambda}$。所有期望与方差均在条件信息集 $\mathcal{F}_t$ 下计算。
+第一层条件化：给定局部感染压力 $\Lambda_{t+1}$ 与环境 $R_{t+1}$。由定理 2.1，观测数服从负二项分布：
+\begin{equation}
+  C_{t+1} \mid \Lambda_{t+1}, R_{t+1} \sim \NB\!\left( k \Lambda_{t+1},\ \frac{k}{k + \rho R_{t+1}} \right).
+\end{equation}
+其条件期望与方差为：
+\begin{align}
+  \E(C_{t+1} \mid \Lambda_{t+1}, R_{t+1}) &= \rho \Lambda_{t+1} R_{t+1}, \\
+  \Var(C_{t+1} \mid \Lambda_{t+1}, R_{t+1}) &= \rho \Lambda_{t+1} R_{t+1} + \frac{\rho^2 \Lambda_{t+1} R_{t+1}^2}{k}.
+\end{align}
+应用全方差公式展开 $\Var(C_{t+1} \mid \mathcal{F}_t)$：
+\begin{equation}
+  \Var(C_{t+1} \mid \mathcal{F}_t) = \E\big[ \Var(C_{t+1} \mid \Lambda_{t+1}, R_{t+1}) \big] + \Var\big[ \E(C_{t+1} \mid \Lambda_{t+1}, R_{t+1}) \big].
+  \label{eq:eve-renewal}
+\end{equation}
+分别计算式~\eqref{eq:eve-renewal} 中的两项：
+\begin{enumerate}
+  \item \textbf{第一项（条件方差期望）：}根据条件独立性，在历史信息集 $\mathcal{F}_t$ 给定下，未来的环境 $R_{t+1}$ 与历史生成的发病存量 $\Lambda_{t+1}$ 相互独立：
+  \begin{align}
+    \E\big[ \Var(C_{t+1} \mid \Lambda_{t+1}, R_{t+1}) \big] &= \E\left[ \rho \Lambda_{t+1} R_{t+1} + \frac{\rho^2 \Lambda_{t+1} R_{t+1}^2}{k} \right] \nonumber \\
+    &= \rho \E(\Lambda_{t+1}) \E(R_{t+1}) + \frac{\rho^2 \E(\Lambda_{t+1}) \E(R_{t+1}^2)}{k} \nonumber \\
+    &= \rho \bar{\Lambda} \Rbar + \frac{\rho^2 \bar{\Lambda}(\Rbar^2 + v_R)}{k} \nonumber \\
+    &= m \left[ \Rbar + \frac{\rho(\Rbar^2 + v_R)}{k} \right] = m A.
+  \end{align}
+  \item \textbf{第二项（条件均值方差）：}计算乘积项的方差：
+  \begin{align}
+    \Var\big( \rho \Lambda_{t+1} R_{t+1} \big) &= \rho^2 \Var(\Lambda_{t+1} R_{t+1}) \nonumber \\
+    &= \rho^2 \Big\{ \E(\Lambda_{t+1}^2 R_{t+1}^2) - [\E(\Lambda_{t+1} R_{t+1})]^2 \Big\} \nonumber \\
+    &= \rho^2 \Big\{ \E(\Lambda_{t+1}^2) \E(R_{t+1}^2) - [\E(\Lambda_{t+1})]^2 [\E(R_{t+1})]^2 \Big\} \nonumber \\
+    &= \rho^2 \Big\{ [\Var(\Lambda_{t+1}) + \bar{\Lambda}^2](\Rbar^2 + v_R) - \bar{\Lambda}^2 \Rbar^2 \Big\} \nonumber \\
+    &= \rho^2 \Big\{ \Var(\Lambda_{t+1})(\Rbar^2 + v_R) + \bar{\Lambda}^2(\Rbar^2 + v_R) - \bar{\Lambda}^2 \Rbar^2 \Big\} \nonumber \\
+    &= \rho^2 \Big\{ \bar{\Lambda}^2 v_R + \Var(\Lambda_{t+1})(\Rbar^2 + v_R) \Big\} \nonumber \\
+    &= \rho^2 \bar{\Lambda}^2 \left[ v_R + \frac{\Var(\Lambda_{t+1})}{\bar{\Lambda}^2}(\Rbar^2 + v_R) \right] \nonumber \\
+    &= m^2 \Big[ v_R + \CV^2(\Lambda_{t+1} \mid \mathcal{F}_t)\,(\Rbar^2 + v_R) \Big].
+  \end{align}
+\end{enumerate}
+将两项相加，两端同除以 $m^2 = [\rho \E(\Lambda_{t+1} \mid \mathcal{F}_t)]^2$：
+\begin{equation}
+  \frac{\Var(C_{t+1} \mid \mathcal{F}_t)}{m^2} = \frac{m A + m^2 [v_R + \CV^2(\Lambda_{t+1})(\Rbar^2+v_R)]}{m^2} = v_R + \frac{A}{m} + \CV^2(\Lambda_{t+1} \mid \mathcal{F}_t)\,(\Rbar^2 + v_R).
+\end{equation}
+式~\eqref{eq:info-decomp-der} 获证。
+\end{proof}
+
+\begin{insightbox}{物理洞见 12.1：潜变量不确定性带来的结构性抬升}
+当真实感染压力已知时（例如前瞻性追踪全部病例），$\CV(\Lambda_{t+1}) = 0$，式~\eqref{eq:info-decomp-der} 精确退化为单代独立前瞻预测界限 $v_R + A/m$。
+在被动时间序列中，由于不知道过去到底有多少隐匿感染者在发病，感染压力的相对方差 $\CV^2(\Lambda_{t+1})$ 形成了一个\textbf{纯粹由监测不完全性诱发的外生方差底板}，且随世代间隔的展宽和漏报的加剧而放大。
+\end{insightbox}
+
+\subsection{分母二项抽样噪声的二阶 Delta 展开（式 (b-delta) 证明）}
+
+在经验拟合中，由于无法使用潜在期望规模 $m$，回归方程以观测的分母规模 $D_t = \sum_s w_s C_{t+1-s}$ 作为自变量拟合 $L_t = a + b/D_t$。分母包含二项抽样噪声，属于经典计量经济学中的“测量误差自变量（Errors-in-variables）”。以下显式证明分母噪声为何将经验斜率 $b$ 抬高。
+
+\begin{theorembox}{推导 12.2：分母噪声抬高斜率的二阶 Delta 展开证明}
+设给定真实感染历史 $\mathcal{H}_t = (I_t, I_{t-1}, \dots)$，潜在理论规模为 $m = \rho \Lambda_{t+1} = \rho \sum_s w_s I_{t+1-s}$。分母相对噪声定义为 $\delta \equiv \frac{D_t - m}{m}$。
+在二阶 Delta 展开下，归一化均方损失关于 $1/m$ 的回归斜率近似满足式~\eqref{eq:b-delta}：
+\begin{equation}
+  b \approx \frac{A + (1 - \rho)(\Rbar^2 + v_R)\sum_{s} w_s^2}{\Rbar^2}.
+  \label{eq:b-delta}
+\end{equation}
+\end{theorembox}
+
+\begin{proof}
+根据各周独立二项报告抽样假设，给定感染历史 $\mathcal{H}_t$：
+\begin{equation}
+  C_{t+1-s} \mid I_{t+1-s} \sim \Bin(I_{t+1-s}, \rho).
+\end{equation}
+计算分母的条件期望与条件方差：
+\begin{align}
+  \E(D_t \mid \mathcal{H}_t) &= \E\left( \sum_s w_s C_{t+1-s} \ \Big|\ \mathcal{H}_t \right) = \sum_s w_s (\rho I_{t+1-s}) = \rho \sum_s w_s I_{t+1-s} = m, \\
+  \Var(D_t \mid \mathcal{H}_t) &= \Var\left( \sum_s w_s C_{t+1-s} \ \Big|\ \mathcal{H}_t \right) = \sum_s w_s^2 \Var(C_{t+1-s} \mid I_{t+1-s}) \nonumber \\
+  &= \sum_s w_s^2 \big[ \rho (1 - \rho) I_{t+1-s} \big] = \rho (1 - \rho) \sum_s w_s^2 I_{t+1-s}.
+\end{align}
+在局部平衡阶段，$I_{t+1-s} \approx \Lambda_{t+1} = m/\rho$。代入得：
+\begin{equation}
+  \Var(D_t \mid \mathcal{H}_t) \approx \rho (1 - \rho) \frac{m}{\rho} \sum_s w_s^2 = m (1 - \rho) \sum_s w_s^2 \equiv m c_w,
+\end{equation}
+其中记常数 $c_w \equiv (1 - \rho)\sum_s w_s^2$。由此计算相对扰动 $\delta = \frac{D_t - m}{m}$ 的统计矩：
+\begin{equation}
+  \E(\delta \mid \mathcal{H}_t) = 0, \qquad \E(\delta^2 \mid \mathcal{H}_t) = \frac{\Var(D_t \mid \mathcal{H}_t)}{m^2} \approx \frac{m c_w}{m^2} = \frac{c_w}{m}.
+\end{equation}
+增长统计量为 $G_t = \frac{C_{t+1}}{D_t} = \frac{C_{t+1}}{m(1+\delta)} = X (1 + \delta)^{-1}$，其中定义无噪分母统计量 $X \equiv C_{t+1}/m$。
+由未来抽样与历史抽样的独立性，在给定 $\mathcal{H}_t$ 下，$X$ 与 $\delta$ \textbf{相互独立}。
+已知无噪统计量的条件矩为：$\E(X) = \Rbar$，$\Var(X) = v_R + A/m$，从而 $\E(X^2) = \Var(X) + [\E(X)]^2 = v_R + \Rbar^2 + A/m$。
+
+将逆函数展开到 $\delta$ 的二次项：
+\begin{equation}
+  (1 + \delta)^{-1} = 1 - \delta + \delta^2 - \delta^3 + O(\delta^4).
+\end{equation}
+利用独立性分别求条件期望与二阶矩：
+\begin{align}
+  \E(G_t \mid \mathcal{H}_t) &= \E\big[ X (1 - \delta + \delta^2 + \dots) \big] = \E(X) \big[ 1 - \E(\delta) + \E(\delta^2) + \dots \big] \nonumber \\
+  &= \Rbar \left( 1 + \frac{c_w}{m} \right) + O(m^{-2}).
+\end{align}
+计算平方项期望 $\E(G_t^2 \mid \mathcal{H}_t)$：
+\begin{align}
+  \E(G_t^2 \mid \mathcal{H}_t) &= \E\big[ X^2 (1 + \delta)^{-2} \big] = \E(X^2) \, \E\big[ 1 - 2\delta + 3\delta^2 + O(\delta^3) \big] \nonumber \\
+  &= \E(X^2) \left( 1 + 3\frac{c_w}{m} \right) + O(m^{-2}) \nonumber \\
+  &= \left( \Rbar^2 + v_R + \frac{A}{m} \right) \left( 1 + 3\frac{c_w}{m} \right) + O(m^{-2}) \nonumber \\
+  &= \Rbar^2 + v_R + \frac{A}{m} + 3(\Rbar^2 + v_R)\frac{c_w}{m} + O(m^{-2}).
+\end{align}
+进而计算方差：
+\begin{align}
+  \Var(G_t \mid \mathcal{H}_t) &= \E(G_t^2) - [\E(G_t)]^2 \nonumber \\
+  &= \left[ \Rbar^2 + v_R + \frac{A}{m} + 3(\Rbar^2 + v_R)\frac{c_w}{m} \right] - \Rbar^2 \left( 1 + \frac{c_w}{m} \right)^2 + O(m^{-2}) \nonumber \\
+  &= \Rbar^2 + v_R + \frac{A}{m} + 3(\Rbar^2 + v_R)\frac{c_w}{m} - \Rbar^2 \left( 1 + 2\frac{c_w}{m} \right) + O(m^{-2}) \nonumber \\
+  &= v_R + \frac{A}{m} + 3(\Rbar^2 + v_R)\frac{c_w}{m} - 2\Rbar^2\frac{c_w}{m} + O(m^{-2}) \nonumber \\
+  &= v_R + \frac{A + (\Rbar^2 + 3v_R)c_w}{m} + O(m^{-2}).
+  \label{eq:var-Gt-raw}
+\end{align}
+注意式~\eqref{eq:var-Gt-raw} 中包含项 $(\Rbar^2 + 3v_R)c_w$。
+现在将方差用条件均值的平方 $[\E(G_t \mid \mathcal{H}_t)]^2 = \Rbar^2(1 + 2c_w/m) + O(m^{-2})$ 进行标准化归一：
+\begin{align}
+  \frac{\Var(G_t \mid \mathcal{H}_t)}{[\E(G_t \mid \mathcal{H}_t)]^2} &= \frac{v_R + \frac{A + (\Rbar^2 + 3v_R)c_w}{m}}{\Rbar^2 \left( 1 + \frac{2c_w}{m} \right)} + O(m^{-2}) \nonumber \\
+  &= \frac{1}{\Rbar^2} \left[ v_R + \frac{A + (\Rbar^2 + 3v_R)c_w}{m} \right] \left( 1 - \frac{2c_w}{m} \right) + O(m^{-2}) \nonumber \\
+  &= \frac{1}{\Rbar^2} \left[ v_R - v_R \frac{2c_w}{m} + \frac{A + (\Rbar^2 + 3v_R)c_w}{m} \right] + O(m^{-2}) \nonumber \\
+  &= \frac{v_R}{\Rbar^2} + \frac{A + (\Rbar^2 + 3v_R)c_w - 2v_R c_w}{\Rbar^2 m} + O(m^{-2}) \nonumber \\
+  &= \frac{v_R}{\Rbar^2} + \frac{A + (\Rbar^2 + v_R)c_w}{\Rbar^2 m} + O(m^{-2}).
+\end{align}
+注意到极为精巧的一幕：$-2v_R c_w$ 恰好将 $3v_R$ 消减为 $v_R$！
+将 $c_w = (1 - \rho)\sum_s w_s^2$ 代回分子中的 $1/m$ 系数，即得出理论斜率修正项：
+\begin{equation}
+  b \approx \frac{A + (1 - \rho)(\Rbar^2 + v_R)\sum_s w_s^2}{\Rbar^2}.
+\end{equation}
+推导完毕。
+\end{proof}

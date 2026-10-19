@@ -71,7 +71,9 @@ case-count-bottleneck/
 │   └── logs/                      # 运行日志
 │
 ├── advisor-briefing.pdf           # 汇报简报（含 PDF / DOCX / HTML / MD）
-├── derivation-handout.md          # 详细数学推导手册
+├── derivation/                    # 完整理论推导 LaTeX 源码工程（45页详尽推导手册）
+├── derivation-handout.pdf         # 完整理论推导手册 PDF（45页详尽版）
+├── derivation-handout.md          # 理论推导讲义 Markdown
 ├── acceptance-r4.md               # 验收标准与关键数据对照清单
 └── README.md                      # 本文档
 ```
@@ -85,7 +87,8 @@ case-count-bottleneck/
 - **中文论文正文**：[`paper_zh/build/main.pdf`](paper_zh/build/main.pdf)
 - **补充材料**：[`paper_zh/build/supplement.pdf`](paper_zh/build/supplement.pdf)
 - **汇报简报**：[`advisor-briefing.pdf`](advisor-briefing.pdf)
-- **推导手册**：[`derivation-handout.md`](derivation-handout.md)
+- **理论推导手册 PDF（45页详尽版）**：[`derivation-handout.pdf`](derivation-handout.pdf)
+- **理论推导手册 Markdown**：[`derivation-handout.md`](derivation-handout.md)
 
 ---
 
