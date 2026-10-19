@@ -116,8 +116,8 @@ Because $R/(k+\rho R)$ is strictly increasing in $R$, the base $R(k+\rho R')/[R'
     V_H(m) = v_R + \frac{\sigma^2}{\rho^2}(\Rbar^2 + v_R) + \frac{\Rbar}{m} + \frac{(\rho^2+\sigma^2)(\Rbar^2+v_R)}{\rho km},
   \end{equation}
   which yields Eq.~\eqref{eq:r3-vH} with $v_H = \tau^2(\Rbar^2 + v_R)$.
-  \item Let $\theta_t = p_t R_t = \rho R_t u_t$. The Markov chain $R_t \to \theta_t \to C_t$ and the data processing inequality for Fisher information \citep{zamir1998proof} yield $\mathcal{I}_{C_t}(R_t) \le \mathcal{I}_{\theta_t}(R_t) = \mathcal{J}_u / R_t^2$, where $\mathcal{J}_u$ is the scale information of $u_t$. By Cauchy--Schwarz, $\mathcal{J}_u \ge 1/\tau^2$, with equality attained if and only if $u_t$ follows a Gamma distribution with shape and rate $1/\tau^2$.
-  \item Unidentifiability: Note that $v_R + v_H = U - \Rbar^2$ and $A_H = \Rbar + \rho U / k$, where $U = (1+\tau^2)(\Rbar^2+v_R)$. The marginal distribution of $(C_1, \dots, C_T)$ up to second moments depends on $(v_R, \tau^2)$ exclusively through the scalar combination $U$.
+  \item For the natural estimator $\widehat{R}_t = C_t/m$, as $m \to \infty$ with the reporting process fixed, $V_H(m) \to v_R + v_H = v_R + \tau^2(\Rbar^2 + v_R)$.
+  \item Unidentifiability: Note that $v_R + v_H = U - \Rbar^2$ and $A_H = \Rbar + \rho U / k$, where $U = (1+\tau^2)(\Rbar^2+v_R)$. The marginal mean $\E(\widehat{R}_t) = \Rbar$ and marginal variance $V_H(m) = U - \Rbar^2 + (\Rbar + \rho U/k)/m$ depend on $(v_R, \tau^2)$ exclusively through the scalar combination $U$. From the marginal mean and variance of the counts alone, $(v_R, v_H)$ are not separately identifiable.
   \item Denominator lag signature: Let $D_t = \sum_s w_s C_{t-s}$. Under AR(1) reporting shock $u_t = 1 + \epsilon_t$ with persistence $\psi$, first-order delta expansion yields Eq.~\eqref{eq:r3-Fw}. Evaluating $F(w, \psi)/F(w', \psi)$ across $\psi \in [0, 1)$ yields the analytical bounds $q_1 \in [0.883, 1.338]$ and $q_2 \in [0.892, 1.374]$. \qed
 \end{enumerate}
 
@@ -139,7 +139,7 @@ Under H1--H4 and H6, with equal sample volume $m$ per period:
     \Var(\hat{v}_R) = \frac{1}{(1+\rho/(km))^2}\left[\frac{\mu_{4Y}}{T} - \frac{(T-3)\sigma_Y^4}{T(T-1)} - \frac{2\varpi'\mu_{3Y}}{T} + \frac{\varpi'^2\sigma_Y^2}{T}\right]\left(1 + O\left(\frac{1}{mT}\right)\right),
     \label{eq:r3-omega}
   \end{equation}
-  where $\varpi' = (1 + 2\rho\bar{R}/k)/m$. As $m \to \infty$, $T\Var(\hat{v}_R) \to \Omega_\infty = \E(R_t-\bar{R})^4 - v_R^2$. When $R_t \sim \text{Gamma}(\xi, \vartheta)$, $\Omega_\infty = v_R^2(2 + 6v_R/\bar{R}^2)$.
+  where $\varpi' = (1 + 2\rho\bar{R}/k)/m$. For a fixed period count $T$, as $m \to \infty$, $T\Var(\hat{v}_R) \to \mu_{4R} - \frac{T-3}{T-1}v_R^2$. As $T \to \infty$, this further converges to $\Omega_\infty = \E(R_t-\bar{R})^4 - v_R^2 = \Var((R_t-\bar{R})^2)$, so that $\Omega_\infty/T$ serves as the large-$T$ asymptotic approximation. When $R_t \sim \text{Gamma}(\xi, \vartheta)$, $\Omega_\infty = v_R^2(2 + 6v_R/\bar{R}^2)$.
   \item Let the joint distribution of $(R_1, \dots, R_T)$ belong to a family parameterized by $v_R$. For any scale $m$ and any correlation structure, $\mathcal{I}_{C_{1:T}}(v_R) \le \mathcal{I}_{R_{1:T}}(v_R)$. When periods are independent with $R_t \sim \text{Gamma}$ of fixed mean $\bar{R}$:
   \begin{equation}
     \mathcal{I}_{R_{1:T}}(v_R) = \frac{T\xi\,[\xi(\ln\Gamma)''(\xi) - 1]}{v_R^2}, \qquad \xi = \frac{\bar{R}^2}{v_R},

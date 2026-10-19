@@ -179,7 +179,7 @@
   \bibinfo{author}{Hay, J.A.}, \bibinfo{author}{De~Salazar, P.M.}, et~al.,
   \bibinfo{year}{2020}.
 \newblock \bibinfo{title}{Practical considerations for measuring the effective
-  reproductive number, {$R_t$}}.
+  reproductive number,\allowbreak\ {$R_t$}}.
 \newblock \bibinfo{journal}{PLOS Computational Biology} \bibinfo{volume}{16},
   \bibinfo{pages}{e1008409}.
 %Type = Article
