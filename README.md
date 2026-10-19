@@ -27,7 +27,18 @@
 
 ```text
 case-count-bottleneck/
-├── paper_zh/                      # 最新版论文（仿照 Eales & Riley 2024 结构重写）
+├── paper_en/                      # 英文投稿稿（面向 Epidemics，采用 elsarticle 模板与 Eales & Riley 结构）
+│   ├── build/
+│   │   ├── main.pdf               # 英文正文 PDF（Elsevier 投稿标准单栏评审格式）
+│   │   └── supplement.pdf         # 英文补充材料 PDF（含表 S1–S8、图 S1–S3 与完整证明）
+│   ├── sections/                  # 英文各章节 LaTeX 源码
+│   ├── figures/                   # 5 张多面板主图与补充图矢量 PDF
+│   ├── tables/                    # 英文补充表格
+│   ├── main.tex                   # 英文正文入口
+│   ├── supplement.tex             # 英文补充材料入口
+│   └── bibliography.bib           # 参考文献数据库（采用 elsarticle-harv author-year 格式）
+│
+├── paper_zh/                      # 中文重写稿（仿照 Eales & Riley 2024 结构）
 │   ├── build/
 │   │   ├── main.pdf               # 正文 PDF（24 页，5 张多面板主图，正文 0 表）
 │   │   └── supplement.pdf         # 补充材料 PDF（14 页，表 S1–S8、图 S1–S3 及证明）
@@ -69,7 +80,9 @@ case-count-bottleneck/
 
 ## 📄 成果文件直接阅读
 
-- **论文正文**：[`paper_zh/build/main.pdf`](paper_zh/build/main.pdf)
+- **英文投稿正文（Epidemics）**：[`paper_en/build/main.pdf`](paper_en/build/main.pdf)
+- **英文补充材料**：[`paper_en/build/supplement.pdf`](paper_en/build/supplement.pdf)
+- **中文论文正文**：[`paper_zh/build/main.pdf`](paper_zh/build/main.pdf)
 - **补充材料**：[`paper_zh/build/supplement.pdf`](paper_zh/build/supplement.pdf)
 - **汇报简报**：[`advisor-briefing.pdf`](advisor-briefing.pdf)
 - **推导手册**：[`derivation-handout.md`](derivation-handout.md)

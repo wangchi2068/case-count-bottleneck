@@ -1,0 +1,25 @@
+\begin{table}[!tbp]
+  \centering
+  \caption{Empirical confidence intervals for lag-weight ratios and theoretical predictions across noise mechanisms (NHSN early-phase influenza, $N = 1{,}267$ state-weeks). $r_1, r_2$ denote slope ratios for current-week and three-week equal weighting relative to primary weighting; $q_1, q_2$ denote corresponding intercept ratios; $a$ is the baseline intercept. Empirical intervals are 95\% percentile intervals from 2,000 state-clustered bootstrap replications. Stationary environmental models (M-env) predict $q = 1$. Renewal process simulations under growth and admission delays widen the null range. Multiplicative reporting shock models (M-mult) evaluate AR(1) reporting persistence $\psi \in [0, 1)$. M-bin0 is binomial observation without environmental variance; M-meas is pure measurement error; M-nodn assumes a noise-free denominator. Bold entries indicate theoretical ranges that do not intersect empirical confidence intervals.}
+  \label{tab:ratios}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}lccccc@{}}
+    \toprule
+    Mechanism & $r_1$ & $r_2$ & $q_1$ & $q_2$ & $a$ \\
+    \midrule
+    Empirical & 1.397 & 0.859 & 0.688 & 1.539 & 0.0991 \\
+    \quad 95\% percentile CI & 1.229--1.623 & 0.599--1.083 & 0.658--0.727 & 1.420--1.656 & 0.0837--0.1165 \\
+    \midrule
+    M-env, stationary & 1.419--1.463 & 0.852--0.866 & \textbf{1} & \textbf{1} & $>0$ \\
+    M-env, growth phase, weekly & 1.450--1.630 & 0.693--0.763 & \textbf{0.857--0.937} & \textbf{1.226--1.333} & $>0$ \\
+    M-env, daily renewal, no delay & -- & -- & \textbf{0.746--0.887} & 1.319--1.484 & $>0$ \\
+    M-env, daily renewal, all delays & -- & -- & 0.601--0.887 & 1.187--1.568 & $>0$ \\
+    M-mult, stationary & 1.462 & 0.852 & \textbf{0.883--1.338} & \textbf{0.892--1.374} & $>0$ \\
+    M-mult, growth phase & -- & -- & 0.686--1.224 & 0.865--1.497 & $>0$ \\
+    M-bin0 & 1.432 & 0.862 & No intercept & No intercept & \textbf{0} \\
+    M-meas & 1.462 & 0.852 & No intercept & No intercept & \textbf{0} \\
+    M-nodn & \textbf{1.000} & 1.000 & \textbf{1} & \textbf{1} & $>0$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}

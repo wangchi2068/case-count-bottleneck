@@ -1,0 +1,196 @@
+\section{Mathematical proofs and analytical derivations}
+\label{app:proofs}
+
+This section provides complete mathematical proofs for all propositions, corollaries, and remarks in the main text, alongside detailed derivations of the renewal process variance decompositions and higher-order delta expansions. Equation and theorem numbering from the main text is preserved; equations introduced solely in this supplement carry the prefix S.
+
+Recall that the negative-binomial distribution $\NB(r, p)$ parameterized by number of failures $r$ and success probability $p$ has mean $r(1-p)/p$ and variance $r(1-p)/p^2$. Setting $r = k$ and $p = k/(k + R)$ yields Eq.~\eqref{eq:offspring}. Convolutions and binomial thinning follow directly from infinite divisibility and thinning properties of the negative-binomial family \citep{casella2002statistical}.
+
+\subsection{Proof of Proposition 1 (Estimation of Target 1)}
+\label{sec:proof-prop1}
+
+Let $c$ denote an observed realization of $C_t$, and let $\theta = \rho R_t$. From Eq.~\eqref{eq:observed}, the conditional log-likelihood of $R_t$ given $n$ is
+\begin{equation}
+  \ell(R_t) = \text{const} + nk\log\left(\frac{k}{k+\theta}\right) + c\log\left(\frac{\theta}{k+\theta}\right).
+\end{equation}
+Differentiating with respect to $R_t$, the score function is
+\begin{equation}
+  \dot{\ell}(R_t) = \frac{c}{R_t} - \frac{(c+nk)\rho}{k+\rho R_t}
+  = \mathcal{I}(R_t)\,(\widehat{R}_t - R_t), \qquad
+  \mathcal{I}(R_t) = \frac{k\rho n}{R_t(k+\rho R_t)} = \frac{n}{R_t/\rho + R_t^2/k}.
+  \label{eq:score}
+\end{equation}
+
+\begin{enumerate}[label=(\roman*)]
+  \item When $c > 0$, Eq.~\eqref{eq:score} implies $\dot{\ell}(R_t) > 0$ for $R_t < \widehat{R}_t$ and $\dot{\ell}(R_t) < 0$ for $R_t > \widehat{R}_t$. Hence, the log-likelihood is strictly concave and achieves its unique global maximum at $\widehat{R}_t = c/(\rho n)$. When $c = 0$, $\dot{\ell}(R_t) = -nk\rho/(k+\rho R_t) < 0$ for all $R_t > 0$, so the maximum is attained at the boundary $R_t = 0 = \widehat{R}_t$.
+  \item Conditional expectation is $\E(\widehat{R}_t \mid R_t) = \rho n R_t / (\rho n) = R_t$, proving unbiasedness. Conditional variance is
+  \begin{equation}
+    \Var(\widehat{R}_t \mid R_t) = \frac{\rho n R_t + \rho^2 n R_t^2 / k}{(\rho n)^2} = \frac{R_t}{\rho n} + \frac{R_t^2}{kn} = \frac{R_t(k+\rho R_t)}{k\rho n}.
+  \end{equation}
+  \item The Fisher information is the variance of the score function:
+  \begin{equation}
+    \mathcal{I}(R_t) = \Var(\dot{\ell}(R_t)) = \frac{(k\rho n)^2}{[R_t(k+\rho R_t)]^2}\Var(\widehat{R}_t) = \frac{k\rho n}{R_t(k+\rho R_t)} = \frac{n}{R_t/\rho + R_t^2/k}.
+  \end{equation}
+  Thus, $\Var(\widehat{R}_t \mid R_t) = 1/\mathcal{I}(R_t)$. Because the score function is strictly proportional to $\widehat{R}_t - R_t$, equality in the Cram\'er--Rao inequality is attained for all finite $n$ \citep{casella2002statistical}.
+  \item Writing the probability mass function of Eq.~\eqref{eq:observed} in natural exponential family form, the natural parameter is $\upsilon = \log[\rho R_t / (k+\rho R_t)]$. As $R_t \in (0, \infty)$, $\upsilon$ spans $(-\infty, 0)$, which contains an open interval. Therefore, $C_t$ is a complete sufficient statistic. Because $\widehat{R}_t$ is an unbiased function of $C_t$, by the Lehmann--Scheff\'e theorem it is the unique uniformly minimum-variance unbiased estimator (UMVUE) \citep{lehmann2005testing}. \qed
+\end{enumerate}
+
+\subsection{Proof of Proposition 2 (Estimation of Target 2)}
+\label{sec:proof-prop2}
+
+Under H4, $\E(R_t \mid n) = \Rbar$ and $\Var(R_t \mid n) = v_R$. By Proposition~\ref{prop:current}, $\E(\widehat{R}_t \mid n, R_t) = R_t$, so $\E(\widehat{R}_t \mid n) = \Rbar$. By the law of total variance:
+\begin{align}
+  \Var(\widehat{R}_t \mid n) &= \E\big[\Var(\widehat{R}_t \mid n, R_t)\mid n\big] + \Var\big[\E(\widehat{R}_t \mid n, R_t)\mid n\big] \nonumber \\
+  &= \E\left[\frac{R_t}{\rho n} + \frac{R_t^2}{kn}\ \Big|\ n\right] + \Var(R_t \mid n) \nonumber \\
+  &= \frac{\Rbar}{\rho n} + \frac{\Rbar^2 + v_R}{kn} + v_R.
+\end{align}
+Substituting $m = \rho n$ and collecting terms in $1/m$ yields Eq.~\eqref{eq:var-average}.
+\begin{enumerate}[label=(\roman*)]
+  \item As $m \to \infty$, $A/m \to 0$, hence $V(m) \to v_R$.
+  \item The sampling fraction of total variance is $(A/m)/(v_R + A/m) = 1/(1 + m v_R / A) = 1/(1 + m/m_\times)$.
+  \item Proportional variance reduction upon doubling sample size is $[V(m) - V(2m)]/V(m) = [A/(2m)]/(v_R + A/m) = 1/[2(1 + m/m_\times)]$.
+  \item $V'(m) = -A/m^2 < 0$ and $V''(m) = 2A/m^3 > 0$, proving strict monotonicity and convexity. The scale elasticity is $\epsilon_m = m V'(m)/V(m) = -(A/m)/(v_R + A/m) = -m_\times / (m + m_\times)$, which evaluates to $-1/2$ at $m = m_\times$.
+  \item Let $\tilde{\theta}$ be any estimator based on current-period data satisfying $\E(\tilde{\theta} \mid R_t) = R_t$. By the Cram\'er--Rao inequality, $\Var(\tilde{\theta} \mid R_t) \ge 1/\mathcal{I}(R_t)$. Substituting into the orthogonal decomposition $\E(\tilde{\theta} - \Rbar)^2 = \E[\Var(\tilde{\theta} \mid R_t)] + v_R \ge v_R + \E[1/\mathcal{I}(R_t)] = V(m)$, with equality achieved by $\widehat{R}_t$. For one-step forecasting, $y = C_{t+1}/m$. By H4, $R_{t+1}$ is independent of $\mathcal{F}_t$, so $\E[(\hat{y} - y)^2 \mid \mathcal{F}_t] = (\hat{y} - \E y)^2 + \Var(y) \ge \Var(y) = V(m)$, with equality attained at $\hat{y} = \Rbar$. \qed
+\end{enumerate}
+
+\subsection{Derivation of Remark 1 (Reporting completeness versus coverage)}
+\label{sec:proof-rem1}
+
+Writing $V(n, \rho) = v_R + \Rbar/(\rho n) + (\Rbar^2 + v_R)/(kn)$:
+\begin{equation}
+  \lim_{\rho \to 1} V(n, \rho) = v_R + \frac{\Rbar}{n} + \frac{\Rbar^2 + v_R}{kn} > v_R, \qquad
+  \lim_{n \to \infty} V(n, \rho) = v_R.
+\end{equation}
+Evaluating log-marginal effects:
+\begin{equation}
+  -\frac{\partial V}{\partial \log n} = \frac{\Rbar}{\rho n} + \frac{\Rbar^2 + v_R}{kn} = \frac{A}{m}, \qquad
+  -\frac{\partial V}{\partial \log \rho} = \frac{\Rbar}{\rho n} = \frac{\Rbar}{m}.
+\end{equation}
+Their ratio is $A/\Rbar = 1 + \rho(\Rbar^2 + v_R)/(k\Rbar)$.
+
+\subsection{Proof of Proposition 5 (Multi-period allocation and cost optimization)}
+\label{sec:proof-prop5}
+
+\begin{enumerate}[label=(\roman*)]
+  \item Under H1--H4 with equal ancestor volume $n$ per period, conditional on $(R_1, \dots, R_T)$, counts across periods are independent. Letting $\bar{R}_T = T^{-1}\sum_{t=1}^T R_t$, by the law of total variance:
+  \begin{equation}
+    \frac{1}{T^2}\Var\Bigl(\sum_{t=1}^T \widehat{R}_t\Bigr) = \Var(\bar{R}_T) + \frac{1}{T^2}\sum_{t=1}^T \E\left[\frac{R_t}{\rho n} + \frac{R_t^2}{kn}\right] = \Var(\bar{R}_T) + \frac{A}{Tm}.
+  \end{equation}
+  The second term equals $A/B$, depending solely on total sample size $B = Tm$. When $R_t$ is i.i.d., $\Var(\bar{R}_T) = v_R/T$, yielding Eq.~\eqref{eq:alloc-indep}.
+  Under a stationary AR(1) process with $\Cov(R_s, R_t) = v_R \phi^{|s-t|}$, we have
+  \begin{equation}
+    T^2\Var(\bar{R}_T) = v_R T + 2v_R \sum_{h=1}^{T-1}(T-h)\phi^h = v_R\left[\frac{T(1+\phi)}{1-\phi} - \frac{2\phi(1-\phi^T)}{(1-\phi)^2}\right],
+  \end{equation}
+  which can be verified by induction on $T$. Strict monotonicity in $T$ follows from the concavity of partial sums of geometric series.
+  \item Substituting $T = \mathcal{B}/(c_0 + c_1m)$ into Eq.~\eqref{eq:alloc-indep}:
+  \begin{equation}
+    f(m) = \frac{(c_0 + c_1m)(v_R + A/m)}{\mathcal{B}} = \frac{c_0v_R + c_1A + c_1v_Rm + c_0A/m}{\mathcal{B}}.
+  \end{equation}
+  Differentiating yields $f'(m) = (c_1v_R - c_0A/m^2)/\mathcal{B}$ and $f''(m) = 2c_0A/(m^3\mathcal{B}) > 0$. For $c_0 > 0$, $f$ is strictly convex on $(0, \infty)$, with unique stationary point $m^{*2} = c_0A/(c_1v_R) = (c_0/c_1)m_\times$. Substituting $m^*$ yields Eq.~\eqref{eq:optimal-m}. \qed
+\end{enumerate}
+
+\subsection{Proof of Outbreak Detection Test Properties}
+\label{sec:proof-test}
+
+For $R > R'$, the likelihood ratio from Eq.~\eqref{eq:observed} is
+\begin{equation}
+  \frac{f(c; R)}{f(c; R')} = \frac{(k+\rho R')^{nk}\,[R(k+\rho R')]^{c}}{(k+\rho R)^{nk}\,[R'(k+\rho R)]^{c}}.
+\end{equation}
+Because $R/(k+\rho R)$ is strictly increasing in $R$, the base $R(k+\rho R')/[R'(k+\rho R)] > 1$. Thus, the likelihood ratio is strictly increasing in $c$, establishing that the family possesses a monotone likelihood ratio (MLR) in $C_t$.
+
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Size:} By standard MLR theory, the power function of any test of the form $\{C_t \ge c\}$ is non-decreasing in $R_t$ \citep{lehmann2005testing}. Hence, the maximum rejection probability on $H_0\colon R_t \le 1$ is attained at $R_t = 1$, where it equals $\alpha^* = P_{R_t=1}(C_t \ge c_\alpha) \le \alpha$.
+  \item \textbf{Uniform optimality:} By the Karlin--Rubin theorem \citep{karlin1956theory}, the test rejecting when $C_t \ge c_\alpha$ is uniformly most powerful (UMP) at level $\alpha^*$.
+  \item \textbf{Power:} Under $R_t = 1 + \delta$, $C_t \sim \NB(nk, k/[k+\rho(1+\delta)])$, yielding Eq.~\eqref{eq:power}. \qed
+\end{enumerate}
+
+\subsection{Proof of Proposition 3 and Corollary 1 (Reporting Heterogeneity)}
+\label{sec:proof-prop3}
+
+\begin{enumerate}[label=(\roman*)]
+  \item Given $(n, R_t, p_t)$, $\E(C_t \mid \cdot) = p_t n R_t$ and $\Var(C_t \mid \cdot) = p_t n R_t + p_t^2 n R_t^2 / k$. Applying the law of total variance over $p_t$, and using $\E p_t = \rho$ and $\E p_t^2 = \rho^2 + \sigma^2$:
+  \begin{equation}
+    \Var(C_t \mid n, R_t) = \rho n R_t + \frac{(\rho^2+\sigma^2)nR_t^2}{k} + \sigma^2 n^2 R_t^2.
+  \end{equation}
+  \item Unbiasedness follows from $\E(C_t \mid n, R_t) = \rho n R_t$, so $\E \widehat{R}_t = \Rbar$. Applying total variance over $R_t$ and dividing by $(\rho n)^2$:
+  \begin{equation}
+    V_H(m) = v_R + \frac{\sigma^2}{\rho^2}(\Rbar^2 + v_R) + \frac{\Rbar}{m} + \frac{(\rho^2+\sigma^2)(\Rbar^2+v_R)}{\rho km},
+  \end{equation}
+  which yields Eq.~\eqref{eq:r3-vH} with $v_H = \tau^2(\Rbar^2 + v_R)$.
+  \item Let $\theta_t = p_t R_t = \rho R_t u_t$. The Markov chain $R_t \to \theta_t \to C_t$ and the data processing inequality for Fisher information \citep{zamir1998proof} yield $\mathcal{I}_{C_t}(R_t) \le \mathcal{I}_{\theta_t}(R_t) = \mathcal{J}_u / R_t^2$, where $\mathcal{J}_u$ is the scale information of $u_t$. By Cauchy--Schwarz, $\mathcal{J}_u \ge 1/\tau^2$, with equality attained if and only if $u_t$ follows a Gamma distribution with shape and rate $1/\tau^2$.
+  \item Unidentifiability: Note that $v_R + v_H = U - \Rbar^2$ and $A_H = \Rbar + \rho U / k$, where $U = (1+\tau^2)(\Rbar^2+v_R)$. The marginal distribution of $(C_1, \dots, C_T)$ up to second moments depends on $(v_R, \tau^2)$ exclusively through the scalar combination $U$.
+  \item Denominator lag signature: Let $D_t = \sum_s w_s C_{t-s}$. Under AR(1) reporting shock $u_t = 1 + \epsilon_t$ with persistence $\psi$, first-order delta expansion yields Eq.~\eqref{eq:r3-Fw}. Evaluating $F(w, \psi)/F(w', \psi)$ across $\psi \in [0, 1)$ yields the analytical bounds $q_1 \in [0.883, 1.338]$ and $q_2 \in [0.892, 1.374]$. \qed
+\end{enumerate}
+
+For Corollary~\ref{cor:switch}, differentiating $V_H$ with respect to $\log\rho$ and $\log n$:
+\begin{equation}
+  -\rho\frac{\partial V_H}{\partial \rho} - \left(-n\frac{\partial V_H}{\partial n}\right) = \frac{\Rbar^2+v_R}{kn}\left[-\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}(kn+1) - (1+\tau^2)\right].
+\end{equation}
+Under institutional reporting ($\mathrm{d}\tau^2/\mathrm{d}\rho = 0$), the difference is strictly negative. Under binomial reporting ($\tau^2 = (1-\rho)/[\rho(\nu+1)]$), setting the bracket positive yields $kn > \rho\nu \iff m > \rho^2\nu/k$. \qed
+
+\subsection{Proof of Proposition 6 (Precision of Environmental Variance Estimation)}
+\label{sec:proof-prop6}
+
+\begin{sproposition}[Finite-period precision and Fisher information for environmental variance]
+\label{sprop:vR-finite}
+Under H1--H4 and H6, with equal sample volume $m$ per period:
+\begin{enumerate}[label=(\alph*)]
+  \item When $R_t$ is i.i.d., the modified moment estimator $\hat{v}_R$ in Eq.~\eqref{eq:r3-vhat} has bias $-\rho\sigma_Y^2/[kmT(1+\rho/(km))]$ and variance
+  \begin{equation}
+    \Var(\hat{v}_R) = \frac{1}{(1+\rho/(km))^2}\left[\frac{\mu_{4Y}}{T} - \frac{(T-3)\sigma_Y^4}{T(T-1)} - \frac{2\varpi'\mu_{3Y}}{T} + \frac{\varpi'^2\sigma_Y^2}{T}\right]\left(1 + O\left(\frac{1}{mT}\right)\right),
+    \label{eq:r3-omega}
+  \end{equation}
+  where $\varpi' = (1 + 2\rho\bar{R}/k)/m$. As $m \to \infty$, $T\Var(\hat{v}_R) \to \Omega_\infty = \E(R_t-\bar{R})^4 - v_R^2$. When $R_t \sim \text{Gamma}(\xi, \vartheta)$, $\Omega_\infty = v_R^2(2 + 6v_R/\bar{R}^2)$.
+  \item Let the joint distribution of $(R_1, \dots, R_T)$ belong to a family parameterized by $v_R$. For any scale $m$ and any correlation structure, $\mathcal{I}_{C_{1:T}}(v_R) \le \mathcal{I}_{R_{1:T}}(v_R)$. When periods are independent with $R_t \sim \text{Gamma}$ of fixed mean $\bar{R}$:
+  \begin{equation}
+    \mathcal{I}_{R_{1:T}}(v_R) = \frac{T\xi\,[\xi(\ln\Gamma)''(\xi) - 1]}{v_R^2}, \qquad \xi = \frac{\bar{R}^2}{v_R},
+    \label{eq:r3-IR}
+  \end{equation}
+  where $(\ln\Gamma)''$ is the trigamma function. For stationary Gaussian AR(1) environments, $\mathcal{I}_{R_{1:T}}(v_R) = T/(2v_R^2)$, independent of $\phi$.
+\end{enumerate}
+\end{sproposition}
+
+\begin{proof}
+Item (i) in Proposition~\ref{prop:vR-info} follows from setting sample variance $S_C^2$ equal to marginal variance $m^2 V(m) = m^2 v_R + m\bar{R} + (\rho m/k)(\bar{R}^2+v_R)$ and solving for $v_R$.
+
+For Supplementary Proposition~\ref{sprop:vR-finite}(a), standard moments of sample variance give Eq.~\eqref{eq:r3-omega}. As $m \to \infty$, $Y_t \to R_t$, recovering $\Omega_\infty = \Var((R_t-\bar{R})^2) = \E(R_t-\bar{R})^4 - v_R^2$. For $\text{Gamma}(\xi, \vartheta)$, the fourth central moment is $3\xi(\xi+2)\vartheta^4$, which upon substituting $\xi = \bar{R}^2/v_R$ and $\vartheta = v_R/\bar{R}$ yields $\Omega_\infty = v_R^2(2 + 6v_R/\bar{R}^2)$.
+
+For Supplementary Proposition~\ref{sprop:vR-finite}(b), the Markov chain $v_R \to R_{1:T} \to C_{1:T}$ and the data processing inequality yield $\mathcal{I}_{C_{1:T}}(v_R) \le \mathcal{I}_{R_{1:T}}(v_R)$. Evaluating the Fisher information matrix for the two-parameter Gamma family under the chain rule $\mathrm{d}\xi/\mathrm{d}v_R = -\bar{R}^2/v_R^2$ and $\mathrm{d}\vartheta/\mathrm{d}v_R = 1/\bar{R}$ yields Eq.~\eqref{eq:r3-IR}. Under stationary Gaussian AR(1), $R_{1:T} - \bar{R} \sim \mathcal{N}(0, v_R \Sigma_\phi)$, giving Fisher information $\frac{1}{2}\mathrm{tr}\{[(v_R \Sigma_\phi)^{-1}\Sigma_\phi]^2\} = T/(2v_R^2)$.
+
+Finally, for Gaussian AR(1), $\Cov[(R_s-\bar{R})^2, (R_t-\bar{R})^2] = 2v_R^2 \phi^{2|s-t|}$. Summing over pairs yields $2v_R^2 \kappa_T(\phi^2)/T$, confirming Eq.~\eqref{eq:r3-teff}.
+\end{proof}
+
+\subsection{Proof of Corollary 2 (Season-Level Variance Bound)}
+\label{sec:proof-cor2}
+
+Forming the Markov chain $v_S \to (\eta_1, \dots, \eta_S) \to (R_t) \to (C_t)$, the data processing inequality establishes that the total Fisher information for $v_S$ cannot exceed the information in the latent seasonal shocks: $\mathcal{I}(v_S) \le S/(2v_S^2)$. By Cram\'er--Rao, any unbiased estimator satisfies $\Var(\hat{v}_S) \ge 2v_S^2/S$, proving the $\sqrt{2/S}$ relative error bound. When seasonal means are unknown, sample variance degrees of freedom reduce to $S-1$. \qed
+
+\subsection{Proof of Proposition 7 (Budget Threshold under AR(1) Environments)}
+\label{sec:proof-prop7}
+
+Substituting the budget constraint into $f_\phi(T) = v_R e(T) + A c_1 / (\mathcal{B} - c_0 T)$, the first-order condition requires $v_R g_T = c_0 A / (c_1 m^2)$. Monotonicity of $g_T(\phi)$ from $g_1 < 1$ to $(1+\phi)/(1-\phi) > 1$ guarantees a unique root $T^\dagger$ where $g_{T^\dagger} = 1$, corresponding to budget $\mathcal{B}^\dagger = T^\dagger(c_0 + c_1 m_0^*)$. When $\mathcal{B} < \mathcal{B}^\dagger$, $T^* < T^\dagger$ and $g_{T^*} < 1$, requiring $m^* > m_0^*$. When $\mathcal{B} > \mathcal{B}^\dagger$, $m^* < m_0^*$. \qed
+
+\subsection{Shrinkage and Empirical Bayes Estimation}
+\label{sec:proof-shrink}
+
+Consider the linear shrinkage estimator $\hat{\theta}_\lambda = (1-\lambda)C_t/m + \lambda\mu_0$, where $\mu_0$ is a prior benchmark and $\delta = \mu_0 - \Rbar$. The mean squared error is
+\begin{equation}
+  \mathrm{MSE}(\lambda) = (1-\lambda)^2 V + \lambda^2 \delta^2, \qquad V = v_R + \frac{A}{m}.
+\end{equation}
+Minimizing over $\lambda$ yields $\lambda^* = V/(V+\delta^2)$ and $\mathrm{MSE}(\lambda^*) = V\delta^2 / (V+\delta^2)$. Thus, $\mathrm{MSE}(\lambda^*) < v_R$ if and only if $\delta^2 < v_R(1 + m/m_\times)$. The estimator achieves variance reduction by introducing conditional bias $\lambda(\mu_0 - R_t)$. \qed
+
+\subsection{Renewal Process Variance and Delta Expansion of Denominator Noise}
+\label{sec:proof-renewal}
+
+Conditional on history $\mathcal{F}_t$, let $\bar{\Lambda} = \E(\Lambda_{t+1} \mid \mathcal{F}_t)$ and $m = \rho \bar{\Lambda}$. By the law of total variance conditioned on $(\Lambda_{t+1}, R_{t+1})$:
+\begin{align}
+  \Var(C_{t+1} \mid \mathcal{F}_t) &= \E\left[\rho \Lambda_{t+1} R_{t+1} + \frac{\rho^2 \Lambda_{t+1} R_{t+1}^2}{k}\ \Big|\ \mathcal{F}_t\right] + \Var(\rho \Lambda_{t+1} R_{t+1} \mid \mathcal{F}_t) \nonumber \\
+  &= m A + \rho^2 \bar{\Lambda}^2 \left[v_R + \CV^2(\Lambda_{t+1} \mid \mathcal{F}_t)\,(\Rbar^2 + v_R)\right].
+\end{align}
+Dividing by $m^2 = (\rho \bar{\Lambda})^2$ yields Eq.~\eqref{eq:info-decomp}.
+
+For the denominator noise expansion, condition on true infection history $\mathcal{H}_t$, and define $D_t = m(1+\delta)$ where $m = \rho \Lambda_{t+1}$ and $c_w = (1-\rho)\sum_s w_s^2$. Then $\E(\delta) = 0$ and $\E(\delta^2) = c_w/m$. Expanding $G_t = (C_{t+1}/m)(1+\delta)^{-1}$ to second order in $\delta$:
+\begin{equation}
+  \E(G_t \mid \mathcal{H}_t) = \Rbar\left(1 + \frac{c_w}{m}\right) + O(m^{-2}), \qquad
+  \Var(G_t \mid \mathcal{H}_t) = v_R + \frac{A + (\Rbar^2 + 3v_R)c_w}{m} + O(m^{-2}).
+\end{equation}
+Normalizing by the squared conditional expectation $[\E(G_t \mid \mathcal{H}_t)]^2 = \Rbar^2[1 + 2c_w/m + O(m^{-2})]$ eliminates $2v_R c_w/m$, yielding the slope expression in Eq.~\eqref{eq:b-delta}. \qed

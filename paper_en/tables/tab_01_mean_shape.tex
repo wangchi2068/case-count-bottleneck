@@ -1,0 +1,15 @@
+\begin{table}[!tbp]
+  \centering
+  \caption{Comparison of three functional mean shapes for estimation loss on the early-epidemic influenza sample ($N = 1{,}267$ state-weeks). Models are estimated by Gamma quasi-likelihood. Cross-validation is leave-one-state-out, with baseline mean $\bar{R}$ re-estimated solely on training states in each fold. Deviance differences are reported relative to the affine specification M1, with standard errors across states in parentheses.}
+  \label{tab:shape}
+  \small
+  \begin{tabular}{@{}llrrrc@{}}
+    \toprule
+    Model & Parameter estimates & AIC & CV deviance & $\Delta$Deviance vs M1 & States favoring M1 \\
+    \midrule
+    M0: $L = b/D$ & $b = 21.7$ & $-1971.2$ & 5407.1 & 1949.9 (243.1) & 48/51 \\
+    M1: $L = a + b/D$ & $a = 0.0991$, $b = 2.243$ & $-2718.8$ & 3457.2 & -- & -- \\
+    M2: $L = c D^{-p}$ & $c = 0.512$, $p = 0.273$ & $-2692.6$ & 3514.0 & 56.8 (27.2) & 28/51 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

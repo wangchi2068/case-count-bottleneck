@@ -1,0 +1,136 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[labelfont=bf]{caption}
+\usepackage{subcaption}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\journal{Epidemics}
+
+\newtheorem{sproposition}{Supplementary Proposition}
+\renewcommand{\thesproposition}{S\arabic{sproposition}}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\NB}{\mathrm{NB}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\CV}{\mathrm{CV}}
+\newcommand{\Rbar}{\bar{R}}
+\newcommand{\mx}{m_\times}
+
+\externaldocument{build/main}
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thesubsection}{S\arabic{section}.\arabic{subsection}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Supplementary Material: Limits to improving reproduction number estimates by increasing case counts: Environmental variability, reporting heterogeneity, and surveillance design}
+
+\author{Chi Wang}
+\affiliation{organization={School of Safety Science and Engineering, Xi'an University of Science and Technology},
+            city={Xi'an},
+            postcode={710054},
+            country={China}}
+
+\end{frontmatter}
+
+\input{sections/supp_proofs}
+
+\section{Robustness analyses and supplementary tables}
+\label{sec:s-robust}
+
+This section documents the robustness checks, sensitivity specifications, and supplementary tables referenced in the main text.
+
+\subsection{Equivalence testing of reporting adjustment}
+\label{sec:s-tost}
+
+Table~\ref{tab:s-tost} presents the two one-sided tests for equivalence (TOST) evaluating the impact of reporting completeness adjustment $\Delta a = a - a^*$ across seven pathogen-window combinations. All three influenza combinations demonstrate statistical equivalence under both BCa bootstrap intervals and normal approximation tests at the 5\% margin ($\pm 0.0050$). Calendar windows for COVID-19 and RSV achieve equivalence under the BCa interval criterion. The two growth-phase windows exceed equivalence margins primarily because their baseline intercepts are small ($a \approx 0.02$--$0.03$), making the 5\% equivalence band extremely narrow ($\pm 0.001$). For the 2025--2026 influenza season, $\Delta a = +0.0039$ (90\% BCa CI 0.0020--0.0060), which remains within the seasonal equivalence margin of 0.0088.
+
+\subsection{Evaluation of reporting detection power on simulated grids}
+\label{sec:s-tau}
+
+Table~\ref{tab:s-tau} evaluates the sensitivity of the $\Delta a$ detection metric across a 35-cell simulation grid of reporting volatility. When reporting fluctuations are uncorrelated with hospital reporting completeness ($\kappa = 0$), the false rejection rate is 0 across all cells. As elasticity $\kappa$ increases, power to detect reporting effects rises; however, because empirical reporting completeness is concentrated near unity (median 0.943), observable institutional completeness explains $<1\%$ of intercept elevation, while within-facility underreporting or clinical threshold shifts ($\tau > 0$) remain unconstrained by $\Delta a$.
+
+\subsection{Epidemic season random-effects pooling}
+\label{sec:s-seasons}
+
+Table~\ref{tab:s-seasons} reports season-specific intercept estimates and random-effects pooling using the DerSimonian--Laird method. Individual season intercepts range from 0.028 to 0.135 ($Q = 47.4, p = 5\times 10^{-11}$). The pooled intercept across the three primary seasons is $a_{\mathrm{RE}} = 0.077$ (95\% CI $-0.056$ to $0.211$; $\hat{v}_S = 0.0028$), illustrating the theoretical precision lower bound $\sqrt{2/(S-1)} = 1.00$ for $S = 3$.
+
+\subsection{Generation interval aggregation sensitivity}
+\label{sec:s-twogen}
+
+Table~\ref{tab:s-twogen} evaluates sensitivity to discrete generation block length (7 days versus 4 days). Decreasing block length scales baseline intercept magnitude down to approximately 60\% under independent environments, but intercept ratios $q_1, q_2$ vary by less than 0.05. Intercept ratios are driven primarily by admission delay convolution rather than generation block aggregation.
+
+\subsection{Independent non-NHSN surveillance streams}
+\label{sec:s-indep}
+
+Table~\ref{tab:s-indep} presents scaling estimates from outpatient ILINet ($N = 1{,}479$) and hospital FluSurv-NET ($N = 364$). ILINet reproduces the directional intercept pattern ($q_1 = 0.687, q_2 = 1.467$, with 99.7\% of bootstrap resamples satisfying $q_1 < 1 < q_2$). FluSurv-NET covers only 14 sentinel sites, producing wide confidence intervals that span unity.
+
+\subsection{Null range specifications and evidence grading}
+\label{sec:s-grading}
+
+Table~\ref{tab:s-grading} details pre-registered null simulation ranges and sensitivity classifications across the seven pathogen-window combinations. Under pre-registered full-grid criteria, 4 combinations achieve partial replication and 3 show directional consistency (0/4/3). Under sensitivity specifications excluding admission delays, full replication is achieved in 2 combinations.
+
+\subsection{Supplementary figures}
+\label{sec:s-figs}
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig_s1_bootstrap.pdf}
+  \caption{State-clustered bootstrap distributions of lag-weight ratios ($N = 1{,}267$ state-weeks, $B = 2{,}000$ resamples). (A) Slope ratio $r_1 = b_{\mathrm{single}} / b_{\mathrm{primary}}$. (B) Slope ratio $r_2 = b_{\mathrm{equal}} / b_{\mathrm{primary}}$. (C) Intercept ratio $q_1 = a_{\mathrm{single}} / a_{\mathrm{primary}}$. (D) Intercept ratio $q_2 = a_{\mathrm{equal}} / a_{\mathrm{primary}}$. Vertical solid lines indicate point estimates; grey shaded areas represent 95\% percentile confidence intervals; tick markers indicate theoretical predictions from candidate mechanisms (Table~\ref{tab:ratios}). Slope ratios exclude the noise-free denominator model (M-nodn), while intercept ratios reject stationary models but overlap with dynamic growth renewal ranges.}
+  \label{fig:s-boot}
+\end{figure}
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=0.96\textwidth]{figures/fig_s2_forest.pdf}
+  \caption{Forest plot of empirical balance scale ratios $b/a$ across model specifications (cases/week, logarithmic scale). Horizontal bars represent 95\% confidence intervals from cluster bootstrap resamples. Shaded band indicates the theoretical scenario range $m_\times \in [21.3, 49.2]$, with vertical dashed line marking the baseline estimate of 22.6 cases/week. Upper section displays NHSN influenza sensitivity specifications; lower section displays external surveillance streams.}
+  \label{fig:s-forest}
+\end{figure}
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig_s3_growth.pdf}
+  \caption{Exact test size and required sample volume for outbreak detection ($\rho = 0.25$, nominal size $\alpha = 0.05$, exact negative-binomial probabilities). (A) Actual test size of standard Wald tests (colored curves by dispersion $k$) versus exact uniformly most powerful tests (grey curve) as a function of expected reporting scale $m$. (B) Expected reporting volume required to achieve and maintain $\ge 80\%$ statistical power versus detectable transmission excess $\delta = R_t - 1$.}
+  \label{fig:s-growth}
+\end{figure}
+
+\FloatBarrier
+\input{sections/supp_robustness_tables}
+
+\FloatBarrier
+\section{Replication package overview}
+\label{sec:s-repro}
+
+The complete replication archive containing analytical code, data snapshots, and numerical result dictionaries is permanently maintained at \url{https://github.com/wangchi2068/case-count-bottleneck}.
+
+\paragraph{Archive structure}
+\begin{itemize}
+  \item \nolinkurl{experiment/code/}: All 23 execution scripts for data processing, FGLS fitting, bootstrap resampling, and renewal simulations.
+  \item \nolinkurl{experiment/data/}: Processed panel datasets, including NHSN weekly hospitalisations, ILINet, and FluSurv-NET data.
+  \item \nolinkurl{experiment/analysis/}: Result JSON dictionaries and numerical mapping tables (\nolinkurl{reproduction_map.json}, \nolinkurl{reproduction_map.md}), linking every reported number in the manuscript to its programmatic output.
+  \item \nolinkurl{experiment/logs/}: Execution logs and figure quality audit records.
+\end{itemize}
+
+\paragraph{Computational environment}
+Python 3.11 with NumPy 2.4, SciPy 1.17, Pandas 3.0, and Matplotlib 3.11. All scripts execute locally without external API dependencies. Baseline reproducibility was verified across 24,815 numerical comparisons within $10^{-9}$ numerical tolerance.
+
+\FloatBarrier
+\bibliographystyle{elsarticle-harv}
+\bibliography{bibliography}
+
+\end{document}

@@ -1,0 +1,145 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{The scale balance point for a moving target}
+\label{sec:res-average}
+\label{sec:res-test}
+
+The variance curves derived in Section~\ref{sec:bg-variance} quantify the balance point of sampling returns. Taking baseline transmission parameters ($\Rbar=1.15$, $v_R=0.04$, $k=0.35$, $\rho=0.25$), the sampling coefficient is $A=2.1232$, yielding a variance balance scale of $m_\times=53.1$ cases. At sample volumes of $m=10$, $53.1$, and $200$, doubling the surveillance scale reduces total variance by 42.1\%, 25.0\%, and 10.5\%, respectively. While the error variance for Target 1 ($R_t$) decays strictly as $1/m$ without saturation, the error for Target 2 ($\Rbar$) is bounded from below by $v_R$; once $m$ surpasses $m_\times$, additional sample volume compresses only the sampling term, which already accounts for less than half of total variance (Fig.~\ref{fig:variance}B).
+
+When surveillance capacity is constrained by total budget rather than single-period sample volume, planners must determine how to partition resources over time.
+
+\begin{proposition}[Multi-period allocation and cost optimization]
+\label{prop:allocation}
+Under H1--H4, consider observing $T$ periods with expected reporting volume $m$ per period, yielding a total volume $B = Tm$. We estimate $\Rbar$ by the cross-period average $T^{-1}\sum_{t=1}^T \widehat{R}_t$. Let $c_0$ denote the fixed operational cost per period, $c_1$ the marginal cost per reported infection, and $\mathcal{B}$ the total budget, such that $T = \mathcal{B}/(c_0 + c_1m)$.
+\begin{enumerate}[label=(\roman*)]
+  \item If environmental conditions $R_t$ are independent across periods, the estimation variance is
+  \begin{equation}
+    \frac{1}{T^2}\Var\Bigl(\sum_{t=1}^{T}\widehat{R}_t\Bigr) = \frac{v_R}{T} + \frac{A}{B}.
+    \label{eq:alloc-indep}
+  \end{equation}
+  The sampling term $A/B$ depends solely on total volume $B$, invariant to temporal partitioning, while the environmental term decays as $1/T$. If $R_t$ follows a stationary Gaussian AR(1) process with autocorrelation $\phi$, the sampling term remains $A/B$, while the environmental term satisfies
+  \begin{equation}
+    T^2\Var(\bar{R}_T) = v_R\Bigl[T + 2\sum_{h=1}^{T-1}(T-h)\phi^h\Bigr]
+    = v_R\Bigl[\frac{T(1+\phi)}{1-\phi} - \frac{2\phi(1-\phi^T)}{(1-\phi)^2}\Bigr].
+    \label{eq:ar-sum}
+  \end{equation}
+  \item In both settings, variance decreases strictly monotonically with $T$. Under temporal independence, the budget-constrained variance $f(m) = (c_0 + c_1m)(v_R + A/m)/\mathcal{B}$ achieves its global minimum at
+  \begin{equation}
+    m^* = \sqrt{\frac{c_0}{c_1}\,m_\times}, \qquad
+    f(m^*) = \frac{(\sqrt{c_0 v_R} + \sqrt{c_1 A})^2}{\mathcal{B}}.
+    \label{eq:optimal-m}
+  \end{equation}
+  If $\mathcal{B} < c_0 + c_1m^*$, the boundary constraint $T \ge 1$ binds, yielding $T^* = 1$; if $c_0 = 0$, $m^* \to 0$ and $T^* \to \infty$.
+\end{enumerate}
+\end{proposition}
+
+The optimal single-period volume is the geometric mean of the cost ratio $c_0/c_1$ and the balance scale $m_\times$, isomorphic to Neyman--Cochran allocation in two-stage sampling \citep{cochran1977sampling}. In our empirical scenarios (Section~\ref{sec:res-case}), $m_\times$ spans 21.3--49.2 cases, implying $m^* \in [14.6, 22.2]$ for $c_0/c_1 = 10$ and $m^* \in [46.1, 70.1]$ for $c_0/c_1 = 100$.
+
+For outbreak detection (Target 1), the inferential task is hypothesis testing: $H_0\colon R_t \le 1$ versus $H_1\colon R_t > 1$. Because the negative-binomial family for $C_t$ has a monotone likelihood ratio in $R_t$, the uniformly most powerful test rejects $H_0$ when $C_t \ge c_\alpha$, where $c_\alpha$ is the critical value at nominal size $\alpha$ \citep{karlin1956theory, lehmann2005testing}. The exact statistical power at $R_t = 1 + \delta$ is
+\begin{equation}
+  \beta(n, \delta) = 1 - F_{\NB}(c_\alpha - 1;\ nk,\ k/[k + \rho(1+\delta)]).
+  \label{eq:power}
+\end{equation}
+Standard Wald tests comparing $(\widehat{R}_t - 1)/\sqrt{V_0}$ to normal quantiles exhibit substantial size inflation at small scales (e.g., actual size 7.81\% for $m=5, k=0.1$; peak size 10.40\% for $k=1$). Due to discreteness, power curves exhibit non-monotonic serration with sample volume (e.g., dropping 82 times as $n$ grows from 400 to 699 at $k=0.35, \delta=0.3$). Under $\rho=0.25, k=0.35$, reliably detecting a 15\% transmission increase ($\delta=0.15$) with 80\% power requires $n \ge 2{,}107$ active ancestors ($m \approx 527$ cases), approximately ten times the balance scale $m_\times$ (Supplementary Fig.~\ref{fig:s-growth}). Thus, early-warning surveillance volume must be sized by statistical power rather than by $m_\times$.
+
+Epidemic renewal simulations (Section~\ref{sec:meth-sim}) confirm that these scale relationships hold when incidence grows dynamically. Grouped by realized denominator scale $D_t$, simulated mean squared errors are within 0.98--1.03 times the single-generation reference curve $(v_R + A/m)/\Rbar^2$ for $D_t \ge 400$, while random denominator noise slightly elevates error (1.04--1.23 times) at small scales $D_t < 400$ (Fig.~\ref{fig:r3-levers}E--F).
+
+\subsection{The reporting signature in the scaling law}
+\label{sec:res-inflation}
+
+Because environmental fluctuations and reporting noise both contribute to the scale-invariant intercept, distinguishing them requires examining how estimation errors respond to denominator lag weighting. We evaluate five competing structural mechanisms: M-env (stationary environmental stochasticity only); M-bin0 (binomial reporting without environmental variance); M-meas (pure observation measurement error); M-nodn (noise-free denominator); and M-mult (multiplicative reporting shocks on top of environmental noise).
+
+Under stationary reporting shocks with autocorrelation $\psi$, the model-implied intercept ratio between lag-weight vectors $w$ and $w'$ follows $F(w, \psi) / F(w', \psi)$ from Eq.~\eqref{eq:r3-Fw}. For our primary weighting $w = (0.65, 0.25, 0.10)$, current-week weighting $w^{(1)} = (1, 0, 0)$, and three-week equal weighting $w^{(3)} = (1/3, 1/3, 1/3)$, pure reporting noise implies analytical intercept ratios of $q_1 \in [0.883, 1.338]$ and $q_2 \in [0.892, 1.374]$ (Supplementary Table~S2).
+
+Empirical estimation across these three weighting schemes yields slope estimates of $b = 2.243$, $3.134$ (2.250--4.013), and $1.926$ (1.083--2.858), with slope ratios relative to baseline of $r_1 = 1.397$ (1.229--1.623) and $r_2 = 0.859$ (0.599--1.083). The fitted intercept increases monotonically with average lookback lag (0.0682, 0.0991, and 0.1524 across mean lags of 1.0, 1.45, and 2.0 weeks), producing intercept ratios of $q_1 = 0.688$ (0.658--0.727) and $q_2 = 1.539$ (1.420--1.656). In 2,000 state-clustered bootstrap replications, 100\% satisfied $q_1 < 1 < q_2$ (Supplementary Fig.~\ref{fig:s-boot}).
+
+While slope ratios rule out the noise-free denominator model (M-nodn), they do not separate reporting noise from environmental stochasticity. The observed intercept pattern $q_1 < 1 < q_2$ decisively rejects stationary environmental models ($q = 1$), but is consistent with epidemic growth dynamics: daily-resolution renewal simulations with admission delays reproduce $q_1 \in [0.601, 0.887]$ and $q_2 \in [1.187, 1.568]$ even under independent environments ($\phi=0$). Thus, intercept ratios differentiate dynamic epidemic growth from stationary models, but cannot isolate reporting shocks from convolution delays without auxiliary reporting data (Fig.~\ref{fig:case}C--D).
+
+\subsection{A case study of influenza hospitalisations in the United States}
+\label{sec:res-case}
+\label{sec:res-early}
+
+We analyse weekly laboratory-confirmed influenza hospital admissions across 50 US states and Washington, D.C., from NHSN (2020--2026), comprising 16,218 state-weeks and 10,303 valid observations ($D_t \ge 5$). Because influenza's generation interval is approximately 3 days, weekly hospitalisation growth $G_t$ aggregates roughly two infection generations. We therefore test the functional scaling shape rather than treating coefficients as structural single-generation parameters. The primary analysis focuses on the early expansion phase across three epidemic seasons ($N = 1{,}267$ state-weeks, mean growth $\Rbar_{\mathrm{early}} = 1.6706$, standard deviation 0.7116). Partitioned into six bins of expected scale $D_t$, mean squared error drops from 0.329 (95\% CI 0.244--0.415) in the $[5, 20)$ bin to 0.161 in $[20, 50)$, 0.112 in $[100, 250)$, and levels off at 0.103 and 0.105 in the largest bins (Fig.~\ref{fig:case}A--B).
+
+Feasible generalised least squares (FGLS) yields an estimated intercept of $a = 0.0991$ (95\% CI 0.0837--0.1165), a slope of $b = 2.243$ (1.494--3.007), and an empirical ratio of $b/a = 22.6$ cases/week (13.5--34.9; BCa CIs 0.0819--0.1144, 1.538--3.090, and 14.2--36.6). Across 2,000 bootstrap replications, no sample produced $a \le 0$ or $b \le 0$. Ordinary least squares yielded a consistent slope of $b = 2.305$. Trimming the top 1\% most influential loss observations reduced $b/a$ to 10.6 (5.9--17.3), reflecting sensitivity to extreme outliers.
+
+Empirical observations display diminishing error reductions with increasing sample volume, consistent with theoretical error decomposition. Model comparisons on mean functional shape (Supplementary Table~S1) demonstrate that a floorless model $L = b/D$ performs substantially worse than the affine model (leave-one-state-out cross-validation deviance difference $1949.9 \pm 243.1$; 48 of 51 states favor the affine form). A floorless power-law model $L = c D^{-p}$ yields $\hat{p} = 0.273$, with a cross-validation deviance difference of $56.8 \pm 27.2$ relative to the affine specification. While the data require an error component that does not vanish with sample volume, current empirical ranges cannot differentiate a strictly flat asymptotic floor from slow power-law decay.
+
+Decomposition of sample loss reveals the remaining scope for scale expansion. Average squared error across the sample is 0.181, of which the intercept $a$ accounts for 54.6\%, the scale-dependent term $b/D_t$ accounts for 45.1\% (evaluated at the harmonic mean scale of 27.4), and residual variation accounts for 0.2\%. In a counterfactual scenario where all jurisdictions with $D_t < 250$ are expanded to $D_t = 250$, mean loss decreases by 40.9\% to 0.107, closely matching the empirical average loss of 0.104 observed among state-weeks naturally exceeding 250 cases.
+
+The empirical scale ratio aligns in magnitude with theoretical scenarios. Setting $\Rbar = 1.67$, $k \in [0.2, 0.5]$ \citep{lloydsmith2005superspreading}, $\rho \in [0.0056, 0.021]$ \citep{zhou2012hospitalizations, tokars2018seasonal}, and $v_R \in [0.04, 0.08]$, implied $m_\times$ spans 21.3--49.2 cases. Implied scenario intercepts span 0.0143--0.0287, and slopes span 0.610--0.707. The empirical intercept is 3.5--6.9 times larger, and the slope is 3.2--3.7 times larger, than scenario baselines; because both parameters are inflated by similar factors, their ratio falls within the theoretical range. The fitted intercept reflects unmodelled error components not explained by sample volume and cannot be simply equated with biological environmental variance.
+
+\subsection{Reporting adjustment and cross-pathogen replication}
+\label{sec:res-reporting-adj}
+\label{sec:res-pathogens}
+
+Proposition~\ref{prop:report-noise} establishes that count data alone cannot attribute intercept elevation to environmental variance versus reporting volatility. NHSN weekly hospital reporting completeness provides an observable empirical proxy. In early-epidemic weeks, reporting completeness volatility is modest ($V_\pi = 0.00118$, 95\% CI 0.00092--0.00171; mean $\pi_{s,t} = 1.006$), whereas voluntary reporting regimes exhibited volatility two orders of magnitude higher ($V_\pi = 0.119$).
+
+Adjusting for hospital reporting completeness leaves the estimated intercept essentially unchanged: unadjusted $a = 0.0991$ (0.0820--0.1146) versus adjusted $a^* = 0.0994$ (0.0821--0.1150), yielding $\Delta a = a - a^* = -0.0004$ ($-0.0014$ to $0.0006$). In two one-sided tests for equivalence (TOST) with a 5\% margin ($\pm 0.0050$), the 90\% BCa interval $[-0.0012, 0.0005]$ falls entirely within bounds. The upper confidence limit of 0.00065 represents only 0.93\% of the scenario excess intercept ($a - 0.08/\Rbar^2 = 0.0704$). Hence, observable institutional reporting completeness accounts for $<1\%$ of the non-sampling error floor (Fig.~\ref{fig:reporting-adj}A--B).
+
+Cross-pathogen analysis across seven pathogen-window combinations in NHSN (influenza, COVID-19, RSV) demonstrates consistent directional behavior: all seven combinations exhibit $q_1 < 1 < q_2$ in 100\% of bootstrap samples. Based on pre-registered classification criteria against renewal null ranges, intercept ratios do not reject dynamic growth nulls. However, intercept excess $a - 0.08/\Rbar^2$ yields evidence of partial replication: the lower confidence bound exceeds zero for influenza calendar, growth, and out-of-sample seasons, and RSV 2024--2025 (4 partial replications), while COVID-19 windows and RSV growth windows show directional consistency (3 directional). Overall grading yields 0 full replications, 4 partial replications, and 3 directional findings (Fig.~\ref{fig:pathogens}C--E). Independent outpatient ILINet surveillance ($N = 1{,}479$) and hospital FluSurv-NET ($N = 364$) corroborate the directional signature ($q_1 = 0.687, q_2 = 1.467$).
+
+\subsection{Design levers and budget allocation}
+\label{sec:r3-levers}
+\label{sec:r3-design}
+
+Surveillance design must also account for the precision with which the environmental floor $v_R$ can be estimated.
+
+\begin{proposition}[Estimation precision of environmental variance]
+\label{prop:vR-info}
+Under H1--H4 with equal sample volume $m$ per period and $Y_t = C_t/m$:
+\begin{enumerate}[label=(\roman*)]
+  \item The modified moment estimator
+  \begin{equation}
+    \hat{v}_R = \frac{S_Y^2 - \varpi(\bar{Y})}{1 + \rho/(km)}, \qquad \varpi(y) = \frac{y}{m} + \frac{\rho y^2}{km},
+    \label{eq:r3-vhat}
+  \end{equation}
+  where $\bar{Y}, S_Y^2$ are sample mean and variance across $T$ periods, has a variance that asymptotically plateaus as $m \to \infty$ at $\Omega_\infty / T$, where $\Omega_\infty = \E(R_t - \Rbar)^4 - v_R^2$. Expanding single-period sample volume cannot push estimation variance below this floor; the floor height is governed strictly by period count $T$.
+  \item The Fisher information lower bound on relative standard error is $(0.505 T)^{-1/2}$, invariant to sample volume $m$ ($0.81, 0.45, 0.20$ for $T = 3, 10, 50$).
+  \item Under stationary Gaussian AR(1) environments with autocorrelation $\phi$, the effective period count for variance estimation contracts to
+  \begin{equation}
+    T_{\mathrm{eff}} = \frac{T}{\kappa_T(\phi^2)} \approx T\,\frac{1 - \phi^2}{1 + \phi^2}.
+    \label{eq:r3-teff}
+  \end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{corollary}[Season-level components]
+\label{cor:season}
+If transmission potential includes an exchangeable seasonal shock $\eta_s \sim \mathcal{N}(0, v_S)$ across $S$ seasons, the relative standard error of any unbiased estimator of $v_S$ is bounded below by $\sqrt{2/S}$ ($\sqrt{2/(S-1)}$ when mean is estimated), regardless of weekly sample volume or jurisdiction count.
+\end{corollary}
+
+For $S = 3$ and $S = 4$ seasons, the lower bounds are 0.82 and 0.71, respectively, demonstrating that resolving seasonal transmission variance requires multi-year observation horizons.
+
+The division of labor among surveillance design levers is captured by the $T$-period error decomposition:
+\begin{proposition}[Roles of sample volume, period count, and standardization]
+\label{prop:levers}
+Under H1--H5, with serial correlations $\gamma_R(h)$ and $\gamma_u(h)$:
+\begin{equation}
+  \E(\bar{R}_T - \Rbar)^2 = \frac{1}{T^2}\sum_{s=1}^T \sum_{t=1}^T \Bigl\{v_R \gamma_R(h) + \tau^2 \gamma_u(h)\bigl[\Rbar^2 + v_R \gamma_R(h)\bigr]\Bigr\} + \frac{A_H}{Tm}.
+  \label{eq:r3-levers}
+\end{equation}
+Increasing sample volume $m$ reduces solely the final term; increasing $T$ suppresses the environmental term and decaying reporting shocks; standardizing reporting ($\tau = 0$) eliminates the reporting term.
+\end{proposition}
+
+In baseline numerical evaluations ($T=10, m=50, \tau=0.15, \phi=\psi=0.5$), mean squared error is $22.5\times 10^{-3}$ (environmental 10.40, reporting 7.85, sampling 4.29). A tenfold expansion in sample volume lowers MSE only to $18.7\times 10^{-3}$; quadrupling period count lowers it to $6.2\times 10^{-3}$; eliminating reporting volatility reduces it to $14.6\times 10^{-3}$ (Fig.~\ref{fig:r3-levers}C).
+
+When environments are positively autocorrelated ($\phi > 0$), consecutive periods provide redundant information:
+\begin{proposition}[Optimal surveillance design under AR(1) environments]
+\label{prop:ar-design}
+Under budget constraint $T(c_0 + c_1m) = \mathcal{B}$, there exists a threshold budget $\mathcal{B}^\dagger(\phi)$. When $\mathcal{B} < \mathcal{B}^\dagger$, the optimal strategy sets fewer, larger periods ($m^* > m_0^*$); when $\mathcal{B} > \mathcal{B}^\dagger$, optimal design sets more, smaller periods ($m^* < m_0^*$). As $\mathcal{B} \to \infty$, $m^* \to m_0^*\sqrt{(1-\phi)/(1+\phi)}$.
+\end{proposition}
+
+For $\phi = 0.8$ and $c_0/c_1 = 100$, the budget threshold is $\mathcal{B}^\dagger = 775$. Sizing surveillance using naive independent-period formulas under small budgets results in severely undersized single-period sample volumes (Fig.~\ref{fig:r3-levers}D).
+
+\subsection{Seasonal and phase-dependent error}
+\label{sec:res-seasons}
+
+Empirical estimation confirms strong season-level heterogeneity. Individual season intercepts are 0.071 (0.049--0.094), 0.028 (0.017--0.041), and 0.135 (0.111--0.166), with between-season heterogeneity test $Q = 47.4$ ($p = 5\times 10^{-11}$). Including the out-of-sample 2025--2026 season ($a = 0.177$) increases $Q$ to 85.0 ($p = 2.6\times 10^{-18}$). Between-season variance is 0.0041, with wide random-effects intervals ($-0.056$ to $0.211$) reflecting the $\sqrt{2/(S-1)}$ precision bound for $S=3$ (Fig.~\ref{fig:seasons}B).
+
+Epidemic phase transitions introduce substantial benchmark error. During peak and post-peak weeks ($N = 1{,}220$), mean growth falls to $\Rbar_{\mathrm{peak}} = 0.8075$. Evaluating error against the early-phase baseline $\Rbar_{\mathrm{early}} = 1.6706$ yields large, scale-invariant losses (0.29--0.31 across bins), with benchmark bias $(\Rbar_{\mathrm{early}} - \Rbar_{\mathrm{peak}})^2 / \Rbar_{\mathrm{early}}^2 = 0.2669$ explaining 88.9\% of total loss. Re-benchmarking against peak-phase mean restores scale responsiveness: $a = 0.0665$ (0.0467--0.0897), $b = 7.927$ (5.424--11.225), and ratio $b/a = 119.2$ (Fig.~\ref{fig:seasons}C--D).
+
+Shifts in reporting regimes highlight structural reporting shocks. Standard deviation of growth ratios increased by 192\% (from 0.624 to 1.823) during the voluntary reporting transition, returning to 0.649 upon resumption of mandatory reporting. Stratification reveals that dispersion expansion occurred specifically during the in-season transition month (October 2024; IQR difference 1.107, 0.289--1.430), while off-season dispersion remained stable (Fig.~\ref{fig:seasons}E--F).
+
+Robustness analyses corroborate the positive scaling coefficient across specifications ($b/a \in [10.6, 124.7]$). Two-stage instrumental variable regression using lagged scale instruments yields $b_{\mathrm{iv}} = 2.53$ (1.11--4.11; first-stage $F = 1147.1$), confirming that endogeneity does not drive the scale effect. National aggregate time series ($\bar{D} \approx 6{,}662$ cases/week) exhibit an average loss of 0.0348---one-third of state-level intercepts---consistent with spatial correlation $\bar{c} \approx 0.34$. External FluSight hospital ensemble forecasts ($a = 0.1295, b = 7.805, b/a = 60.3$) and European COVID-19 data ($b = 33.92, b/a = 124.7$) display consistent scaling directions (Supplementary Fig.~\ref{fig:s-forest}).

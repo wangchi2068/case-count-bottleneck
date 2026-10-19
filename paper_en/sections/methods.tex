@@ -1,0 +1,91 @@
+\section{Materials and methods}
+\label{sec:methods}
+
+\subsection{Branching and observation models}
+\label{sec:meth-assumptions}
+
+The epidemiological branching and surveillance observation process is formulated in Section~\ref{sec:bg-model}: conditional on instantaneous reproduction number $R_t$, secondary cases follow the negative-binomial distribution in Eq.~\eqref{eq:offspring}, which upon independent binomial thinning with probability $\rho$ yields the reported count in Eq.~\eqref{eq:observed}, with expected reporting volume $m = \rho n$. Assumptions H1--H6 define the probability space:
+\begin{enumerate}[label=H\arabic*]
+  \item Conditional on $R_t$, individual secondary cases are independent negative-binomial random variables, and case ascertainment follows independent binomial thinning.
+  \item Infections in period $t$ share a common reproduction number $R_t$; environmental stochasticity operates at the generation-period scale.
+  \item The overdispersion parameter $k$ and reporting probability $\rho$ are known or exogenously identifiable constants.
+  \item The active ancestor volume $n$ is statistically independent of ambient transmission conditions: $\E(R_t \mid n) = \Rbar$ and $\Var(R_t \mid n) = v_R$; for one-step forecasts, $R_{t+1}$ is independent of information history $\mathcal{F}_t$.
+  \item Reporting probability $p_t \in (0, 1]$ is a stationary stochastic process independent of $\{R_t\}$ and $n$, with $\E(p_t) = \rho$, $\Var(p_t) = \sigma^2$, relative volatility $\tau = \sigma/\rho$, and standardised rate $u_t = p_t/\rho$.
+  \item Conditional on environmental trajectories $(R_1, \dots, R_T)$ and reporting rates $(p_1, \dots, p_T)$, observed counts across periods are mutually independent.
+\end{enumerate}
+
+Assumption~H4 holds naturally when $n$ is fixed by active contact-tracing design. In passive surveillance, $n_t$ is the dynamic realization of prior transmission; renewal process and dynamic autoregressive simulations (Sections~\ref{sec:meth-renewal} and~\ref{sec:meth-sim}) relax this independence. Assumption~H5 accommodates both binomial sampling fluctuations and institutional reporting shifts, differing in whether $\sigma^2$ scales with $\rho$.
+
+\subsection{Theoretical derivations}
+\label{sec:meth-derivation}
+
+For Target 2, an estimator $\tilde{\theta}$ is conditionally unbiased for $R_t$ if $\E(\tilde{\theta} \mid R_t) = R_t$. Decomposing estimation error into $\tilde{\theta} - \Rbar = (\tilde{\theta} - R_t) + (R_t - \Rbar)$, the cross-product vanishes in expectation under the law of total expectation:
+\begin{equation}
+  \E(\tilde{\theta} - \Rbar)^2 = \E\big[\Var(\tilde{\theta} \mid R_t)\big] + v_R \ge v_R + \E\big[1/\mathcal{I}(R_t)\big] = v_R + \frac{A}{m},
+\end{equation}
+where $\E[1/\mathcal{I}(R_t)] = \E[R_t/(\rho n) + R_t^2/(kn)] = A/m$ using $\E(R_t^2) = \Rbar^2 + v_R$. The estimator $\widehat{R}_t = C_t/m$ achieves equality, establishing $v_R + A/m$ as the minimum mean squared error in this class.
+
+Under H4, any predictor $\hat{y}$ forecasting $y = C_{t+1}/m$ from history $\mathcal{F}_t$ satisfies $\E(\hat{y} - y)^2 \ge \Var(y \mid \mathcal{F}_t) = v_R + A/m$, with equality achieved at $\hat{y} = \Rbar$. When $\Rbar$ is estimated from $T_0$ prior independent periods of equal scale $m$, forecast error scales as $(v_R + A/m)(1 + 1/T_0)$. Under stationary AR(1) environments with persistence $\phi$, $\Var(R_{t+1} \mid R_t) = (1-\phi^2)v_R$. Multi-period allocations and shrinkage derivations are detailed in Supplementary Sections~S1.1--S1.11.
+
+\subsection{Renewal processes and growth statistics}
+\label{sec:meth-renewal}
+
+In passive time-series surveillance, active ancestor volume $n$ is unobserved. Secondary infections arise from the convolution of past incidence with the generation interval distribution $w_s$: $\Lambda_{t+1} = \sum_{s \ge 1} w_s I_{t+1-s}$ \citep{fraser2007estimating, cori2013new}. Because true incidence is partially observed, infection pressure is unobserved. Surveillance constructs the empirical proxy $D_t = \sum_{s \ge 1} w_s C_{t+1-s}$, yielding the surveillance growth statistic $G_t = C_{t+1}/D_t$. Setting $m = \rho \E(\Lambda_{t+1} \mid \mathcal{F}_t)$ and applying the law of total variance twice (Supplementary Section~S1.12):
+\begin{equation}
+  \frac{\Var(C_{t+1} \mid \mathcal{F}_t)}{[\rho \E(\Lambda_{t+1} \mid \mathcal{F}_t)]^2} = v_R + \frac{A}{m} + \CV^2(\Lambda_{t+1} \mid \mathcal{F}_t)\,(\Rbar^2 + v_R).
+  \label{eq:info-decomp}
+\end{equation}
+When infection pressure is known, $\CV(\Lambda_{t+1} \mid \mathcal{F}_t) = 0$, recovering Eq.~\eqref{eq:predict-bound}. In dynamic surveillance, infection pressure uncertainty introduces an additional scale-invariant variance component.
+
+The empirical relative squared error loss is $L_t = [(G_t - \Rbar)/\Rbar]^2$, which equals the relative forecast error $[(C_{t+1} - \Rbar D_t)/(\Rbar D_t)]^2$ \citep{bosse2023scoring}. Replacing $m$ with $D_t$, expected loss follows the affine scaling model:
+\begin{equation}
+  \E(L_t \mid D_t) \approx a + \frac{b}{D_t}, \qquad a = \frac{v_R}{\Rbar^2}, \quad b = \frac{A}{\Rbar^2}, \quad \frac{b}{a} = m_\times.
+  \label{eq:affine}
+\end{equation}
+We refer to $b/a$ as the empirical balance ratio.
+
+Accounting for binomial sampling noise in the denominator $D_t = m(1+\delta)$, where $\E(\delta^2) = (1-\rho)\sum_s w_s^2 / m$, second-order delta expansion yields the modified slope approximation:
+\begin{equation}
+  b \approx \frac{A + (1-\rho)(\Rbar^2 + v_R)\sum_s w_s^2}{\Rbar^2}.
+  \label{eq:b-delta}
+\end{equation}
+Equation~\eqref{eq:b-delta} generates theoretical slope ratios $r_j = b_j / b_{\mathrm{primary}}$ across alternative weighting vectors $w$, while intercept ratios $q_j = a_j / a_{\mathrm{primary}}$ differentiate reporting mechanisms (Supplementary Section~S1.12 and Table~S2).
+
+\subsection{Simulation design}
+\label{sec:meth-sim}
+
+Monte Carlo verification of Propositions~\ref{prop:current} and~\ref{prop:average} evaluated 10 scale points $m \in [1, 1000]$ with 20,000 replications each (seed 20261013; $\Rbar=1.15, v_R=0.04, k=0.35, \rho=0.25$). Detection power curves were calculated analytically via Eq.~\eqref{eq:power}.
+
+Renewal simulations employed a 4-week discrete generation kernel $w = (0.45, 0.35, 0.15, 0.05)$. Weekly $R_t$ was drawn independently from a Gamma distribution with mean 1.15 and variance 0.04, with $I_t \sim \NB(k\Lambda_t, k/(k+R_t))$, $k=0.35$, and $C_t \sim \Bin(I_t, 0.25)$. Initial incidence for the first 4 weeks was set to $m_0/\rho$, evaluating 8 scale tiers $m_0 \in [6, 800]$ with 400 trajectories of 30 weeks each (seed 20261014; 26 evaluation points per trajectory).
+
+Autoregressive simulations evaluated whether temporal autocorrelation in $R_t$ accounts for empirical intercept magnitude. We set $R_t = \max(0.05, \mu_R + e_t)$, where $e_t$ is a stationary Gaussian AR(1) process with variance $v_R$ and persistence $\phi \in \{0, 0.3, 0.5, 0.7, 0.9, 1\}$, with weekly transmission and binomial reporting $\Bin(I_t, 0.021)$ across 153 state-season configurations matching NHSN empirical early-phase starting scales (seed 20261022; 400 replications per cell).
+
+\subsection{Data sources and preparation}
+\label{sec:meth-data}
+
+Primary data comprise weekly laboratory-confirmed influenza hospital admissions and facility reporting completeness percentages across 50 US states and Washington, D.C., from NHSN (2020--2026; $N = 16{,}218$ state-weeks) \citep{cdc2026nhsn}. Missing counts (504 state-weeks) were assigned zero. Surveillance scale $D_t$ was measured using a three-week lookback:
+\begin{equation}
+  D_t = 0.65\,C_t + 0.25\,C_{t-1} + 0.10\,C_{t-2},
+  \label{eq:dt}
+\end{equation}
+with average lookback lag of 1.45 weeks (10.2 days). Restricting to $D_t \ge 5$ yielded 10,303 valid observations. Sensitivity analyses evaluated single-week weighting ($w^{(1)} = (1, 0, 0)$; $\sum w^2 = 1$; mean lag 1.0 week) and three-week equal weighting ($w^{(3)} = (1/3, 1/3, 1/3)$; $\sum w^2 = 0.333$; mean lag 2.0 weeks), compared to primary weighting ($\sum w^2 = 0.495$).
+
+Three reporting regimes occurred during the study period: mandatory reporting from October 2020 to April 30, 2024 (Regime 1; $N = 6{,}009$; mean reporting completeness 91.1\%); voluntary reporting from May 1 to October 31, 2024 (Regime 2; $N = 420$; mean 54.6\%, median 45.7\%); and resumed mandatory reporting from November 1, 2024 onward (Regime 3; $N = 3{,}874$; mean 91.8\%).
+
+The early expansion window spans three seasons: October 8 to November 26, 2022; October 14 to December 16, 2023; and November 9, 2024 to January 18, 2025 ($N = 1{,}267$ state-weeks). The peak window encompasses the national peak week in each season (December 3, 2022; December 30, 2023; February 8, 2025) plus seven subsequent weeks ($N = 1{,}220$).
+
+\subsection{Statistical inference and model comparison}
+\label{sec:meth-inference}
+
+Model~\eqref{eq:affine} was fitted via feasible generalised least squares (FGLS) with weights $1/\hat{\mu}^2$, where $\hat{\mu}$ denotes fitted values from the preceding iteration, iterated to numerical convergence \citep{wooldridge2010econometric}. Uncertainty was quantified through 2,000 state-clustered bootstrap replications (resampling 51 states with replacement; seed 20261017) \citep{cameron2008bootstrap, cameron2015practitioner}. Primary reporting presents 95\% percentile and BCa confidence intervals \citep{efron1987better}, with acceleration estimated via leave-one-state-out jackknife.
+
+Model comparisons on mean functional shape evaluated three pre-specified specifications: $L = b/D$ (floorless), $L = a + b/D$ (affine), and $L = c D^{-p}$ (power law). Models were estimated by Gamma quasi-likelihood with variance proportional to the square of the mean \citep{mccullagh1989generalized}. Selection criteria included AIC and leave-one-state-out cross-validation deviance, re-estimating $\Rbar$ solely on training states in each fold.
+
+Two-stage instrumental variable regressions instrumented $1/D_t$ with lagged scales $D_{t-3}, \dots, D_{t-5}$, evaluated with 10,000 bootstrap resamples. Historical benchmark models compared expanding-window, 26-week rolling, and state-specific expanding estimates using only antecedent data.
+
+\subsection{Reporting adjustment and cross-pathogen analysis}
+\label{sec:meth-r3}
+
+Hospital reporting completeness is denoted by $\hat{p}_{s,t}$. By Proposition~\ref{prop:report-noise}, time-invariant reporting cancels from the growth ratio; the variance entering the intercept is $V_\pi = \Var(\pi_{s,t})$, where $\pi_{s,t} = \hat{p}_{s,t+1} / \sum_j w_j \hat{p}_{s,t-j}$. Reporting-adjusted counts are $C^*_{s,t} = C_{s,t} / \hat{p}_{s,t}$, yielding adjusted denominator $D^*_t$ and growth ratio $G^*_t = G_t / \pi_{s,t}$. FGLS regression of $L^*_t$ on $1/D_t$ yields adjusted intercept $a^*$ and difference $\Delta a = a - a^*$. Two one-sided tests for equivalence (TOST) evaluated equivalence within a $\pm 5\%$ margin ($\pm 0.0050$) using 90\% BCa confidence intervals.
+
+Cross-pathogen replication evaluated COVID-19 and RSV admissions from NHSN across calendar windows and growth-phase windows ($G^{\mathrm{nat}}_t \ge 1.05$). Benchmark excess was computed as $a - 0.08/\Rbar^2$. Rejection regions against dynamic growth nulls were established via 108 simulation cells of daily renewal processes ($\phi=0$; varying overdispersion, generation interval, admission delay, and growth rate; seed 20261058) and 48 cells of multiplicative reporting shocks (seed 20261059). An outcome was graded as full replication if both $q_1, q_2$ excluded the null range and excess intercept lower bound exceeded zero; partial replication if either criterion was met; and directionally consistent if intercept ratios excluded unity in the $q_1 < 1 < q_2$ direction.
