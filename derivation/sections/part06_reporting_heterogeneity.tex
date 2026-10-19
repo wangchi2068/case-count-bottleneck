@@ -108,51 +108,41 @@
 因为报告噪声本身构成了坚硬的壁垒，当规模仅达到 30 例左右时，抽样误差就已被系统性报告波动所掩盖。在此之后继续砸钱追踪上报更多病例，是在用昂贵的边际成本去稀释已经微不足道的微观抽样项。
 \end{insightbox}
 
-\subsection{统计不可识别性定理与 Fisher 信息界限}
+\subsection{统计不可识别性与方差底板的界定}
 
-\begin{theorembox}{命题 4 的完全证明（环境与报告波动的二阶矩不可识别性）}
-设观测数据序列为 $(C_1, \dots, C_T)$。在假设 H1--H6 下，若仅依据病例计数的边际均值、方差及自协方差结构，环境方差 $v_R$ 与报告变异系数 $\tau^2$ \textbf{在统计上严格不可识别}。
+\begin{theorembox}{命题 4 的证明（边际矩意义下的不可识别性）}
+在假设 H1--H6 下，若仅依据单期病例计数的边际均值与方差，环境方差 $v_R$ 与报告变异系数 $\tau^2$ \textbf{不能分别识别}；两类波动在单期边际二阶矩中完全简并为单一复合参数 $U$。
 \end{theorembox}
 
 \begin{proof}
-根据式~\eqref{eq:vH-closed}、式~\eqref{eq:vH-def} 与式~\eqref{eq:AH-def}，考察计数的一阶矩与二阶矩依赖的参数：
+根据式~\eqref{eq:vH-closed}、式~\eqref{eq:vH-def} 与式~\eqref{eq:AH-def}，考察单期计数的一阶矩与二阶矩依赖的参数：
 \begin{enumerate}
-  \item 边际期望：$\E(C_t / m) = \Rbar$。此项仅包含 $\Rbar$，不含 $v_R$ 与 $\tau^2$。
+  \item 边际期望：$\E(C_t / m) = \Rbar$。此项仅包含均值 $\Rbar$，不包含方差参数 $v_R$ 与 $\tau^2$。
   \item 边际方差：
   \begin{equation}
     V_H(m) = (v_R + v_H) + \frac{A_H}{m} = \big[ (1+\tau^2)(\Rbar^2+v_R) - \Rbar^2 \big] + \frac{1}{m}\left[ \Rbar + \frac{\rho(1+\tau^2)(\Rbar^2+v_R)}{k} \right].
   \end{equation}
-  注意到，定义复合标量参数：
+  定义复合标量参数：
   \begin{equation}
-    U \equiv (1+\tau^2)(\Rbar^2 + v_R),
+    U \equiv (1+\tau^2)(\Rbar^2 + v_R).
   \end{equation}
-  则总底板为 $v_R + v_H = U - \Rbar^2$，规模项分子为 $A_H = \Rbar + \frac{\rho U}{k}$。二者均\textbf{仅仅依赖于标量 $U$}！
-  \item 自协方差结构：由于报告冲击在各期条件独立（H6），当 $|s - t| \ge 1$ 时，$\Cov(C_s/m, C_t/m) = \Cov(R_s, R_t)$。这只取决于环境过程的时间相关函数，无法分离当期截距内的静态混合。
+  则总底板为 $v_R + v_H = U - \Rbar^2$，规模项分子为 $A_H = \Rbar + \frac{\rho U}{k}$。二者均\textbf{仅仅依赖于标量 $U$}。
 \end{enumerate}
-因此，只要保持复合值 $U = (1+\tau^2)(\Rbar^2+v_R)$ 恒定，参数对 $(v_R, \tau^2)$ 可以在双曲线等值线上任意滑动，而生成的观测计数的均值、方差和理论自协方差完全不发生任何改变。故二者在二阶矩意义下绝对不可识别。
+因此，只要保持复合值 $U = (1+\tau^2)(\Rbar^2+v_R)$ 恒定，参数对 $(v_R, \tau^2)$ 可以在双曲线等值线上任意滑动，而生成的观测计数的单期均值与方差完全相同。故二者在单期截面矩意义下不能分别识别。
+
+时间序列的动态相关结构能否帮助分离两类波动，取决于对环境过程与报告过程施加的额外结构性假设（如第~\ref{sec:part08} 节的分母滞后权重结构或第~\ref{sec:part09} 节的自回归动力学形式）。
 \end{proof}
 
-\begin{derivationbox}{推导 6.2：Fisher 信息数据处理不等式与下确界证明}
-记复合状态 $\theta_t \equiv p_t R_t = \rho R_t u_t$。条件在 $\theta_t$ 下，$C_t \sim \NB(nk, \frac{k}{k+\theta_t})$，其条件分布完全由标量 $\theta_t$ 决定，不额外显式依赖 $R_t$。
-因此，参数与观测构成严格的\textbf{无后效马尔可夫链}：
+\begin{derivationbox}{推导 6.2：自然估计量在报告异质性下的渐近方差底板}
+对于自然估计量 $\widehat{R}_t = C_t / (\rho n)$，当固定报告波动过程并令单期祖代规模 $n \to \infty$（从而预期报告规模 $m = \rho n \to \infty$）时：
 \begin{equation}
-  R_t \longrightarrow \theta_t \longrightarrow C_t.
+  \frac{A_H}{m} = \frac{\Rbar + \frac{\rho(1+\tau^2)(\Rbar^2+v_R)}{k}}{m} \longrightarrow 0.
 \end{equation}
-根据 Fisher 信息量的\textbf{数据处理不等式（Data Processing Inequality for Fisher Information）} \citep{zamir1998proof}：
+因此：
 \begin{equation}
-  \mathcal{I}_{C_t}(R_t) \le \mathcal{I}_{\theta_t}(R_t) = \frac{\mathcal{J}_u}{R_t^2},
-  \label{eq:dpi-fisher}
+  \lim_{m \to \infty} V_H(m) = v_R + v_H = v_R + \tau^2(\Rbar^2 + v_R).
 \end{equation}
-其中 $\mathcal{J}_u$ 为标准化报告率 $u_t$ 的尺度 Fisher 信息量（Scale Fisher information）。
+这表明：在存在跨期报告率异质性时，自然估计量 $\widehat{R}_t$ 的均方误差无法随单期规模 $m$ 的扩大而收敛至 0，其保留的渐近方差底板严格为 $v_R + v_H$。
 
-根据 Cauchy--Schwarz 不等式，对于任意均值为 1、方差为 $\tau^2$ 的非退化正随机变量 $u$，其尺度得分函数 $s_u(u) = -[1 + u f_u'(u)/f_u(u)]$ 满足 $\E[s_u(u) u] = 1$。由相关系数界限：
-\begin{equation}
-  1 = [\Cov(s_u(u), u)]^2 \le \Var(s_u(u)) \cdot \Var(u) = \mathcal{J}_u \cdot \tau^2 \implies \mathcal{J}_u \ge \frac{1}{\tau^2}.
-\end{equation}
-等号成立当且仅当得分函数线性：$s_u(u) \propto u - 1$，此微分方程的唯一解是 $u_t$ 服从形状和速率同为 $1/\tau^2$ 的伽马分布。
-将此代入 Cramér--Rao 下界，对任意条件无偏估计量：
-\begin{equation}
-  \E[(\tilde{\theta} - \Rbar)^2] \ge v_R + \frac{\Rbar^2 + v_R}{\mathcal{J}_u} \ge v_R + \tau^2(\Rbar^2 + v_R) = v_R + v_H.
-\end{equation}
-当 $m \to \infty$ 时，$A_H/m \to 0$，自然估计量 $\widehat{R}_t$ 的均方误差 $V_H(m)$ 渐近逼近此下界，证明了 $v_R + v_H$ 是全估计类无法被单期扩样击穿的理论下确界。
+我们指出：该极限是针对特定估计量 $\widehat{R}_t = C_t/m$ 得到的方差下限，反映了直接使用未校正报告计数时单期扩样的局限性；它并不自动构成全参数空间内所有可能估计方法的通用信息论下界。若能借助外部辅助数据（如各辖区填报完整性比例）对报告率波动进行显式校正，则可进一步剥离报告异质性方差 $v_H$。
 \end{derivationbox}

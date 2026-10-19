@@ -42,17 +42,20 @@
 
 根据数理统计中的 Karlin--Rubin 定理 \citep{karlin1956theory, lehmann2005testing}，对于具有单调似然比性质的单参数分布族，单侧假设检验的一致最优势检验（Uniformly Most Powerful, UMP）必为临界域形式。
 
+对于离散型负二项分布，由于概率累积存在阶梯跳跃，标准 Karlin--Rubin UMP 检验在理论上包含边界随机化：当 $C_t > c$ 时拒绝，当 $C_t = c$ 时以概率 $\gamma \in [0, 1)$ 随机化拒绝，从而使得实际水平严格等于名义水平 $\alpha$。在公共卫生监测工程实践中，为了避免人为抛硬币随机化导致的判断不确定性，通常采用确定性的保守非随机化检验规则。
+
 \begin{derivationbox}{推导 11.1：临界值与精确功效函数}
-设显著性水平为 $\alpha \in (0, 1)$。定义临界值 $c_\alpha$ 为使得零假设临界点 $R_t = 1$ 下第一类错误概率不超过 $\alpha$ 的最小整数：
+设名义显著性水平为 $\alpha \in (0, 1)$。定义临界值 $c_\alpha$ 为使得零假设临界点 $R_t = 1$ 下第一类错误概率不超过 $\alpha$ 的最小整数：
 \begin{equation}
   c_\alpha \equiv \min \left\{ c \in \mathbb{N} \ \Big|\ P_{R_t = 1}(C_t \ge c) \le \alpha \right\}.
 \end{equation}
-检验规则确定为：当且仅当 $C_t \ge c_\alpha$ 时拒绝原假设 $H_0$。
+本文采用非随机化确定性规则：当且仅当 $C_t \ge c_\alpha$ 时拒绝原假设 $H_0$。
 \begin{enumerate}
   \item \textbf{实际水平（Size）：}由于功效函数在单调似然比族下关于 $R_t$ 单调非减，原假设区域内的最大犯错概率在边界 $R_t = 1$ 处取得：
   \begin{equation}
     \alpha^* \equiv \sup_{R_t \le 1} P_{R_t}(C_t \ge c_\alpha) = P_{R_t = 1}(C_t \ge c_\alpha) \le \alpha.
   \end{equation}
+  非随机化检验 $\{C_t \ge c_\alpha\}$ 对应随机化检验在 $c = c_\alpha - 1, \gamma = 1$ 的特例，因此它在其实际达到的显著性水平 $\alpha^*$ 下是一致最优（UMP）的；若在边界 $c_\alpha - 1$ 处允许随机化，则可使实际水平严格等于名义水平 $\alpha$ 并取得更高功效。
   \item \textbf{精确功效（Power）：}当真实传播发生暴发，即备择假设点 $R_t = 1 + \delta$（$\delta > 0$）时，观测病例数服从负二项分布：
   \begin{equation}
     C_t \sim \NB\!\left(nk,\ \frac{k}{k + \rho(1+\delta)}\right).

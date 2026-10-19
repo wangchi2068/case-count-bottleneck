@@ -1,7 +1,7 @@
 \section{环境方差估计量 $\hat{v}_R$ 的有限样本精度与信息界限}
 \label{sec:part10}
 
-\subsection{修正矩估计量 $\hat{v}_R$ 的严格代数构造}
+\subsection{渐近无偏修正矩估计量 $\hat{v}_R$ 的构造与有限样本偏差}
 
 由于环境方差 $v_R$ 自身必须从有限期数和有限规模的报告数据中估计，我们推导其修正矩估计量。
 
@@ -37,21 +37,47 @@
   \label{eq:r3-vhat}
 \end{equation}
 式~\eqref{eq:r3-vhat} 获证。
+
+\paragraph{有限样本偏差核算：}
+在各期独立同分布假设下，计算 $\hat{v}_R$ 的数学期望：
+记 $\sigma_Y^2 \equiv \Var(Y_t)$。由无偏样本方差性质，$\E(S_Y^2) = \sigma_Y^2$。
+对于分母修正项中的 $\bar{Y}^2$，由于样本均值含有抽样方差，$\E(\bar{Y}^2) = \Rbar^2 + \frac{\sigma_Y^2}{T}$。因此：
+\begin{equation}
+  \E[\varpi(\bar{Y})] = \frac{\Rbar}{m} + \frac{\rho}{km}\left(\Rbar^2 + \frac{\sigma_Y^2}{T}\right) = \varpi(\Rbar) + \frac{\rho \sigma_Y^2}{kmT}.
+\end{equation}
+由此得出估计量 $\hat{v}_R$ 的有限样本期望：
+\begin{equation}
+  \E(\hat{v}_R) = \frac{\sigma_Y^2 - \varpi(\Rbar) - \frac{\rho \sigma_Y^2}{kmT}}{1 + \frac{\rho}{km}} = v_R - \frac{\rho \sigma_Y^2}{kmT\left(1 + \frac{\rho}{km}\right)}.
+\end{equation}
+因此，$\hat{v}_R$ 是\textbf{渐近无偏矩估计量}，其有限样本偏差为负且属于 $O(1/T)$ 阶。
+
+若需要在严格有限样本 $T$ 下实现完全无偏，可将 $\bar{Y}^2$ 替换为无偏估计量 $\bar{Y}^2 - S_Y^2/T$，相应构造严格无偏估计量：
+\begin{equation}
+  \hat{v}_R^{\mathrm{unb}} \equiv \frac{\left(1 + \frac{a}{T}\right)S_Y^2 - \frac{\bar{Y}}{m} - a \bar{Y}^2}{1 + a}, \qquad \text{其中 } a \equiv \frac{\rho}{km}.
+\end{equation}
 \end{derivationbox}
 
 \subsection{有限样本方差公式与极限平台 $\Omega_\infty / T$}
 
 \begin{theorembox}{补充命题 S1 的证明（环境方差估计精度的极限平台）}
-在独立同分布环境下，当单期规模 $m \to \infty$ 时，估计方差 $T \Var(\hat{v}_R)$ 不会趋向于 0，而是收敛至不可跨越的渐近平台：
-\begin{equation}
-  \lim_{m \to \infty} T \Var(\hat{v}_R) = \Omega_\infty \equiv \E(R_t - \Rbar)^4 - v_R^2 = \Var\big((R_t - \Rbar)^2\big).
-  \label{eq:omega-inf-def}
-\end{equation}
-若 $R_t \sim \text{Gamma}(\xi, \vartheta)$，则极限平台具有严格代数闭式：
-\begin{equation}
-  \Omega_\infty = v_R^2 \left( 2 + \frac{6 v_R}{\Rbar^2} \right).
-  \label{eq:omega-gamma-closed}
-\end{equation}
+在独立同分布环境下：
+\begin{enumerate}[label=(\roman*)]
+  \item 对于固定的观测期数 $T$，当单期规模 $m \to \infty$ 时，估计方差 $T \Var(\hat{v}_R)$ 收敛至固定期数极限平台：
+  \begin{equation}
+    \lim_{m \to \infty} T \Var(\hat{v}_R) = \mu_{4R} - \frac{T - 3}{T - 1} v_R^2.
+    \label{eq:omega-T-fixed}
+  \end{equation}
+  \item 当期数进一步满足大样本条件 $T \to \infty$ 时，该极限平台渐近逼近总体四阶中心矩方差：
+  \begin{equation}
+    \Omega_\infty \equiv \lim_{T \to \infty} \lim_{m \to \infty} T \Var(\hat{v}_R) = \mu_{4R} - v_R^2 = \Var\big((R_t - \Rbar)^2\big).
+    \label{eq:omega-inf-def}
+  \end{equation}
+  若 $R_t \sim \text{Gamma}(\xi, \vartheta)$，则极限平台具有严格代数闭式：
+  \begin{equation}
+    \Omega_\infty = v_R^2 \left( 2 + \frac{6 v_R}{\Rbar^2} \right).
+    \label{eq:omega-gamma-closed}
+  \end{equation}
+\end{enumerate}
 \end{theorembox}
 
 \begin{proof}
@@ -60,7 +86,7 @@
   \Var(S_Y^2) = \frac{\mu_{4Y}}{T} - \frac{T - 3}{T(T - 1)} \sigma_Y^4,
 \end{equation}
 其中 $\mu_{4Y} \equiv \E(Y_t - \E Y_t)^4$ 为四阶中心矩，$\sigma_Y^2 = \Var(Y_t)$。
-将 $\hat{v}_R = \frac{S_Y^2 - \varpi(\bar{Y})}{1 + \rho/(km)}$ 在 $\bar{Y} = \Rbar$ 处进行一阶一阶泰勒展开：
+将 $\hat{v}_R = \frac{S_Y^2 - \varpi(\bar{Y})}{1 + \rho/(km)}$ 在 $\bar{Y} = \Rbar$ 处进行一阶泰勒展开：
 \begin{equation}
   \varpi(\bar{Y}) = \varpi(\Rbar) + \varpi'(\Rbar)(\bar{Y} - \Rbar) + O\left(\frac{1}{mT}\right), \qquad \varpi'(y) = \frac{1 + 2\rho y/k}{m}.
 \end{equation}
@@ -71,11 +97,13 @@
 \end{equation}
 利用阶乘矩已知 $\Cov(S_Y^2, \bar{Y}) = \frac{\mu_{3Y}}{T}, \Var(\bar{Y}) = \frac{\sigma_Y^2}{T}$，得出式~\eqref{eq:r3-omega}。
 
-当 $m \to \infty$ 时，$Y_t \equiv C_t/m \xrightarrow{a.s.} R_t$，$\varpi' \to 0$，$1 + \frac{\rho}{km} \to 1$。
+当固定期数 $T$ 且 $m \to \infty$ 时，$Y_t \equiv C_t/m \xrightarrow{a.s.} R_t$，$\varpi' \to 0$，$1 + \frac{\rho}{km} \to 1$。
 四阶矩收敛至真实环境的四阶矩 $\mu_{4Y} \to \mu_{4R}$，中心方差收敛至 $\sigma_Y^2 \to v_R$。因此：
 \begin{equation}
-  \lim_{m \to \infty} T \Var(\hat{v}_R) = \mu_{4R} - \frac{T-3}{T-1} v_R^2 \xrightarrow{T \to \infty} \mu_{4R} - v_R^2 \equiv \Omega_\infty.
+  \lim_{m \to \infty} T \Var(\hat{v}_R) = \mu_{4R} - \frac{T-3}{T-1} v_R^2.
 \end{equation}
+此式在 $T \to \infty$ 下进而给出 $\Omega_\infty = \mu_{4R} - v_R^2$。
+
 若 $R_t \sim \text{Gamma}(\xi, \vartheta)$，其均值为 $\xi\vartheta = \Rbar$，方差为 $\xi\vartheta^2 = v_R$。
 解出形状参数与尺度参数：
 \begin{equation}
@@ -141,7 +169,7 @@
 \begin{derivationbox}{数值评价 10.1：多季流行病监测的精度瓶颈}
 代入真实世界可获得的流行季数量：
 \begin{itemize}
-  \item $S = 3$ 季（本文主分析样本）：$\sqrt{2/S} = \sqrt{2/3} \approx 0.816 \approx 0.82$；均值未知时 $\sqrt{2/(3-1)} = 1.00$。这意味着相对标准差高达 100\%，置信区间极宽，必然跨越 0。
+  \item $S = 3$ 季（本文主分析样本）：$\sqrt{2/S} = \sqrt{2/3} \approx 0.816 \approx 0.82$；均值未知时 $\sqrt{2/(3-1)} = 1.00$。这表明相对标准误差达到 82\%--100\%，反映极大的估计不确定性，在常规对称置信区间下极易覆盖负值（实证中三季 $a$ 的 95\% 区间为 $-0.056$ 至 $0.211$），这一宽阔区间是自由度仅为 2 的必然数学结果，不能作为截距真实值可能为负的证据。
   \item $S = 4$ 季（纳入 2025--2026 样本外季）：$\sqrt{2/4} \approx 0.707 \approx 0.71$；均值未知时 $\sqrt{2/3} \approx 0.82$。
 \end{itemize}
 这在数学上彻底解释了：为什么无论纳入多少个州、多么庞大的住院病例，季随机效应估计的方差区间依然极为宽阔。这种不确定性是由大自然的季节轮回次数决定的，无法依靠在单季内堆砌病例来解决。
