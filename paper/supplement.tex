@@ -1,0 +1,181 @@
+% =================================================================
+% Supplementary material. Compiled after main.tex (labels are read from
+% main.aux through xr-hyper) and appended to main.pdf by qa/build_pdf.sh.
+% Build: xelatex main (x3, bibtex) && xelatex supplement && xelatex supplement
+% =================================================================
+\documentclass[fontset=none,10pt,a4paper]{ctexart}
+\usepackage{iftex}
+\ifXeTeX\else
+  \PackageError{paper-template}{XeLaTeX is required}{Run xelatex.}
+\fi
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{
+  \setmainfont{Times New Roman}
+}{
+  \setmainfont{Liberation Serif}
+}
+\IfFontExistsTF{SimSun}{
+  \setCJKmainfont{SimSun}
+}{
+  \IfFontExistsTF{Songti SC}{
+    \setCJKmainfont{Songti SC}
+  }{
+    \IfFontExistsTF{STSong}{
+      \setCJKmainfont{STSong}
+    }{
+      \setCJKmainfont{Noto Serif CJK SC}
+    }
+  }
+}
+\IfFontExistsTF{SimHei}{
+  \setCJKsansfont{SimHei}
+}{
+  \IfFontExistsTF{Heiti SC}{\setCJKsansfont{Heiti SC}}{\setCJKsansfont{Noto Sans CJK SC}}
+}
+\usepackage{graphicx}
+\usepackage{amsmath,amsthm}
+% OpenType math font: every math glyph carries a Unicode mapping in the text layer.
+\usepackage{unicode-math}
+\IfFontExistsTF{Latin Modern Math}{
+  \setmathfont{Latin Modern Math}
+}{
+  \setmathfont{Cambria Math}
+}
+% Estimator hats drawn as vector polylines so that accents do not overlap letters in the text layer.
+\usepackage{pict2e}
+\DeclareRobustCommand{\hatmark}{{\setlength{\unitlength}{0.1em}\linethickness{0.045em}%
+  \begin{picture}(5,1.7)\polyline(0.2,0)(2.5,1.5)(4.8,0)\end{picture}}}
+\AtBeginDocument{%
+  \renewcommand{\widehat}[1]{\overset{\hatmark}{#1}}%
+  \renewcommand{\hat}[1]{\overset{\hatmark}{#1}}}
+\usepackage[a4paper, margin=0.8in]{geometry}
+\usepackage[numbers,square,sort&compress]{natbib}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{xurl}
+\usepackage{xr-hyper}
+\usepackage[hidelinks,unicode=true]{hyperref}
+\usepackage{refcount}
+\urlstyle{same}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+\captionsetup{
+  font=small,
+  labelfont=normalfont,
+  textfont=normalfont,
+  labelsep=space,
+  justification=justified,
+  singlelinecheck=true,
+  skip=6pt
+}
+\setlength{\textfloatsep}{12pt plus 2pt minus 2pt}
+\setlength{\floatsep}{10pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{8}
+\renewcommand{\topfraction}{0.90}
+\renewcommand{\bottomfraction}{0.80}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.70}
+\pagestyle{plain}
+\setlist{nosep,leftmargin=2em}
+
+\newtheoremstyle{zhplain}{0.6em}{0.6em}{\normalfont}{}{\sffamily}{}{0.8em}{}
+\theoremstyle{zhplain}
+\newtheorem{sproposition}{补充命题}
+\renewcommand{\thesproposition}{S\arabic{sproposition}}
+\renewcommand{\proofname}{证明}
+
+\newcommand{\Rbar}{\overline{R}}
+\newcommand{\mx}{m_{\times}}
+\newcommand{\NB}{\operatorname{NB}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\E}{\operatorname{E}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\CV}{\operatorname{CV}}
+\newcommand{\Bin}{\operatorname{Bin}}
+\newif\ifblind
+\blindfalse
+\externaldocument{main}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\title{\textbf{补充材料：环境方差与报告异质性下再生数估计的不可约误差与监测设计}}
+\ifblind
+  \author{匿名作者}
+\else
+  \author{王驰\\[2pt]{\small 西安科技大学}}
+\fi
+\date{}
+
+\begin{document}
+\setcounter{page}{\numexpr\getpagerefnumber{LastPage}+1\relax}
+\maketitle
+\thispagestyle{plain}
+\normalfont\mdseries
+
+\input{sections/supp_proofs}
+
+\section{稳健性分析}
+\label{sec:s-robust}
+
+本节各表的数字由分析脚本写入结果文件，表格由脚本直接生成。分析方案与判据在运行前写定，事后取法在表注中注明。
+
+\subsection{报告调整的等价检验}
+\label{sec:s-tost}
+
+表~\ref{tab:s-tost} 给出正文第~\ref{sec:res-reporting-adj}~节与第~\ref{sec:res-pathogens}~节所引的双单侧等价检验。流感三个组合在两种判定下都等价；COVID-19 与 RSV 的日历窗口只在区间判定下等价；两个增长期窗口的区间超出等价界，原因是这两个窗口的截距本身很小，5\% 的等价界只有 0.001 左右。流感 2025--2026 季的 $\Delta a$ 区间下端大于 0，但仍在等价界之内。
+
+\subsection{报告率网格上的判据检验}
+\label{sec:s-tau}
+
+表~\ref{tab:s-tau} 检验正文以 $\Delta a$ 衡量报告贡献的做法。报告率取 $\rho\,h^\kappa u$，$h$ 为实证填报比例，$u$ 为与 $h$ 无关、变异系数为 $\tau$ 的独立波动。$\kappa=0$ 时 $\Delta a$ 的格点平均为负且接近零，事先写定的拒绝判据在全部格中都没有拒绝，检验水平得到控制。$\kappa$ 增大时 BCa 区间下端大于 0 的比例上升，但实证 $h$ 集中在 1 附近，$\kappa=8$ 时 $\Delta a$ 的格点平均也只有 0.003 左右，事先写定的判据仍没有拒绝，几乎没有功效。$\tau$ 从 0 增加到 0.5 时截距从 0.10 升到 0.52，$\Delta a$ 却几乎不变：与填报比例无关的报告离散不能由 $\Delta a$ 发现。正文因此只说可由填报比例观测到的报告成分小于超出量的 1\%，不对其余报告离散下结论。
+
+\subsection{流行季随机效应}
+\label{sec:s-seasons}
+
+表~\ref{tab:s-seasons} 给出正文第~\ref{sec:res-seasons}~节所用的各季估计与合并结果。
+
+\subsection{一周跨两代}
+\label{sec:s-twogen}
+
+周数据把多个世代合并。表~\ref{tab:s-twogen} 把世代块从 7 天改为 4 天，即一周约含两代，其余设定不变。块长改变截距的水平：环境各期独立时，4 天块的截距约为 7 天块的六成，周自相关增大后两者趋近。截距比的变化小于 0.05；$\phi=0$ 且入院延迟较长时，两种块长给出的 $q_1$ 与 $q_2$ 都与日分辨率更新过程相近。同时落入实证三项区间的 4 个格的 $b/a$ 为 12.2--15.1，低于实证的 22.6。截距比主要由入院延迟的平滑决定，对世代块长度不敏感。
+
+\subsection{非 NHSN 数据}
+\label{sec:s-indep}
+
+表~\ref{tab:s-indep} 用同一管线分析两个病例定义不同的数据源。ILINet 门诊数据给出与 NHSN 同向的截距比，99.7\% 的重抽满足方向条件；FluSurv-NET 只有 14 个站点，区间跨越 0 与 1，不提供信息。
+
+\subsection{零假设范围的取法与分级}
+\label{sec:s-grading}
+
+表~\ref{tab:s-grading} 列出各组合的州周数、截距比与超出量区间、主分级所用的零假设范围，以及四种对照取法下的分级。只用不含入院延迟的日更新格时，流感增长期窗口与 RSV 2024--2025 季窗口的两个截距比都与范围不相交；取格点中位数时流感增长期窗口复现。主分级采用包含入院延迟的全部格，范围最宽，在这些取法中最保守。
+
+\input{sections/supp_robustness_tables}
+\FloatBarrier
+
+\section{复现包}
+\label{sec:s-repro}
+
+分析代码、数据快照的校验值与结果文件公开于 \url{https://github.com/wangchi2068/case-count-inference-bottleneck}，投稿时另在 Zenodo 存档并给出 DOI。
+
+\paragraph{结构} \nolinkurl{code/} 为全部分析脚本，\nolinkurl{analysis/} 为结果文件（\nolinkurl{reanalysis_results.json}、\nolinkurl{r3_results.json}、\nolinkurl{r4_results.json}）、事先写定的分析方案与数字地图，\nolinkurl{data/} 为派生面板与外部数据，\nolinkurl{logs/} 为运行日志。论文中每个数字对应的结果键列在 \nolinkurl{analysis/reproduction_map.md}，共抽取 1,638 个数字，其中 1,550 个映射到结果键，其余为年份、参数设定与理论部分的闭式计算。
+
+\paragraph{环境} Python 3.11.2、numpy 2.4.6、scipy 1.17.1、pandas 3.0.6、matplotlib 3.11.2，不调用外部接口（独立数据脚本首次运行时从公开接口下载，文件已存在时不再访问网络）。参考硬件为 4 核 CPU、8 GiB 内存，无 GPU。
+
+\paragraph{数据} 主数据为 NHSN 州级每周住院数据（Weekly Hospital Respiratory Data Metrics by Jurisdiction）的论文快照，sha256 为 \nolinkurl{e48c2ea9\ldots c20c330}。该数据集持续回填，逐值复现须使用快照；ILINet、FluSurv-NET 与 HHS Protect 文件的来源与校验值见代码目录的说明文件。
+
+\paragraph{种子} 主种子为 20261017。首轮州聚类重抽用主种子；跨病原重抽为 20261022；日分辨率更新过程零假设为 20261058，乘性报告噪声增长期模型为 20261059，报告率网格为 20261060，一周两代为 20261061，独立数据为 20261062。每格的随机数流只由种子与格号决定，与进程数和完成顺序无关。
+
+\paragraph{运行顺序} \nolinkurl{bash run_all.sh} 按依赖顺序执行 21 条命令，分 base、r3、r4、map 四个阶段，各命令的产出键与参考耗时列在说明文件中；最耗时的是零假设仿真，4 进程约 45--60 分钟。
+
+\paragraph{复现核对} 把 \nolinkurl{code/} 复制到空目录后重跑表~\ref{tab:ratios} 与图~\ref{fig:pathogens} 所需的全部步骤，与原结果逐值比较（容差 $10^{-9}$），24,815 个数值无一不一致，表~\ref{tab:ratios} 的 LaTeX 源逐字相同。
+
+\end{document}

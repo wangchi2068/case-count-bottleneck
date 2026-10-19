@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>再生数估计中的不可约误差与监测设计</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <style>
+  body{max-width:58em;margin:2em auto;padding:0 1.5em;font-family:"Noto Serif CJK SC","Songti SC","SimSun",serif;
+   line-height:1.75;color:#1f2937;background:#fff}
+  header#title-block-header{text-align:center;border-bottom:2px solid #FF435F;padding-bottom:1em;margin-bottom:2em}
+  h1.title{font-size:1.9em;color:#0f1f3d;margin-bottom:.2em}
+  p.subtitle{font-size:1.15em;color:#4b5563;margin-top:0}
+  h1{font-size:1.45em;color:#0f1f3d;border-bottom:1px solid #FF435F;padding-bottom:.2em;margin-top:2em}
+  h2{font-size:1.2em;color:#1d4ed8;margin-top:1.6em}
+  table{border-collapse:collapse;width:100%;margin:.4em 0 1.4em;font-size:.92em}
+  th{background:#0f1f3d;color:#fff;padding:.45em .6em;border:1px solid #cbd5e1}
+  td{padding:.4em .6em;border:1px solid #cbd5e1;vertical-align:top}
+  tr:nth-child(even) td{background:#f8fafc}
+  .tcap{display:block;text-align:center;font-weight:bold;margin-top:1.2em;color:#0f1f3d}
+  figure{margin:1.5em 0;text-align:center}
+  figure img{max-width:100%;height:auto}
+  figcaption{font-size:.9em;color:#4b5563;margin-top:.4em}
+  code{font-size:.88em;background:#f1f5f9;padding:.05em .3em;border-radius:3px;word-break:break-all}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">再生数估计中的不可约误差与监测设计</h1>
+<p class="subtitle">向导师汇报论文理论与第四轮修改</p>
+</header>
+<h1 class="unnumbered" id="摘要">摘要</h1>
+<p>这份说明是我写给老师的，用于当面讲解，也可以直接阅读。内容依次是论文《环境方差与报告异质性下再生数估计的不可约误差与监测设计》要回答的问题、理论主线及每条结论的成立条件、与
+Parag 等 2022
+年工作的关系、实证证据能支持到什么程度、第四轮如何回应老师的意见，以及需要老师决定的事项。文中命题、推论和式号均为终版编号，页码对应终版
+PDF（正文 31 页，补充材料 11 页）。</p>
+<p><strong>关键词：</strong> 再生数； 环境方差； 报告异质性；
+方差平衡规模； 监测设计</p>
+<h1 id="我想回答的问题">1 我想回答的问题</h1>
+<p>老师，这篇论文研究的是用病例报告数推断再生数时误差的结构。常见的做法默认监测覆盖越大，估计越准。我在单代负二项传播、二项报告的模型下证明，当关心的是跨期平均水平或下一期的增长时，误差中有一部分来自各期真实的环境波动和报告口径的波动，这部分与报告规模无关，扩大监测压不下去。这件事值得做，因为它决定了监测资源应当投在扩大覆盖、延长观测期还是统一报告口径上，而已有的信息量分析主要回答第一个问题。</p>
+<h1 id="理论主线">2 理论主线</h1>
+<p>模型中
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>ρ</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">m=\rho n</annotation></semantics></math>
+是预计报告规模，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+为报告率，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+为负二项离散参数。我把估计目标分成两个：估计目标1 是当期的瞬时再生数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>t</mi></msub><annotation encoding="application/x-tex">R_t</annotation></semantics></math>，估计目标2
+是跨期均值
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>R</mi><mo accent="true">¯</mo></mover><annotation encoding="application/x-tex">\overline{R}</annotation></semantics></math>。命题
+1（第 8
+页）说明，对估计目标1，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>t</mi></msub><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">C_t/m</annotation></semantics></math>
+在任意规模下都达到 Cramér–Rao 下界，Fisher 信息为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>R</mi><mi>t</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>m</mi><mi>/</mi><msub><mi>R</mi><mi>t</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>ρ</mi><msub><mi>R</mi><mi>t</mi></msub><mi>/</mi><mi>k</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">I(R_t)=(m/R_t)(1+\rho R_t/k)^{-1}</annotation></semantics></math>。这是标准结果，我在论文里也按标准结果写。</p>
+<p>论文的核心是命题 2（第 9 页）的式 (14)，即
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>m</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>v</mi><mi>R</mi></msub><mo>+</mo><mi>A</mi><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">V(m)=v_R+A/m</annotation></semantics></math>，其中
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>R</mi></msub><annotation encoding="application/x-tex">v_R</annotation></semantics></math>
+是各期
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>t</mi></msub><annotation encoding="application/x-tex">R_t</annotation></semantics></math>
+的环境方差，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mover><mi>R</mi><mo accent="true">¯</mo></mover><mo>+</mo><mi>ρ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>2</mn></msup><mo>+</mo><msub><mi>v</mi><mi>R</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">A=\overline{R}+\rho(\overline{R}^2+v_R)/k</annotation></semantics></math>。第二项是抽样误差，恰好等于
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">[</mo><mn>1</mn><mi>/</mi><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>R</mi><mi>t</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">E[1/I(R_t)]</annotation></semantics></math>，随规模下降；第一项与规模无关。这个结论有明确的适用范围，我在首次出现处都写了出来。它是对
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>t</mi></msub><annotation encoding="application/x-tex">R_t</annotation></semantics></math>
+条件无偏的估计量类中的最小均方误差。把它解释为一步前瞻预测的最小误差还需要
+H4，即下一期
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">R_{t+1}</annotation></semantics></math>
+与过去信息独立，等价于 AR(1) 系数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varphi=0</annotation></semantics></math>。若
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>R</mi><mo accent="true">¯</mo></mover><annotation encoding="application/x-tex">\overline{R}</annotation></semantics></math>
+由
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>0</mn></msub><annotation encoding="application/x-tex">T_0</annotation></semantics></math>
+期数据估计，预测误差再乘以
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mn>1</mn><mi>/</mi><msub><mi>T</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1+1/T_0)</annotation></semantics></math>。<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varphi&gt;0</annotation></semantics></math>
+时不可约部分降为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>φ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>v</mi><mi>R</mi></msub></mrow><annotation encoding="application/x-tex">(1-\varphi^2)v_R</annotation></semantics></math>（式
+(6)、(7)，第 5 页），允许条件偏差的收缩估计也可以低于
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>R</mi></msub><annotation encoding="application/x-tex">v_R</annotation></semantics></math>（补充材料
+S1.11）。两项相等处的规模
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mo>×</mo></msub><mo>=</mo><mi>A</mi><mi>/</mi><msub><mi>v</mi><mi>R</mi></msub></mrow><annotation encoding="application/x-tex">m_\times=A/v_R</annotation></semantics></math>
+我称为方差平衡规模，图示参数（<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>R</mi><mo accent="true">¯</mo></mover><mo>=</mo><mn>1.15</mn></mrow><annotation encoding="application/x-tex">\overline{R}=1.15</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>R</mi></msub><mo>=</mo><mn>0.04</mn></mrow><annotation encoding="application/x-tex">v_R=0.04</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.35</mn></mrow><annotation encoding="application/x-tex">k=0.35</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>0.25</mn></mrow><annotation encoding="application/x-tex">\rho=0.25</annotation></semantics></math>）下为
+53.1。规模低于它时扩大监测收益明显，高于它时收益迅速变小：规模翻倍使方差下降的比例在
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">m=10</annotation></semantics></math>、53.1、200
+时依次为 42.1%、25.0%、10.5%。</p>
+<p>命题 4（第 12 页）让报告率
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>t</mi></msub><annotation encoding="application/x-tex">p_t</annotation></semantics></math>
+随期波动，并假设它与
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>t</mi></msub><annotation encoding="application/x-tex">R_t</annotation></semantics></math>
+独立（H5）。式 (20) 给出
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>H</mi></msub><mo>=</mo><msub><mi>v</mi><mi>R</mi></msub><mo>+</mo><msub><mi>v</mi><mi>H</mi></msub><mo>+</mo><msub><mi>A</mi><mi>H</mi></msub><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">V_H=v_R+v_H+A_H/m</annotation></semantics></math>，其中
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>H</mi></msub><mo>=</mo><msup><mi>τ</mi><mn>2</mn></msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>2</mn></msup><mo>+</mo><msub><mi>v</mi><mi>R</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">v_H=\tau^2(\overline{R}^2+v_R)</annotation></semantics></math>，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>
+是报告率的变异系数。<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>H</mi></msub><annotation encoding="application/x-tex">v_H</annotation></semantics></math>
+同样与规模无关，所以不可约误差有环境和报告两个来源。<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo>=</mo><mn>0.15</mn></mrow><annotation encoding="application/x-tex">\tau=0.15</annotation></semantics></math>
+时
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>H</mi></msub><mo>=</mo><mn>0.0307</mn></mrow><annotation encoding="application/x-tex">v_H=0.0307</annotation></semantics></math>，平衡规模从
+53.1 降到 30.4。三条杠杆由此而来：扩大规模只压低
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>H</mi></msub><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">A_H/m</annotation></semantics></math>，增加期数压低均值的估计误差，只有统一报告口径能去掉
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>H</mi></msub><annotation encoding="application/x-tex">v_H</annotation></semantics></math>。命题
+6（第 14 页，式 (27)）在
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">T=10</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">m=50</annotation></semantics></math>
+的基线下比较三者，规模扩大到 10 倍的效果不如期数增加到 4
+倍；报告偏差在各期持续存在时，增加期数也无济于事。</p>
+<p>设计部分从命题 3（第 10 页）开始。独立环境下成本最优规模为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>m</mi><mo>*</mo></msup><mo>=</mo><msqrt><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>c</mi><mn>0</mn></msub><mi>/</mi><msub><mi>c</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>m</mi><mo>×</mo></msub></mrow></msqrt></mrow><annotation encoding="application/x-tex">m^*=\sqrt{(c_0/c_1)m_\times}</annotation></semantics></math>（式
+(17)），<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mn>0</mn></msub><annotation encoding="application/x-tex">c_0</annotation></semantics></math>
+和
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mn>1</mn></msub><annotation encoding="application/x-tex">c_1</annotation></semantics></math>
+分别是每期固定成本和单位报告成本，这与 Cochran 的两阶段抽样同构。命题
+7（第 14 页）把它推广到 AR(1) 环境，式 (28)–(29) 给出预算阈值
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>B</mi><mo>†</mo></msup><annotation encoding="application/x-tex">B^\dagger</annotation></semantics></math>：预算低于阈值时应选更少、更大的期，远高于阈值时才回到大预算近似。取
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mn>0</mn></msub><mi>/</mi><msub><mi>c</mi><mn>1</mn></msub><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">c_0/c_1=100</annotation></semantics></math>，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo>=</mo><mn>0.8</mn></mrow><annotation encoding="application/x-tex">\varphi=0.8</annotation></semantics></math>
+时阈值为 775；预算为 600 时整数最优是
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">T=3</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">m=100</annotation></semantics></math>，模拟方差
+0.0403，按大预算近似取
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">T=5</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">m=20</annotation></semantics></math>
+则为 0.0504。</p>
+<h1 id="与-parag-等-2022-年工作的关系">3 与 Parag 等 2022
+年工作的关系</h1>
+<p>Parag、Donnelly 和 Zarebski 2022 年在 Nature Computational Science
+的文章（论文文献 [15]）研究带噪声的流行曲线含有多少关于
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>t</mi></msub><annotation encoding="application/x-tex">R_t</annotation></semantics></math>
+的信息，其式 (15)（第 592 页）为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>C</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>R</mi><mi>t</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>ρ</mi><mi>t</mi></msub><msub><mi>F</mi><mrow><mi>τ</mi><mo>−</mo><mi>t</mi></mrow></msub><msub><mi>Λ</mi><mi>t</mi></msub><mi>/</mi><msub><mi>R</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">F_C(R_t)=\rho_tF_{\tau-t}\Lambda_t/R_t</annotation></semantics></math>。我的模型没有报告延迟，取
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Λ</mi><mi>t</mi></msub><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\Lambda_t=n</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F=1</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>t</mi></msub><mo>=</mo><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho_t=\rho</annotation></semantics></math>
+并令
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">k\to\infty</annotation></semantics></math>，命题
+1 的信息量就回到
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>/</mi><msub><mi>R</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">m/R_t</annotation></semantics></math>，与该式逐项一致。因此估计目标1
+这部分用的是标准工具，负二项下的 Fisher
+信息也是已知结果，我不把它算作贡献。</p>
+<p>他们的核心量是多期总信息与几何均值
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ρ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>F</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\theta=G(\rho)G(F)</annotation></semantics></math>（式
+(5)，第 587 页），处理的是时变报告率与延迟。我的模型中
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+不随时间变、没有延迟，所以我不说推广了这两个量。两篇的条件也有差别：Parag
+把报告率取为 Beta 分布，信息只依赖几何均值（第 586–588
+页），对任意参数都有限；我在命题 4(iv) 观测报告率的情形下用到
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>p</mi><mi>t</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(1/p_t)</annotation></semantics></math>，要求
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mi>ν</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\rho\nu&gt;1</annotation></semantics></math>，这是我的矩估计量带来的更强条件。他们在第
+585 页同样假设各期
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>t</mi></msub><annotation encoding="application/x-tex">R_t</annotation></semantics></math>
+独立，并在第 591 页承认这一假设可能不成立，我把预测等价限定在
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varphi=0</annotation></semantics></math>，与这一处理一致。</p>
+<p>我认为论文真正新的结果有四项，上一轮审稿意见的评价是“新但初等”，我同意。推论
+1（第 12 页，式
+(24)）给出覆盖率与报告率边际效果的反转阈值：二项型波动下当
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&gt;</mo><msup><mi>ρ</mi><mn>2</mn></msup><mi>ν</mi><mi>/</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">m&gt;\rho^2\nu/k</annotation></semantics></math>
+时排序反转，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ν</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">\nu=100</annotation></semantics></math>
+时阈值为 17.9；制度型波动下两者效果之比为
+1.87，覆盖率始终占优，而两条途径都去不掉
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>H</mi></msub><annotation encoding="application/x-tex">v_H</annotation></semantics></math>。命题
+4(vi)（式 (23)）给出区分报告噪声与环境波动的截距比特征，纯报告噪声下
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>1</mn></msub><mo>∈</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>0.883</mn><mo>,</mo><mn>1.338</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">q_1\in[0.883,1.338]</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>2</mn></msub><mo>∈</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>0.892</mn><mo>,</mo><mn>1.374</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">q_2\in[0.892,1.374]</annotation></semantics></math>。命题
+5(iii)（第 13 页，式 (26)）给出 AR(1) 下估计
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>R</mi></msub><annotation encoding="application/x-tex">v_R</annotation></semantics></math>
+的有效期数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mtext mathvariant="normal">eff</mtext></msub><mo>≈</mo><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>φ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>φ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">T_{\text{eff}}\approx T(1-\varphi^2)/(1+\varphi^2)</annotation></semantics></math>，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo>=</mo><mn>0.8</mn></mrow><annotation encoding="application/x-tex">\varphi=0.8</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>26</mn></mrow><annotation encoding="application/x-tex">T=26</annotation></semantics></math>
+时只有 6.2 期；有限规模修正见补充材料 S1.7（第 35 页，式
+(S18)–(S19)），<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">m=10</annotation></semantics></math>
+时一阶展开给出 11.9 倍而精确值为 37.5
+倍，所以小规模时必须用精确式。第四项是命题 7 的预算阈值。</p>
+<h1 id="证据能支持到哪里">4 证据能支持到哪里</h1>
+<p>实证用美国国家医疗安全网络 16,218
+个州周的流感住院数据，主分析为流行初期的 1,267 个州周。预测误差按
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mi>/</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">a+b/D</annotation></semantics></math>
+随规模下降，截距
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0.0991</mn></mrow><annotation encoding="application/x-tex">a=0.0991</annotation></semantics></math>（百分位区间
+0.0837–0.1165），隐含的平衡规模落在情景值 21.3–49.2 的范围内。</p>
+<p>较强的证据有两条。第一条是截距超出量。截距比本身区分不了机制：日更新、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varphi=0</annotation></semantics></math>
+的零假设带（108 格）和增长期带都与经验区间相交，单靠入院延迟就能产生
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>1</mn></msub><mo>&lt;</mo><mn>1</mn><mo>&lt;</mo><msub><mi>q</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">q_1&lt;1&lt;q_2</annotation></semantics></math>，所以我把证据重心放在超出量上（表
+3 在第 19 页，图 12 在第 22
+页）。第二条是报告调整的等价检验：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>a</mi><mo>=</mo><mo>−</mo><mn>0.0004</mn></mrow><annotation encoding="application/x-tex">\Delta a=-0.0004</annotation></semantics></math>，90%
+BCa 区间为 −0.0012 至 0.0005，落在 ±0.0050
+的等价界内，区间上端只占超出量 0.0704 的
+0.93%。这条结论只覆盖可由填报比例观测到的报告成分；报告率网格仿真显示，该判据看不到与填报比例无关的报告离散。</p>
+<p>只到方向一致的证据需要分开看。七个病原与口径组合按预注册判据为复现
+0、部分复现 4、方向一致 3；等价检验在 BCa 口径下 5/7 成立，正态近似下
+3/7。独立数据中，ILINet 只给出同向的截距比，99.7% 的重抽满足
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>1</mn></msub><mo>&lt;</mo><mn>1</mn><mo>&lt;</mo><msub><mi>q</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">q_1&lt;1&lt;q_2</annotation></semantics></math>，但病例定义不同；FluSurv-NET
+区间太宽，没有信息；HHS Protect 与 NHSN 相关系数
+0.995，只能作一致性核对。季层面分量也没有结论：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">S=3</annotation></semantics></math>
+时随机效应估计为 0.077，区间宽 0.267，推论 2（第 14
+页）表明三个季时相对标准误至少为 0.82。</p>
+<h1 id="对老师意见的回应与第四轮修改">5
+对老师意见的回应与第四轮修改</h1>
+<p>老师之前提的五条意见我都改了。题目在第三轮换成了现在的题目。为去掉 AI
+味，我建了主张与证据账本，删去比喻和空泛的连接句。格式参照 Parag 2022 与
+Epidemics 范文调整。推导补全后证明移入补充材料 S1，正文第 9 页加了表 1
+作为推导路线图。估计目标 A/B 改为估计目标1/2。</p>
+<p>第四轮的修改按优先级分四档。P0
+修改措辞、补零假设带，并在首次使用处写明条件。P1 核对参考文献 DOI
+并整理复现包，在空目录中按说明重跑，24,812 个数值 0 处不一致。P2
+新增补充表 S1–S6。P3 拆分引言，把 9 个命题合并为 7
+个，证明全部移到补充材料。</p>
+<h1 id="局限与需要老师决定的事">6 局限与需要老师决定的事</h1>
+<p>我自己清楚的局限有四处。理论假设
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+与
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+已知且没有报告延迟，H5 的独立性在第 28
+页单独讨论过，实际数据未必满足。四项新结果都是初等推导。截距超出量的来源至今没有识别。篇幅上，引言至参考文献为
+30 页，超出 28 页的目标；全文 16 张图，范文只有 5 张。</p>
+<p>需要老师决定的有五件事。其一是目标期刊是否仍为
+Epidemics，篇幅是否还要压缩。其二是代码与数据是否在 Zenodo 存档并取得
+DOI，这需要作者账号。其三是资助声明，目前写的是“本研究未获得专项资助。”，请老师确认；重新分析中用了
+AI
+工具，使用声明的措辞也要按期刊政策定。其四是是否现在投稿。其五是后续工作：我打算把
+anytime-valid
+推断另做一篇；英文版和图的精简放到改投英文期刊时一并完成。</p>
+<h1 id="老师可能会问的问题">7 老师可能会问的问题</h1>
+<p><strong>问
+1：环境方差是模型假设出来的，凭什么说它不可约？</strong></p>
+<p>答：不可约是相对于估计量类说的。命题 2(v)（第 9 页）证明，在对
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>t</mi></msub><annotation encoding="application/x-tex">R_t</annotation></semantics></math>
+条件无偏的估计量中，最小均方误差就是式
+(14)。允许偏差的收缩估计可以更低，补充材料 S1.11
+给了例子：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">m=50</annotation></semantics></math>
+时先验中心偏离
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>R</mi><mo accent="true">¯</mo></mover><annotation encoding="application/x-tex">\overline{R}</annotation></semantics></math>
+不超过 0.279，收缩估计的均方误差就低于
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>R</mi></msub><mo>=</mo><mn>0.04</mn></mrow><annotation encoding="application/x-tex">v_R=0.04</annotation></semantics></math>。所以论文中凡说不可约，都带着这个条件。</p>
+<p><strong>问 2：和 Parag
+的工作相比，是不是只把泊松换成了负二项？</strong></p>
+<p>答：换成负二项本身不算贡献，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">k\to\infty</annotation></semantics></math>
+时命题 1 回到 Parag 式 (15)（第 592
+页）。增量在于加入环境方差与报告异质性、区分两个估计目标，以及由此得到的设计结论，对应式
+(14)、(20) 和命题 7。</p>
+<p><strong>问 3：实证能证明环境方差存在吗？</strong></p>
+<p>答：不能单独证明。截距比的零假设带与经验区间相交（表 3，第 19
+页），能确定的是截距超出量远大于可观测报告成分所能解释的部分，等价检验区间上端只占超出量的
+0.93%。超出量来自环境波动还是与填报比例无关的报告离散，现有数据分不开。</p>
+<p><strong>问 4：预算阈值对实际监测有什么用？</strong></p>
+<p>答：它回答该多设几期还是把每期做大。<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo>=</mo><mn>0.8</mn></mrow><annotation encoding="application/x-tex">\varphi=0.8</annotation></semantics></math>、预算为
+600 时，按大预算近似取
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">T=5</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">m=20</annotation></semantics></math>
+的方差为 0.0504，比整数最优的 0.0403 高约 25%（第 14 页，式
+(28)–(29)）。用它需要先从历史数据估计
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>R</mi></msub><annotation encoding="application/x-tex">v_R</annotation></semantics></math>
+和
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>，而
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>R</mi></msub><annotation encoding="application/x-tex">v_R</annotation></semantics></math>
+本身估不准，精度下界见推论 2。</p>
+<p><strong>问 5：有效期数这个结果为什么重要？</strong></p>
+<p>答：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo>=</mo><mn>0.8</mn></mrow><annotation encoding="application/x-tex">\varphi=0.8</annotation></semantics></math>
+时，26 期数据估计
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>R</mi></msub><annotation encoding="application/x-tex">v_R</annotation></semantics></math>
+的信息只相当于 6.2 个独立期，估计均值时为 2.9 期（式 (26)，第 13
+页）。按周数计算样本量会高估精度。季层面的分量只有三四个季可用，精度更差，这也是第
+4 节说季层面没有结论的原因。</p>
+</body>
+</html>

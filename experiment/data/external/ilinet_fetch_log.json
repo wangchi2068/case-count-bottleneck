@@ -1,0 +1,38 @@
+[
+ {
+  "url": "https://api.delphi.cmu.edu/epidata/fluview/?regions=ak,al,ar,az,ca,co,ct,dc,de,fl&epiweeks=202235-202530",
+  "status": 200,
+  "result": 1,
+  "n": 1520
+ },
+ {
+  "url": "https://api.delphi.cmu.edu/epidata/fluview/?regions=ga,hi,ia,id,il,in,ks,ky,la,ma&epiweeks=202235-202530",
+  "status": 200,
+  "result": 1,
+  "n": 1520
+ },
+ {
+  "url": "https://api.delphi.cmu.edu/epidata/fluview/?regions=md,me,mi,mn,mo,ms,mt,nc,nd,ne&epiweeks=202235-202530",
+  "status": 200,
+  "result": 1,
+  "n": 1520
+ },
+ {
+  "url": "https://api.delphi.cmu.edu/epidata/fluview/?regions=nh,nj,nm,nv,ny,oh,ok,or,pa,ri&epiweeks=202235-202530",
+  "status": 200,
+  "result": 1,
+  "n": 1520
+ },
+ {
+  "url": "https://api.delphi.cmu.edu/epidata/fluview/?regions=sc,sd,tn,tx,ut,va,vt,wa,wi,wv&epiweeks=202235-202530",
+  "status": 200,
+  "result": 1,
+  "n": 1520
+ },
+ {
+  "url": "https://api.delphi.cmu.edu/epidata/fluview/?regions=wy&epiweeks=202235-202530",
+  "status": 200,
+  "result": 1,
+  "n": 152
+ }
+]
