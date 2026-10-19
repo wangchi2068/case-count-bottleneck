@@ -59,22 +59,15 @@ case-count-bottleneck/
 │   ├── supplement.tex             # 补充材料入口
 │   └── bibliography.bib           # 参考文献数据库（采用 author-year 格式）
 │
-├── paper/                         # 原始版本论文源码及产物存档
-│   ├── paper.pdf                  # 原版 PDF
-│   ├── main.tex
-│   └── ...
-│
-├── experiment/                    # 实证与仿真复现包
+├── derivation/                    # 完整理论推导 LaTeX 源码工程（46页详尽推导手册）
+├── derivation-handout.pdf         # 完整理论推导手册 PDF（46页详尽版）
+├── derivation-handout.md          # 理论推导讲义 Markdown 源码
+├── experiment/                    # 论文实证与仿真完整复现包（代码、数据与结果映射表）
 │   ├── code/                      # 数据清洗、模型拟合、Bootstrap 及模拟脚本
 │   ├── data/                      # 整理后的研究面板数据及基准参数
 │   ├── analysis/                  # 详细分析产物与数字复现映射 (reproduction_map.json)
 │   └── logs/                      # 运行日志
-│
-├── advisor-briefing.pdf           # 汇报简报（含 PDF / DOCX / HTML / MD）
-├── derivation/                    # 完整理论推导 LaTeX 源码工程（45页详尽推导手册）
-├── derivation-handout.pdf         # 完整理论推导手册 PDF（45页详尽版）
-├── derivation-handout.md          # 理论推导讲义 Markdown
-├── acceptance-r4.md               # 验收标准与关键数据对照清单
+├── .gitignore                     # 编译垃圾过滤规则
 └── README.md                      # 本文档
 ```
 
@@ -90,8 +83,7 @@ case-count-bottleneck/
 | **中文补充材料** | 中文补充材料 (S1–S8) | 14 页 | [`paper_zh/build/supplement.pdf`](paper_zh/build/supplement.pdf) | [**paper_zh-supplement.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/paper_zh-supplement.pdf) |
 | **英文投稿正文** | 英文评审稿 (elsarticle) | 36 页 | [`paper_en/build/main.pdf`](paper_en/build/main.pdf) | [**paper_en-main.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/paper_en-main.pdf) |
 | **英文补充材料** | 英文补充材料 | 17 页 | [`paper_en/build/supplement.pdf`](paper_en/build/supplement.pdf) | [**paper_en-supplement.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/paper_en-supplement.pdf) |
-| **理论推导手册** | 45页详尽推导手册 PDF | 45 页 | [`derivation-handout.pdf`](derivation-handout.pdf) | [**derivation-handout.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/derivation-handout.pdf) |
-| **汇报简报** | 汇报简报 PDF | 13 页 | [`advisor-briefing.pdf`](advisor-briefing.pdf) | [**advisor-briefing.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/advisor-briefing.pdf) |
+| **理论推导手册** | 46页详尽推导手册 PDF | 46 页 | [`derivation-handout.pdf`](derivation-handout.pdf) | [**derivation-handout.pdf**](https://github.com/wangchi2068/case-count-bottleneck/releases/download/v1.0.0/derivation-handout.pdf) |
 
 - **推导讲义源码（Markdown 版）**：[`derivation-handout.md`](derivation-handout.md)（Raw 直达：`https://raw.githubusercontent.com/wangchi2068/case-count-bottleneck/main/derivation-handout.md`）
 
