@@ -76,7 +76,7 @@ $R_t$ 随时间波动。天气、学校假期和人群流动使各期传播强�
   =v_R+\frac{A}{m},\qquad A=\Rbar+\frac{\rho(\Rbar^2+v_R)}{k}.
   \label{eq:var-average}
 \end{equation}
-定义方差平衡规模 $\mx=A/v_R$，则 $m\to\infty$ 时 $V(m)\to v_R$；规模项在总方差中的份额为 $1/(1+m/\mx)$，在 $m=\mx$ 处两项各占一半；规模从 $m$ 翻倍到 $2m$ 时，方差下降的比例为 $1/[2(1+m/\mx)]$；$V(m)$ 严格递减且严格凸，对 $m$ 的弹性为 $-\mx/(m+\mx)$，在 $m=\mx$ 处等于 $-1/2$。在对 $R_t$ 条件无偏的估计类中，$V(m)$ 是 $\Rbar$ 的最小均方误差；在 H4 下，它也是以过去数据预测下一期增长 $C_{t+1}/m$ 的最小预测均方误差。
+定义方差平衡规模 $\mx=A/v_R$。该规模仅表示抽样项与环境项相等的方差平衡点，并非满足特定估计精度或预警功效要求的最低监测规模。当 $m\to\infty$ 时 $V(m)\to v_R$；规模项在总方差中占 $1/(1+m/\mx)$，在 $m=\mx$ 处两项各半；规模从 $m$ 翻倍到 $2m$ 时方差下降 $1/[2(1+m/\mx)]$；$V(m)$ 严格递减且严格凸，弹性为 $-\mx/(m+\mx)$，在 $m=\mx$ 处等于 $-1/2$。在对 $R_t$ 条件无偏的估计类中，$V(m)$ 是 $\Rbar$ 的最小均方误差；在 H4 下也是以过去数据预测下一期增长 $C_{t+1}/m$ 的最小预测均方误差。
 \end{proposition}
 
 式~\eqref{eq:var-average} 由全方差公式得到，条件方差的期望给出 $A/m$，条件均值 $R_t$ 的方差给出 $v_R$。比较命题~\ref{prop:current} 可知 $A/m=\E[1/\mathcal I(R_t)]$，估计目标2的方差等于环境方差加上估计目标1的 Cramér--Rao 下界在环境分布上的平均。对任一在给定 $R_t$ 时无偏的估计量 $\tilde\theta$，把误差拆为 $(\tilde\theta-R_t)+(R_t-\Rbar)$，交叉项的期望为零，由全方差公式得
@@ -85,7 +85,7 @@ $R_t$ 随时间波动。天气、学校假期和人群流动使各期传播强�
   \ \geq\ v_R+\E\big[1/\mathcal I(R_t)\big]=v_R+\frac{A}{m},
   \label{eq:unbiased-bound}
 \end{equation}
-其中第二个等号用到 $\E(R_t^2)=\Rbar^2+v_R$。$\widehat R_t=C_t/m$ 取到等号，故 $V(m)$ 是该估计类的最小均方误差，且 $A/m=\E[1/\mathcal I(R_t)]$ 是估计目标1的 Cramér--Rao 下界在环境分布上的平均。在 H4 下，若下一期规模 $m$ 已知，任何以截至第 $t$ 期的信息为依据的预测量 $\hat y$ 对 $y=C_{t+1}/m$ 的误差满足
+其中第二个等号用到 $\E(R_t^2)=\Rbar^2+v_R$。$\widehat R_t=C_t/m$ 取到等号，故 $V(m)$ 是该估计类的最小均方误差。在 H4 下，若下一期规模 $m$ 已知，任何以截至第 $t$ 期的信息为依据的预测量 $\hat y$ 对 $y=C_{t+1}/m$ 的误差满足
 \begin{equation}
   \E(\hat y-y)^2\ \geq\ \Var(y\mid\mathcal F_t)=v_R+\frac{A}{m},
   \label{eq:predict-bound}

@@ -1,7 +1,7 @@
 \section{引言}
 \label{sec:intro}
 
-再生数是判断传染病传播态势的基本指标。它大于 1 意味着疫情扩张，小于 1 意味着收缩，其变化常被用来评估干预效果和安排医疗资源。基于世代间隔与更新方程的估计方法已成为实时追踪的主要工具\citep{wallinga2004different, fraser2007estimating, cori2013new}，窗口选择、报告延迟与偏差修正等实际问题也有系统讨论\citep{thompson2019improved, gostic2020practical, nouvellet2018simple, steyn2025primer}。这些工作回答给定一条病例序列后怎样估计得更好；监测系统设计者面对的是前一步的问题，即需要收集多少病例、覆盖多少机构，才能使估计达到所需精度。住院监测使这个问题格外具体。流感住院只占感染的 0.6\%--2\%\citep{zhou2012hospitalizations, tokars2018seasonal}，美国国家医疗安全网络（NHSN）各辖区每周的住院数往往只有几十例，且填报制度在强制与自愿之间切换\citep{cdc2026nhsn}。以这些数据为输入的集合预测已有成熟的评价框架\citep{reich2019accuracy, cramer2022evaluation, mathis2024evaluation}，相对误差评分的性质也有专门研究\citep{bosse2023scoring}。设计者需要知道误差中有多大部分能靠扩大规模消除，提高报告率与扩大覆盖哪一条更划算，以及规模扩大到何处以后收益明显下降。
+再生数是判断传染病传播态势的基本指标，大于 1 意味着疫情扩张，小于 1 意味着收缩，常被用来评估干预效果和安排医疗资源。基于世代间隔与更新方程的估计方法已成为实时追踪的主要工具\citep{wallinga2004different, fraser2007estimating, cori2013new}，窗口选择、报告延迟与偏差修正等实际问题也有系统讨论\citep{thompson2019improved, gostic2020practical, nouvellet2018simple, steyn2025primer}。这些工作回答给定病例序列后怎样估计得更好；监测设计者面对的则是前一步问题：需要收集多少病例、覆盖多少机构才能达到所需精度。流感住院只占感染的 0.6\%--2\%\citep{zhou2012hospitalizations, tokars2018seasonal}，美国国家医疗安全网络（NHSN）各辖区每周住院数往往只有几十例，且填报制度在强制与自愿间切换\citep{cdc2026nhsn}。以这些数据为输入的集合预测已有成熟评价框架\citep{reich2019accuracy, cramer2022evaluation, mathis2024evaluation}，相对误差评分的性质也有专门研究\citep{bosse2023scoring}。设计者需要知道误差中有多大部分能靠扩大规模消除，提高报告率与扩大覆盖哪一条更划算，以及规模扩大到何处以后收益明显下降。
 
 经典统计直觉给出了一个简单答案。在泊松更新模型下，再生数的 Fisher 信息随病例数线性增长，估计方差与病例数成反比\citep{parag2022quantifying}。超传播使继发感染数严重过离散，通常用负二项分布刻画\citep{lloydsmith2005superspreading, endo2020estimating, kucharski2020early}；它只改变方差的比例常数，不改变方差随病例数下降的速度。按照这一直觉，扩大规模总能换来同比例的精度提升，边际收益随规模平滑递减，不存在由传播过程本身决定的转折点。
 
