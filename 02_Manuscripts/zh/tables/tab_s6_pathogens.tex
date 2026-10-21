@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{跨病原截距比与纯报告增长零模型的比较，附 Holm 校正 $p$ 值。}
+\label{tab:s6}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrllllrrrrr}
+\toprule
+病原，窗口 & $N$ & \begin{tabular}[t]{@{}c@{}}$q_1$\\ \relax[95\% CI]\end{tabular} & \begin{tabular}[t]{@{}c@{}}$q_2$\\ \relax[95\% CI]\end{tabular} & \begin{tabular}[t]{@{}c@{}}零模型\\ $q_1$\end{tabular} & \begin{tabular}[t]{@{}c@{}}零模型\\ $q_2$\end{tabular} & $q_1<1$ & $q_2>1$ & \begin{tabular}[t]{@{}c@{}}$q_1$\\ 越界\end{tabular} & \begin{tabular}[t]{@{}c@{}}$q_2$\\ 越界\end{tabular} & \begin{tabular}[t]{@{}c@{}}超额\\ $>0$\end{tabular} \\
+\midrule
+流感，规则 & 1756 & \begin{tabular}[t]{@{}c@{}}0.68\\ \relax[0.58, 0.81]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.61\\ \relax[1.41, 1.87]\end{tabular} & 0.63--0.89 & 1.13--1.58 & 0.020 & 0.034 & 1.000 & 1.000 & 0.034 \\
+流感，日历 & 1267 & \begin{tabular}[t]{@{}c@{}}0.69\\ \relax[0.53, 0.85]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.54\\ \relax[1.27, 1.88]\end{tabular} & 0.63--0.89 & 1.13--1.58 & 0.020 & 0.020 & 1.000 & 1.000 & 0.020 \\
+流感，增长期 & 2707 & \begin{tabular}[t]{@{}c@{}}0.57\\ \relax[0.47, 0.71]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.88\\ \relax[1.55, 2.45]\end{tabular} & 0.68--0.88 & 1.33--1.58 & 0.034 & 0.020 & 1.000 & 1.000 & 0.020 \\
+流感，增长期（2025-26 季） & 663 & \begin{tabular}[t]{@{}c@{}}0.64\\ \relax[0.45, 0.84]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.56\\ \relax[1.28, 2.33]\end{tabular} & 0.66--0.89 & 1.25--1.57 & 0.116 & 0.075 & 1.000 & 1.000 & 0.046 \\
+COVID-19，日历 & 1479 & \begin{tabular}[t]{@{}c@{}}0.73\\ \relax[n.d., 0.91]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.53\\ \relax[0.67, 1.87]\end{tabular} & 0.61--0.83 & 1.42--1.67 & 0.287 & 0.616 & 1.000 & 1.000 & 1.000 \\
+COVID-19，增长期 & 2862 & \begin{tabular}[t]{@{}c@{}}0.78\\ \relax[0.61, 1.01]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.41\\ \relax[1.21, 2.04]\end{tabular} & 0.60--0.84 & 1.40--1.66 & 0.616 & 0.154 & 1.000 & 1.000 & 1.000 \\
+合胞病毒，日历 & 494 & \begin{tabular}[t]{@{}c@{}}0.70\\ \relax[0.48, 0.93]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.57\\ \relax[1.19, 2.09]\end{tabular} & 0.17--1.11 & 1.01--3.02 & 0.154 & 0.228 & 1.000 & 1.000 & 0.200 \\
+合胞病毒，增长期 & 1073 & \begin{tabular}[t]{@{}c@{}}0.64\\ \relax[0.11, 0.87]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.69\\ \relax[n.d., 3.06]\end{tabular} & 0.57--1.14 & 0.89--1.69 & 0.182 & 0.660 & 1.000 & 1.000 & 1.000 \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.95\linewidth}\scriptsize 其中 $q_1=a_{\text{单周}}/a_{\text{原权重}}$，$q_2=a_{\text{三周等权}}/a_{\text{原权重}}$，区间来自共享的双向自助法（$B=2000$）。零模型范围来自无传播异质性的增长零模拟，涵盖三种代际间隔、三种入院延迟和四档报告噪声；规则窗口一行沿用流感日历窗口的范围。后五列为单侧自助 $p$ 值，对全部 40 个检验做 Holm 校正；标为越界的两列检验比值是否落在零模型范围之外。超额指 $a-v_R/\bar{G}^2$，取 $v_R=0.04$。标为 n.d. 的下限无定义：部分自助重复给出负截距，比值因而没有正的下限；上限按估计值列出。\end{minipage}
+\end{table}

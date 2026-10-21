@@ -1,0 +1,116 @@
+{
+ "schema_version": 1,
+ "tables": [
+  {
+   "id": "tab:s1",
+   "path": "tab_s1_headline.tex",
+   "sha256": "53e1586c635c3471076fc81dbeb66dc94dd7c0a5b43c3c792cbe505f8ca0e9e4",
+   "generator": "experiment/code/make_tables.py; experiment/code/make_tables_r3.py",
+   "data_sources": [
+    "experiment/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s2",
+   "path": "tab_s2_decomposition.tex",
+   "sha256": "ebfc3fbcac1fc0cff0dfb7f4fc0bfaac95e327607c3cab0e03ba419930bff47f",
+   "generator": "experiment/code/make_tables.py; experiment/code/make_tables_r3.py",
+   "data_sources": [
+    "experiment/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s3",
+   "path": "tab_s3_reporting.tex",
+   "sha256": "88f3735862dc056d71d380859b94953d7f407961e111b0370a35fdf5d68816e3",
+   "generator": "experiment/code/make_tables.py; experiment/code/make_tables_r3.py",
+   "data_sources": [
+    "experiment/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s4",
+   "path": "tab_s4_calendar_lab.tex",
+   "sha256": "386e1f268f1ffb421e4dff9618a7e167176a373b2b0da4eee321264b147110c6",
+   "generator": "experiment/code/make_tables.py",
+   "data_sources": [
+    "experiment/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s5",
+   "path": "tab_s5_seasons.tex",
+   "sha256": "0bcc58b352dfe73f2f3f3b19f2853c5d4e336a130f5c433d7cd1fab9e8540672",
+   "generator": "experiment/code/make_tables.py",
+   "data_sources": [
+    "experiment/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s6",
+   "path": "tab_s6_pathogens.tex",
+   "sha256": "0ec648d64ee16f2ef9a330791e7371512ebb44265a7282b3867d34a26562fa67",
+   "generator": "experiment/code/make_tables.py; experiment/code/make_tables_r3.py",
+   "data_sources": [
+    "experiment/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s7",
+   "path": "tab_s7_theory.tex",
+   "sha256": "d42e300c9f7d28aeb862ba8a9057ded606563be27de9adde488202e4be914bb3",
+   "generator": "experiment/code/make_tables.py",
+   "data_sources": [
+    "experiment/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s8",
+   "path": "tab_s8_inversion_settings.tex",
+   "sha256": "65b6398877398d49fd9f748229e06dd74b8bd886f9191c727d08ea3184609d49",
+   "generator": "experiment/code/make_tables_r3.py",
+   "data_sources": [
+    "experiment/analysis/parts/inversion.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s9",
+   "path": "tab_s9_analysis_history.tex",
+   "sha256": "7280f439be82a6615f64fbfe9768c6f988df07c65403fec34376e74ceaf8fa38",
+   "generator": "experiment/code/make_tables_r3.py",
+   "data_sources": [
+    "experiment/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s10",
+   "path": "tab_s10_polish.tex",
+   "sha256": "760abe2d5e43bd8c23750d7a36181e8770db89c20e4c8d94fba6014d48fa9514",
+   "generator": "experiment/code/make_tables_polish.py",
+   "data_sources": [
+    "experiment/analysis/parts/polish.json",
+    "experiment/analysis/parts/inversion.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  }
+ ]
+}

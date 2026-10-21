@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{截距分解及仿射模型与幂律的比较，附各截距的 95\% 置信区间。}
+\label{tab:s2}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lllrrrrrr}
+\toprule
+设定 & $a$ 总量 & \begin{tabular}[t]{@{}c@{}}去除周效应\\ 后的 $a$\end{tabular} & \begin{tabular}[t]{@{}c@{}}去除周效应与州-季\\ 效应后的 $a$\end{tabular} & 周占比 & ICC & 幂指数 & $p$ & \begin{tabular}[t]{@{}c@{}}交叉验证折数\\（州；季）\end{tabular} \\
+\midrule
+$R_A$，规则窗口（$S=4$） & \begin{tabular}[t]{@{}c@{}}0.0150\\ \relax[0.0100, 0.0208]\end{tabular} & \begin{tabular}[t]{@{}c@{}}0.0088\\ \relax[0.0064, 0.0124]\end{tabular} & \begin{tabular}[t]{@{}c@{}}0.0083\\ \relax[0.0064, 0.0141]\end{tabular} & 0.41 & 0.25 & 0.38 & 0.11 & 26/51；2/4 \\
+$G$，规则窗口（$S=4$） & \begin{tabular}[t]{@{}c@{}}0.0840\\ \relax[0.0508, 0.1226]\end{tabular} & \begin{tabular}[t]{@{}c@{}}0.0415\\ \relax[0.0306, 0.0586]\end{tabular} & \begin{tabular}[t]{@{}c@{}}0.0394\\ \relax[0.0293, 0.0614]\end{tabular} & 0.51 & 0.31 & 0.35 & 0.44 & 19/51；0/4 \\
+$G$，日历窗口（$S=3$） & \begin{tabular}[t]{@{}c@{}}0.0991\\ \relax[0.0583, 0.1399]\end{tabular} & \begin{tabular}[t]{@{}c@{}}0.0473\\ \relax[0.0337, 0.0676]\end{tabular} & \begin{tabular}[t]{@{}c@{}}0.0450\\ \relax[0.0335, 0.0932]\end{tabular} & 0.52 & 0.29 & 0.27 & 0.42 & 28/51；3/3 \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.95\linewidth}\scriptsize 区间来自 $B=1000$ 的双向自助法，其抽样与表 S1 相互独立，因此数值略有差异。第三列在拟合前从统计量中去除全国周效应，第四列再去除州-季效应。周占比等于一减去第三列与第二列之比。ICC 为统计量方差中位于周间的份额。幂指数为 $L=\alpha D^{-c}$ 中的 $c$；$p$ 来自仿射模型对该幂律的参数自助检验，零分布抽样 200 次。交叉验证折数为逐州留一与逐季留一时仿射模型预测更优的折数。功效分析表明，真实截距取估计 $a$ 的任何比例（$\le 1$）时，检验功效均达不到 80\%。\end{minipage}
+\end{table}
