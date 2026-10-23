@@ -18,7 +18,7 @@
 \usepackage{tikz}
 \usepackage{amsmath,amsthm}
 \usepackage{unicode-math}
-\setmathfont{Latin Modern Math}
+\setmathfont{latinmodern-math.otf}
 \usepackage[a4paper, margin=0.8in]{geometry}
 \usepackage[authoryear,round]{natbib}
 \usepackage{booktabs}
@@ -30,7 +30,7 @@
 \usepackage{multirow}
 \usepackage{xurl}
 \usepackage[hidelinks,unicode=true]{hyperref}
-\hypersetup{pdftitle={Scaling limits and surveillance design for epidemic reproduction numbers under environmental and reporting stochasticity}, pdfauthor={Apevon Science}}
+\hypersetup{pdftitle={Scaling limits and surveillance design for epidemic reproduction numbers under environmental and reporting stochasticity}, pdfauthor={}}
 \urlstyle{same}
 \usepackage{caption}
 \usepackage{subcaption}
@@ -90,7 +90,7 @@
 \newcommand{\Rhat}{\mathord{\hbox{\ooalign{$R$\cr\hidewidth\kern0.16em\raisebox{0.74em}{\hatstroke}\hidewidth\cr}}}}
 
 \title{Scaling limits and surveillance design for epidemic reproduction numbers under environmental and reporting stochasticity}
-\author{Apevon Science}
+\author{}
 \date{}
 
 \begin{document}
@@ -105,12 +105,14 @@
 \input{sections/discussion}
 \input{sections/conclusion}
 \input{sections/methods}
-\input{sections/endmatter}
-\input{sections/appendix}
 
 \FloatBarrier
 \clearpage
 \bibliographystyle{plainnat-nodoi}
 \bibliography{bibliography}
+
+\FloatBarrier
+\clearpage
+\input{sections/appendix}
 
 \end{document}
