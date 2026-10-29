@@ -1,18 +1,19 @@
 \begin{table}[htbp]
 \centering
 \footnotesize
-\caption{各设定下相对损失的截距 $a$、斜率 $b$ 与平衡比 $b/a$，以及各估计值的双向自助法 95\% 置信区间。}
+\setlength{\tabcolsep}{3pt}
+\caption{各设定下相对损失的截距 $a$、斜率 $b$ 与表观平衡规模 $b/a$，附双向自助法 95\% 置信区间。}
 \label{tab:s1}
-\begin{tabular}{lrrrlllr}
+\begin{tabular}{lrrcrccc r}
 \toprule
-设定 & $N$ & 周数 & $\bar{x}$ & $a$ [95\% CI] & $b$ [95\% CI] & $b/a$ [95\% CI] & 标准差比 \\
+设定 & $N$ & 周数 & 规模变量 & $\bar{x}$ & $a$ & $b$ & \begin{tabular}[t]{@{}c@{}}表观平衡\\规模 $b/a$\end{tabular} & \begin{tabular}[t]{@{}c@{}}标准差比\\（双向/州）\end{tabular} \\
 \midrule
-$R_A$，规则窗口（$S=4$） & 1748 & 42 & 1.206 & 0.0150 [0.0100, 0.0208] & 0.560 [0.367, 0.769] & 37.4 [19.1, 71.0] & 1.95 \\
-$G$，规则窗口（$S=4$） & 1756 & 42 & 1.724 & 0.0840 [0.0498, 0.1248] & 1.971 [0.959, 3.098] & 23.5 [8.4, 59.7] & 2.29 \\
-$G$，日历窗口（$S=3$） & 1267 & 29 & 1.671 & 0.0991 [0.0569, 0.1382] & 2.243 [1.060, 3.559] & 22.6 [9.0, 52.2] & 4.68 \\
-$R_A$，日历窗口（$S=3$） & 1263 & 29 & 1.190 & 0.0202 [0.0097, 0.0306] & 0.516 [0.279, 0.839] & 25.6 [10.2, 79.6] & 3.46 \\
+$R_A$，规则窗口（$S=4$） & 1748 & 42 & $C_t$ & 1.206 & \begin{tabular}[t]{@{}c@{}}0.0150\\ \relax[0.0100, 0.0205]\end{tabular} & \begin{tabular}[t]{@{}c@{}}0.560\\ \relax[0.375, 0.761]\end{tabular} & \begin{tabular}[t]{@{}c@{}}37.4\\ \relax[19.7, 69.7]\end{tabular} & 1.96 \\
+$G$，规则窗口（$S=4$） & 1756 & 42 & $D_t$ & 1.724 & \begin{tabular}[t]{@{}c@{}}0.0840\\ \relax[0.0515, 0.1199]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.971\\ \relax[1.024, 3.005]\end{tabular} & \begin{tabular}[t]{@{}c@{}}23.5\\ \relax[8.8, 54.7]\end{tabular} & 2.19 \\
+$R_A$，日历窗口（$S=3$） & 1263 & 29 & $C_t$ & 1.190 & \begin{tabular}[t]{@{}c@{}}0.0202\\ \relax[0.0104, 0.0307]\end{tabular} & \begin{tabular}[t]{@{}c@{}}0.516\\ \relax[0.284, 0.822]\end{tabular} & \begin{tabular}[t]{@{}c@{}}25.6\\ \relax[10.1, 73.9]\end{tabular} & 3.49 \\
+$G$，日历窗口（$S=3$） & 1267 & 29 & $D_t$ & 1.671 & \begin{tabular}[t]{@{}c@{}}0.0991\\ \relax[0.0608, 0.1356]\end{tabular} & \begin{tabular}[t]{@{}c@{}}2.243\\ \relax[1.168, 3.550]\end{tabular} & \begin{tabular}[t]{@{}c@{}}22.6\\ \relax[9.4, 48.9]\end{tabular} & 2.52 \\
 \bottomrule
 \end{tabular}
 \par\smallskip
-\begin{minipage}{0.95\linewidth}\scriptsize 以迭代 FGLS 将 $L=((x-\bar{x})/\bar{x})^2$ 拟合为 $a+b/D$；区间为州 $\times$ 周双向鸽笼自助法 95\% 百分位区间，$B=2000$，每次重抽重新估计 $\bar{x}$。标准差比为双向重抽与仅按州重抽下 $a$ 的自助标准差之比。均为 51 个辖区。\end{minipage}
+\begin{minipage}{0.95\linewidth}\scriptsize 以迭代 FGLS 将 $L=((x-\bar{x})/\bar{x})^2$ 拟合为 $a+b/M$，$M$ 为规模变量且 $M\ge5$；$\bar{x}$ 为该设定合并窗口的均值（中心化层级：规格合并窗口）。区间为州$\times$周双向鸽笼自助法 95\% 百分位区间，$B=2000$，种子 20261029；各规格共享同一组州次数，周次数在季内按窗口抽取并由同一窗口的 $R_A$ 与 $G$ 共用，每次重抽重新估计中心化均值。标准差比为双向重抽与仅按州重抽（同一州次数）下 $a$ 的自助标准差之比。均为 51 个辖区。\end{minipage}
 \end{table}

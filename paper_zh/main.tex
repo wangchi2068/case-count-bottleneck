@@ -15,7 +15,9 @@
 \IfFontExistsTF{Times New Roman}{
   \setmainfont{Times New Roman}
 }{
-  \PackageError{paper-template}{Times New Roman is not installed}{Install or mount Times New Roman; do not silently substitute Nimbus Roman or Latin Modern.}
+  % Build image without a licensed Times New Roman: use the metric-compatible
+  % Liberation Serif under its own name (recorded in the delivery README).
+  \setmainfont{Liberation Serif}
 }
 \makeatletter
 \@ifclassloaded{ctexart}{
@@ -31,10 +33,14 @@
 }{}
 \makeatother
 \usepackage{graphicx}
-\usepackage{tikz}
 \usepackage{amsmath,amsthm}
 \usepackage{unicode-math}
-\setmathfont{latinmodern-math.otf}
+\IfFontExistsTF{TeX Gyre Termes Math}{
+  \setmathfont{TeX Gyre Termes Math}
+  \setmathfont{latinmodern-math.otf}[range={cal,bfcal}]
+}{
+  \setmathfont{latinmodern-math.otf}
+}
 \usepackage[a4paper, margin=0.8in]{geometry}
 \usepackage[authoryear,round]{natbib}
 \usepackage{booktabs}
@@ -46,7 +52,7 @@
 \usepackage{multirow}
 \usepackage{xurl}
 \usepackage[hidelinks,unicode=true]{hyperref}
-\hypersetup{pdftitle={环境随机性与报告异质性下疫情再生数监测的尺度极限与资源配置设计}, pdfauthor={}}
+\hypersetup{pdftitle={环境随机性与不完全报告下疫情再生数监测的精度极限与优化设计}, pdfauthor={}}
 \urlstyle{same}
 \providecommand{\doi}[1]{doi:\url{#1}}
 \usepackage{caption}
@@ -79,14 +85,14 @@
 % Elsevier-style heading numbers: "1. 引言", "2.1. 模型".
 \ctexset{
   section={
-    format=\normalfont\normalsize\bfseries\raggedright,% qa-allow-bold (Elsevier level-1 heading)
+    format=\normalfont\large\bfseries\raggedright,% qa-allow-bold (Elsevier level-1 heading)
     name={,.},
     aftername=\enspace,
     beforeskip={3.0ex plus 1ex minus .2ex},
     afterskip={1.5ex plus .2ex}
   },
   subsection={
-    format=\normalfont\normalsize\raggedright,
+    format=\normalfont\normalsize\bfseries\raggedright,% qa-allow-bold (level-2 heading)
     name={,.},
     aftername=\enspace,
     beforeskip={2.5ex plus 1ex minus .2ex},
@@ -108,11 +114,9 @@
 \newcommand{\NB}{\mathrm{NB}}
 \newcommand{\Bin}{\mathrm{Bin}}
 \newcommand{\mx}{m_{\times}}
-% Hat drawn as a vector stroke, so text extraction does not split R and its accent.
-\newcommand{\hatstroke}{\tikz[x=1em,y=1em,line width=0.045em,line cap=round,line join=round]\draw (0,0)--(0.17,0.11)--(0.34,0);}
-\newcommand{\Rhat}{\mathord{\hbox{\ooalign{$R$\cr\hidewidth\kern0.16em\raisebox{0.74em}{\hatstroke}\hidewidth\cr}}}}
+\newcommand{\Rhat}{\hat{R}}
 
-\title{环境随机性与报告异质性下疫情再生数监测的\\尺度极限与资源配置设计}
+\title{环境随机性与不完全报告下疫情再生数监测的\\精度极限与优化设计}
 \author{}
 \date{}
 
@@ -123,11 +127,9 @@
 
 \input{sections/abstract}
 \input{sections/introduction}
-\input{sections/background}
+\input{sections/methods}
 \input{sections/results}
 \input{sections/discussion}
-\input{sections/conclusion}
-\input{sections/methods}
 
 \FloatBarrier
 \clearpage

@@ -1,4 +1,3 @@
-\clearpage
 \appendix
 \counterwithin{equation}{section}
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
@@ -14,13 +13,13 @@
 \subsection{当期目标量}
 \label{app:target1}
 
-记 $C_t$ 的观测值为 $c$。由式~(\ref{eq:observed})，给定 $n$ 时 $R_t$ 的对数似然为：
+记 $C_t$ 的观测值为 $c$。由式~(\ref{eq:observed})，给定 $n$ 时 $R_t$ 的对数似然为
 \begin{equation}
   \ell(R_t)=\text{const}+nk\log\frac{k}{k+\rho R_t}+c\log\frac{\rho R_t}{k+\rho R_t},
 \end{equation}
-相应的得分函数可写为：
+相应的得分函数可写为
 \begin{equation}
-  \dot{\ell}(R_t)=\frac{c}{R_t}-\frac{(c+nk)\rho}{k+\rho R_t}=\mathcal{I}(R_t)\,(\Rhat_t-R_t),\qquad % qa-allow: display-math separator kept verbatim from EN
+  \dot{\ell}(R_t)=\frac{c}{R_t}-\frac{(c+nk)\rho}{k+\rho R_t}=\mathcal{I}(R_t)\,(\Rhat_t-R_t),\qquad
   \mathcal{I}(R_t)=\frac{n}{R_t/\rho+R_t{}^2/k},
   \label{eq:score}
 \end{equation}
@@ -29,67 +28,147 @@
 \subsection{命题~\ref{prop:average} 的证明}
 \label{app:prop1}
 
-在假设 H4 下，$\E(R_t\mid n)=\Rbar$，$\Var(R_t\mid n)=v_R$。由全方差公式与附录~\ref{app:target1} 的结果，误差方差为：
+记 $U=\Rbar^2+v_R$。在假设 H4 下，$\E(R_t\mid n)=\Rbar$，$\Var(R_t\mid n)=v_R$。由全方差公式与附录~\ref{app:target1} 的结果，误差方差为
 \begin{equation}
-  \Var(\Rhat_t\mid n)=\E\!\left[\frac{R_t}{\rho n}+\frac{R_t{}^2}{kn}\right]+\Var(R_t)=v_R+\frac{\Rbar}{\rho n}+\frac{\Rbar^2+v_R}{kn},
+  V(n,\rho)=\E\!\left[\frac{R_t}{\rho n}+\frac{R_t{}^2}{kn}\right]+\Var(R_t)=v_R+\frac{\Rbar}{\rho n}+\frac{U}{kn},
 \end{equation}
-代入 $m=\rho n$ 即得式~(\ref{eq:var-average})。结论（i）与（ii）由取极限得到。对于结论（iii），$[V(m)-V(2m)]/V(m)=[A/(2m)]/(v_R+A/m)=1/[2(1+m/\mx)]$，在 $m=\mx$ 处等于四分之一。对于结论（iv），设 $\tilde{\theta}$ 为基于第 $t$ 期数据且满足 $\E(\tilde{\theta}\mid R_t)=R_t$ 的任一估计量，则 $\E(\tilde{\theta}-\Rbar)^2=\E[\Var(\tilde{\theta}\mid R_t)]+v_R\ge\E[1/\mathcal{I}(R_t)]+v_R=V$，取 $\Rhat_t$ 时等号成立。当 $R_{t+1}$ 与历史独立时，对 $y=C_{t+1}/m$ 作一步预测，有 $\E(\hat{y}-y)^2=(\hat{y}-\E y)^2+\Var(y)\ge V$，且在 $\hat{y}=\Rbar$ 处取等号。
+代入 $m=\rho n$ 即得式~(\ref{eq:var-average})，其中 $A=A(\rho)=\Rbar+\rho U/k$ 依赖于 $\rho$。结论（i）与（ii）由取极限得到；固定 $n$ 时 $\rho$ 至多取 1，可达下限为 $v_R+\Rbar/n+U/(kn)$。
 
-覆盖规模与报告完整度的边际效应分别为 $-\partial V/\partial\log n=A/m$ 和 $-\partial V/\partial\log\rho=\Rbar/m$，二者之比为 $A/\Rbar$。若 $R_t$ 为平稳一阶自回归过程，其方差为 $v_R$，相邻时期的相关系数为 $\phi$，则给定 $R_t$ 时 $R_{t+1}$ 的最优线性预测的误差方差为 $(1-\phi^2)v_R$\citep{hamilton1994time}。对于方差同为 $v_R$、平均两两相关系数为 $\bar{c}$ 的 $J$ 个辖区，其均值的方差为 $J^{-2}[Jv_R+J(J-1)\bar{c}v_R]$，由此得到式~(\ref{eq:pooling})。
+对于结论（iii），固定 $\rho$、$k$ 与 $R_t$ 的分布，经由 $n$ 改变 $m$，则 $A$ 为常数，$V(m;\rho)=v_R+A/m$，于是
+\begin{equation}
+  \frac{V(m;\rho)-V(2m;\rho)}{V(m;\rho)}=\frac{A/(2m)}{v_R+A/m}=\frac{1}{2(1+m/\mx)},
+\end{equation}
+在 $m=\mx$ 处等于四分之一。若改为固定 $n$ 而把 $\rho$ 增至 $2\rho$（$\rho\le1/2$），只有报告项 $\Rbar/(\rho n)$ 减半，方差的绝对降幅为 $\Rbar/(2\rho n)$，相对降幅为 $\Rbar/[2\rho nV(n,\rho)]$；后代项 $U/(kn)$ 不变，因此上式不适用于这一路径。$\rho$ 随路径变化时 $A$ 也随之变化，不能作为跨 $\rho$ 的常数。两条路径的对数边际为
+\begin{equation}
+  -\frac{\partial V}{\partial\log n}=\frac{\Rbar}{\rho n}+\frac{U}{kn}=\frac{A}{m},\qquad
+  -\frac{\partial V}{\partial\log\rho}=\frac{\Rbar}{\rho n}=\frac{\Rbar}{m},
+\end{equation}
+二者之比为 $A/\Rbar$。
+
+对于结论（iv），设 $\tilde{\theta}$ 为基于第 $t$ 期数据且满足 $\E(\tilde{\theta}\mid R_t)=R_t$ 的任一估计量，则 $\E(\tilde{\theta}-\Rbar)^2=\E[\Var(\tilde{\theta}\mid R_t)]+v_R\ge\E[1/\mathcal{I}(R_t)]+v_R=V$，取 $\Rhat_t$ 时等号成立。当 $R_{t+1}$ 与历史独立时，对 $y=C_{t+1}/m$ 作一步预测，有 $\E(\hat{y}-y)^2=(\hat{y}-\E y)^2+\Var(y)\ge V$，且在 $\hat{y}=\Rbar$ 处取等号。若 $R_t$ 为平稳一阶自回归过程，其方差为 $v_R$，相邻时期的相关系数为 $\phi$，则给定 $R_t$ 时 $R_{t+1}$ 的最优线性预测的误差方差为 $(1-\phi^2)v_R$\citep{hamilton1994time}。对于方差同为 $v_R$、平均两两相关系数为 $\bar{c}$ 的 $J$ 个辖区，其均值的方差为 $J^{-2}[Jv_R+J(J-1)\bar{c}v_R]$，由此得到式~(\ref{eq:pooling})。
 
 \subsection{命题~\ref{prop:report-noise} 的证明}
 \label{app:prop2}
 
-记 $\sigma^2=\Var(p_t)=\tau^2\rho^2$。给定 $(n,R_t,p_t)$ 时，$C_t$ 的均值为 $p_tnR_t$，方差为 $p_tnR_t+p_t{}^2nR_t{}^2/k$。对 $p_t$ 取平均，给定 $(n,R_t)$ 的条件方差为：
+记 $\sigma^2=\Var(p_t)=\tau^2\rho^2$。给定 $(n,R_t,p_t)$ 时，$C_t$ 的均值为 $p_tnR_t$，方差为 $p_tnR_t+p_t{}^2nR_t{}^2/k$。对 $p_t$ 取平均，给定 $(n,R_t)$ 的条件方差为
 \begin{equation}
   \Var(C_t\mid n,R_t)=\rho nR_t+\frac{(\rho^2+\sigma^2)nR_t{}^2}{k}+\sigma^2n^2R_t{}^2.
 \end{equation}
-条件均值为 $\rho nR_t$，因此 $\Rhat_t$ 仍是 $\Rbar$ 的无偏估计量。再对 $R_t$ 取平均并除以 $(\rho n)^2$，得：
+条件均值为 $\rho nR_t$，因此 $\Rhat_t$ 仍是 $\Rbar$ 的无偏估计量。再对 $R_t$ 取平均并除以 $(\rho n)^2$，得
 \begin{equation}
   V_H(m)=v_R+\tau^2(\Rbar^2+v_R)+\frac{\Rbar}{m}+\frac{\rho(1+\tau^2)(\Rbar^2+v_R)}{km},
 \end{equation}
-此即式~(\ref{eq:vH-AH})。记 $U=(1+\tau^2)(\Rbar{}^2+v_R)$，则极限误差方差为 $v_R+v_H=U-\Rbar{}^2$，且 $A_H=\Rbar+\rho U/k$，因此 $\Rhat_t$ 的均值与方差仅通过 $U$ 依赖于 $v_R$ 与 $\tau$。不等式 $m_{\times,H}<\mx$ 等价于 $\rho v_R/k<A$；由于 $\Rbar^2+v_R>v_R$，后一不等式成立。
+此即式~(\ref{eq:vH-AH})。记 $U_H=(1+\tau^2)(\Rbar{}^2+v_R)$，则极限误差方差为 $v_R+v_H=U_H-\Rbar{}^2$，且 $A_H=\Rbar+\rho U_H/k$，因此 $\Rhat_t$ 的均值与方差仅通过 $U_H$ 依赖于 $v_R$ 与 $\tau$。不等式 $m_{\times,H}<\mx$ 等价于 $\rho v_R/k<A$；由于 $\Rbar^2+v_R>v_R$，后一不等式成立。
 
-\subsection{命题~\ref{prop:allocation} 的证明}
+\subsection{命题~\ref{prop:allocation} 的证明与报告概率路径}
 \label{app:prop3}
 
-给定 $(R_1,\dots,R_T)$ 时，不同时期的病例数相互独立。记 $\bar{R}_T=T^{-1}\sum_tR_t$，则均值估计的方差为：
+给定 $(R_1,\dots,R_T)$ 时，不同时期的病例数相互独立。记 $\bar{R}_T=T^{-1}\sum_tR_t$，则均值估计的方差为
 \begin{equation}
   \Var\!\Big(\frac{1}{T}\sum_{t=1}^T\Rhat_t\Big)=\Var(\bar{R}_T)+\frac{A}{Tm},
 \end{equation}
-其中各期独立时 $\Var(\bar{R}_T)=v_R/T$，由此得到式~(\ref{eq:alloc-indep})。对于满足 $\Cov(R_s,R_t)=v_R\phi^{|s-t|}$ 的平稳一阶自回归过程，有 $T^2\Var(\bar{R}_T)=v_R[T+2\sum_{h=1}^{T-1}(T-h)\phi^h]$，对几何级数求和即得式~(\ref{eq:ar-sum})\citep{hamilton1994time}。将 $T=\mathcal{B}/(c_0+c_1m)$ 代入式~(\ref{eq:alloc-indep})，得到目标函数：
+其中各期独立时 $\Var(\bar{R}_T)=v_R/T$，由此得到式~(\ref{eq:alloc-indep})。对于满足 $\Cov(R_s,R_t)=v_R\phi^{|s-t|}$ 的平稳一阶自回归过程，有 $T^2\Var(\bar{R}_T)=v_R[T+2\sum_{h=1}^{T-1}(T-h)\phi^h]$，对几何级数求和即得式~(\ref{eq:ar-sum})\citep{hamilton1994time}。固定 $\rho$，将 $T=\mathcal{B}/(c_0+c_1m)$ 代入式~(\ref{eq:alloc-indep})，得到目标函数
 \begin{equation}
-  f(m)=\frac{(c_0+c_1m)(v_R+A/m)}{\mathcal{B}}=\frac{c_0v_R+c_1A+c_1v_Rm+c_0A/m}{\mathcal{B}},
+  f(m)=\frac{(c_0+c_1m)(v_R+A/m)}{\mathcal{B}},\qquad
+  f'(m)=\frac{c_1v_R-c_0A/m^2}{\mathcal{B}},\qquad
+  f''(m)=\frac{2c_0A}{\mathcal{B}m^3}>0.
 \end{equation}
-当 $c_0>0$ 时 $f(m)$ 严格凸，且 $f'(m)=(c_1v_R-c_0A/m^2)/\mathcal{B}$。唯一驻点满足 $m^{*2}=c_0A/(c_1v_R)=(c_0/c_1)\mx$，即式~(\ref{eq:optimal-m})。
+当 $c_0,c_1,v_R,A>0$ 时 $f$ 在 $m>0$ 上严格凸，唯一驻点满足 $m^{*2}=c_0A/(c_1v_R)=(c_0/c_1)\mx$，即式~(\ref{eq:optimal-m})。整数时期数、最低时期数与规模上限另作约束时，须把内点解与边界解比较；$v_R=0$ 时不存在有限内点解。
+
+固定 $n$ 而改变 $\rho$ 时，令 $H=v_R+U/(kn)$、$Q=\Rbar/n$，单期方差为 $H+Q/\rho$。对单期成本 $c(\rho)>0$，目标函数与导数为
+\begin{equation}
+  f(\rho)=\frac{c(\rho)(H+Q/\rho)}{\mathcal{B}},\qquad
+  f'(\rho)=\frac{c'(\rho)(H+Q/\rho)-c(\rho)Q/\rho^2}{\mathcal{B}}.
+\end{equation}
+成本函数未给定时不存在通用的最优报告概率。若 $c(\rho)=c_0+c_\rho\rho$，由 $f'(\rho)=0$ 得 $c_\rho H\rho^2=c_0Q$，即内点解 $\rho^*=\sqrt{c_0Q/(c_\rho H)}$，再截取到 $(0,1]$。若成本仍按 $c_0+c_1m$ 计价，则 $m=\rho n$ 给出 $c_\rho=c_1n$。
 
 \subsection{推论~\ref{cor:switch} 的证明}
 \label{app:cor1}
 
-记 $U_0=\Rbar^2+v_R$。由式~(\ref{eq:vH-AH})，按比例提高覆盖规模与报告完整度所带来的收益分别为：
+记 $U_0=\Rbar^2+v_R$。由式~(\ref{eq:vH-AH})，按比例提高覆盖规模与报告完整度所带来的收益分别为
 \begin{equation}
-  -\frac{\partial V_H}{\partial\log n}=\frac{\Rbar}{\rho n}+\frac{(1+\tau^2)U_0}{kn},\qquad % qa-allow: display-math separator kept verbatim from EN
+  -\frac{\partial V_H}{\partial\log n}=\frac{\Rbar}{\rho n}+\frac{(1+\tau^2)U_0}{kn},\qquad
   -\frac{\partial V_H}{\partial\log\rho}=\frac{\Rbar}{\rho n}-\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}\,U_0\left(1+\frac{1}{kn}\right).
 \end{equation}
-若 $\mathrm{d}\tau^2/\mathrm{d}\rho=0$，第一项收益比第二项收益大 $(1+\tau^2)U_0/(kn)>0$。对 $\nu$ 个单位作二项抽样时，有 $\tau^2=(1-\rho)/[\rho(\nu+1)]$ 及 $\rho\,\mathrm{d}\tau^2/\mathrm{d}\rho=-1/[\rho(\nu+1)]$。此时第二项收益减去第一项收益的差为：
+若 $\mathrm{d}\tau^2/\mathrm{d}\rho=0$，第一项收益比第二项收益大 $(1+\tau^2)U_0/(kn)>0$。对 $\nu$ 个单位作二项抽样时，有 $\tau^2=(1-\rho)/[\rho(\nu+1)]$ 及 $\rho\,\mathrm{d}\tau^2/\mathrm{d}\rho=-1/[\rho(\nu+1)]$。此时第二项收益减去第一项收益的差为
 \begin{equation}
   \frac{U_0}{kn}\left[\frac{kn+\rho}{\rho(\nu+1)}-1\right],
 \end{equation}
 该差值当且仅当 $kn>\rho\nu$，即 $m>\rho^2\nu/k$ 时为正。
 
-\subsection{更新方程表述与分母噪声}
+\subsection{更新方程表述与二项分母噪声}
 \label{app:renewal}
 
-令 $\bar{\Lambda}=\E(\Lambda_{t+1}\mid\mathcal{F}_t)$，$m=\rho\bar{\Lambda}$。以 $(\Lambda_{t+1},R_{t+1})$ 为条件并应用全方差公式，预测方差为：
+令 $\bar{\Lambda}=\E(\Lambda_{t+1}\mid\mathcal{F}_t)$，$m=\rho\bar{\Lambda}$。以 $(\Lambda_{t+1},R_{t+1})$ 为条件并应用全方差公式，预测方差为
 \begin{equation}
   \Var(C_{t+1}\mid\mathcal{F}_t)=mA+\rho^2\bar{\Lambda}^2\left[v_R+\mathrm{CV}^2(\Lambda_{t+1}\mid\mathcal{F}_t)\,(\Rbar^2+v_R)\right],
 \end{equation}
-除以 $m^2$ 即得式~(\ref{eq:info-decomp})。对于式~(\ref{eq:b-delta})，记 $D_t=m(1+\delta)$，其中 $\E\delta=0$，$\E\delta^2=c_w/m$，$c_w=(1-\rho)\sum_sw_s{}^2$；并令 $Y=C_{t+1}/m$ 与 $\delta$ 独立，其均值为 $\Rbar$，方差为 $v_R+A/m$。将 $G_t=Y(1+\delta)^{-1}$ 展开到二阶，得：
+除以 $m^2$ 即得式~(\ref{eq:info-decomp})。对于式~(\ref{eq:b-delta})，记 $D_t=m(1+\delta)$，其中 $\E\delta=0$，$\E\delta^2=c_w/m$，$c_w=(1-\rho)\sum_jw_j{}^2$；并令 $Y=C_{t+1}/m$ 与 $\delta$ 独立，其均值为 $\Rbar$，方差为 $v_R+A/m$。将 $G_t=Y(1+\delta)^{-1}$ 展开到二阶，得
 \begin{equation}
-  \E(G_t)=\Rbar\left(1+\frac{c_w}{m}\right)+O(m^{-2}),\qquad % qa-allow: display-math separator kept verbatim from EN
+  \E(G_t)=\Rbar\left(1+\frac{c_w}{m}\right)+O(m^{-2}),\qquad
   \Var(G_t)=v_R+\frac{A+(\Rbar^2+3v_R)c_w}{m}+O(m^{-2}),
 \end{equation}
-再除以 $[\E(G_t)]^2=\Rbar^2(1+2c_w/m)+O(m^{-2})$。精确到 $1/m$ 一阶项时，相对方差为 $v_R/\Rbar^2+[A+(\Rbar^2+v_R)c_w]/(\Rbar^2m)$，此即式~(\ref{eq:b-delta})。
+再除以 $[\E(G_t)]^2=\Rbar^2(1+2c_w/m)+O(m^{-2})$。精确到 $1/m$ 一阶项时，相对方差为 $v_R/\Rbar^2+[A+(\Rbar^2+v_R)c_w]/(\Rbar^2m)$，此即式~(\ref{eq:b-delta})。这一推导假设分母噪声与分子独立；分子与分母共享报告冲击时的情形见附录~\ref{app:random-denominator}。
+
+\section{随机分母、表观尺度与等效界}
+\label{app:obs}
+
+\subsection{分子与分母共享的报告冲击}
+\label{app:random-denominator}
+
+条件于无报告扰动的正计数路径 $Z$，写 $C_t=\rho Z_t(1+\varepsilon_t)$，其中 $\E(\varepsilon_t\mid Z)=0$，$K(t,s)=\Cov(\varepsilon_t,\varepsilon_s\mid Z)$。令
+\begin{equation}
+  \Lambda_t=\sum_{j\ge1}w_jZ_{t-j},\qquad
+  q_{tj}=\frac{w_jZ_{t-j}}{\Lambda_t},\qquad
+  u_t=\sum_jq_{tj}\varepsilon_{t-j},\qquad
+  y_t=\frac{Z_t}{\Lambda_t},
+\end{equation}
+观测比值为 $Y_t=y_t(1+\varepsilon_t)/(1+u_t)$。权重 $q_{tj}$ 依赖于路径且和为 1，只在各滞后计数相等时等于 $w_j$。设 $\varepsilon=\tau\xi$，相关矩有界，分母远离零，三阶绝对矩与余项一致可积，则
+\begin{equation}
+  \frac{Y_t}{y_t}=\frac{1+\varepsilon_t}{1+u_t}=1+\varepsilon_t-u_t+u_t{}^2-\varepsilon_tu_t+O_p(\tau^3).
+\end{equation}
+记 $K_{--}$ 为 $(K_{--})_{jk}=K(t-j,t-k)$ 的完整矩阵，$K_{t,-}$ 为以 $K(t,t-j)$ 为元素的行向量，并令
+\begin{equation}
+  B_t=q_t{}^{\top}K_{--}q_t-K_{t,-}q_t,\qquad
+  V_t=K(t,t)+q_t{}^{\top}K_{--}q_t-2K_{t,-}q_t,
+\end{equation}
+则 $\E(Y_t\mid Z)=y_t(1+B_t)+O(\tau^3)$，$\Var(Y_t\mid Z)=y_t{}^2V_t+O(\tau^3)$。对无条件总体再用全方差公式，得 $\E Y=\E y+\E(yB)+O(\tau^3)$，$\Var Y=\Var y+2\Cov(y,yB)+\E(y^2V)+O(\tau^3)$，于是相对方差的二阶增量为
+\begin{equation}
+  \Delta\frac{\Var Y}{(\E Y)^2}=\frac{\E(y^2V)+2\Cov(y,yB)}{(\E y)^2}-\frac{2\Var(y)\E(yB)}{(\E y)^3}+O(\tau^3).
+  \label{eq:rel-increment}
+\end{equation}
+报告冲击造成的均值偏差因此也进入经验相对损失，其对截距的贡献不等于条件方差项本身。
+
+滞后 $h$ 的一阶扰动协方差为
+\begin{equation}
+  \frac{\Cov(Y_t,Y_{t-h}\mid Z)}{y_ty_{t-h}}=K(t,t-h)-\sum_kq_{t-h,k}K(t,t-h-k)-\sum_jq_{tj}K(t-j,t-h)+\sum_{j,k}q_{tj}q_{t-h,k}K(t-j,t-h-k)+O(\tau^3).
+\end{equation}
+对独立同方差的报告冲击，$V_t=\tau^2(1+\sum_jq_{tj}{}^2)$，$B_t=\tau^2\sum_jq_{tj}{}^2$。若 $q$ 不随 $t$ 变化，则 $h\ge1$ 时的扰动协方差为 $\tau^2[-q_h+\sum_{k\ge1}q_{h+k}q_k]$（不存在的 $q$ 记为 0）。单周比值（$q_1=1$）在 $h=1$ 时为 $-\tau^2$，在 $h>1$ 时为 0。负相关来自同一周的报告冲击同时进入本期分子与随后的分母，分母重叠带来的正项会部分抵消这一负交叉项；一般权重或相关的报告率不保证协方差为负。平坦路径下 $q=(0.65,0.25,0.10)$ 时，方差系数为 1.495，相邻协方差系数为 $-0.4625$，均值偏差系数为 0.495；正增长路径下 $q$ 需按路径重新计算。
+
+把上述记号用于实证统计量时，目标时刻 $t$ 换成 $t+1$，滞后 $j=1,2,3$ 依次对应式~(\ref{eq:dt}) 的权重 0.65、0.25 与 0.10，即 $K(t+1,t+1-j)$；$R_A$ 只含 $C_{t+1}$ 与 $C_t$，对应 $q_1=1$。
+
+对于更新型比值，记 $F(g)=[1+\beta\log g]^{\alpha}$，其中 $\alpha=(3.6/1.6)^2$，$\beta=(1.6^2/3.6)/7$，定义域为 $1+\beta\log g>0$。令 $\kappa(g)=\mathrm{d}\log F/\mathrm{d}\log g=\alpha\beta/(1+\beta\log g)$，$\kappa'=\mathrm{d}\kappa/\mathrm{d}\log g=-\alpha\beta^2/(1+\beta\log g)^2$，则 $gF'/F=\kappa$，$g^2F''/F=\kappa^2-\kappa+\kappa'$，从而
+\begin{equation}
+  \frac{\E[F(Y)\mid Z]}{F(y)}-1=\kappa B+\tfrac12(\kappa^2-\kappa+\kappa')V+O(\tau^3),\qquad
+  \frac{\Var[F(Y)\mid Z]}{F(y)^2}=\kappa^2V+O(\tau^3).
+\end{equation}
+在 $g=1$ 处 $\kappa=0.5143$。加入连续性校正 0.5 时，$C+0.5=(\rho Z+0.5)(1+h\varepsilon)$，$h=\rho Z/(\rho Z+0.5)$，因此低规模样本须先以 $h\varepsilon$ 替换分子与分母的 $\varepsilon$ 再代入上式。
+
+若计数经二项抽样产生，可写 $C_t=p_tZ_t+\eta_t$，其中 $\E(\eta_t\mid p,Z)=0$，$\Var(\eta_t\mid p,Z)=Z_tp_t(1-p_t)$；不同周在条件独立时计数噪声没有交叉项。若同步补报或漏报在周间重新分配病例，$\eta$ 的滞后协方差不为零，不能按独立二项抽样处理。传播冲击改变 $Z$ 的更新过程、$q$ 与 $y$，报告冲击改变观测值，二者都可能伴随负的滞后协方差，因此负自相关不能唯一判别冲击的来源。
+
+\subsection{潜在规模与表观尺度}
+\label{app:latent-scale}
+
+更新模型中 $I_{t+1}$ 给定 $\Lambda_{t+1}$ 与 $R_{t+1}$ 的条件均值为 $R_{t+1}\Lambda_{t+1}$，$m=\rho\Lambda$ 表示报告后的有效感染压力，与当期病例数之间没有恒等关系。住院观测还经过感染至住院的延迟、周聚合与报告；$D_t$ 是加权住院代理，$C_t$ 同样只是代理，二者都不等同于 $m$。$R_A$ 为指数增长假设下由住院增长变换得到的表观再生数，只间接反映逐周潜在 $R_t$。
+
+在一代恰为一周、无额外延迟、报告率固定已知、分母感染压力已知的理想模型中，令 $n=\Lambda$ 即回到固定分母的结果，$b/a=\mx$。即使一代恰为一周，只要分母换成带报告误差的 $C_t$，附录~\ref{app:random-denominator} 的随机比值修正仍然存在。在一般的更新与延迟模型中，表观平衡规模 $b/a$ 与平衡规模 $\mx=A/v_R$ 之间需要显式的校准映射（第~\ref{sec:meth-inversion}~节）。
+
+仿射模型的局部对数斜率为 $-b/(aM+b)=-1/[1+M/(b/a)]$（$a,b>0$）。观测规模上的平均斜率只是几何描述；幂律指数 $\gamma$ 由另一全局拟合目标决定，二者之间不存在平均值恒等式。正截距与 $\gamma<1$ 的点估计都不能证明唯一的生成机制。
+
+\subsection{报告完整度等效界的尺度}
+\label{app:tost-scale}
+
+等效检验的对象是同一规模 $M$、同一覆盖有效子样本上分别按自身均值中心化的两个 FGLS 截距之差 $\Delta a=a_{\mathrm{raw}}-a_{\mathrm{adj}}$，因此等效界须定义为截距统计量尺度上的容许幅度；潜在再生数的方差与单周分子的扰动方差都处在另一尺度上。只有在权重 $q$ 恒定、报告冲击独立、规模较高且冲击与无噪声比值独立时，原始比值的相对方差增量才化为 $\tau^2(1+s)[1+\mathrm{CV}^2(y)]$，其中 $s=\sum_jq_j{}^2$。相关报告率、随路径变化的 $q$、$R_A$ 的非线性变换与连续性校正都使这一简式失效，故第~\ref{sec:meth-reporting}~节以与实证分析相同的变换、中心化与 FGLS 对乘性报告冲击作配对校准。若校准得到的平均增量不为正，该设定下的等效界无定义，不以其绝对值代替。以截距差的自助标准误 $\mathrm{SE}$ 计，真实差值为 $d$ 时的正态近似功效为 $\max\{0,\Phi[(\delta-d)/\mathrm{SE}-z_{0.95}]+\Phi[(\delta+d)/\mathrm{SE}-z_{0.95}]-1\}$；在自助分布重尾、流行季少以及 $\delta$ 本身含估计误差时，它只是设计阶段的近似。
 
 \section{扩展}
 \label{app:extensions}
@@ -99,7 +178,7 @@
 
 \begin{proposition}[环境方差的估计精度]
 \label{prop:vr-precision}
-设 $R_1,\dots,R_T$ 为相互独立的伽马变量，其均值 $\Rbar$ 已知、方差为 $v_R$，并令 $\xi=\Rbar^2/v_R$。基于 $T$ 个时期病例数的任一 $v_R$ 无偏估计量，其相对标准误的下界为：
+设 $R_1,\dots,R_T$ 为相互独立的伽马变量，其均值 $\Rbar$ 已知、方差为 $v_R$，并令 $\xi=\Rbar^2/v_R$。基于 $T$ 个时期病例数的任一 $v_R$ 无偏估计量，其相对标准误的下界为
 \begin{equation}
   \left[T\xi\left(\xi\psi'(\xi)-1\right)\right]^{-1/2},
   \label{eq:vr-bound}
@@ -111,28 +190,22 @@
 病例数仅通过 $R_{1:T}$ 依赖于 $v_R$，因此由数据处理不等式，病例数所含关于 $v_R$ 的 Fisher 信息不超过 $R_{1:T}$ 所含的相应信息。固定均值时，伽马分布的形状参数为 $\xi$，尺度参数为 $v_R/\Rbar$。单个观测所含关于 $\xi$ 的信息为 $\psi'(\xi)-1/\xi$，且 $\mathrm{d}\xi/\mathrm{d}v_R=-\xi/v_R$，因此 $T$ 个时期所含关于 $v_R$ 的信息为 $T\xi(\xi\psi'(\xi)-1)/v_R{}^2$。由 Cram\'er--Rao 不等式即得式~(\ref{eq:vr-bound})。极限结论由 $\psi'(\xi)=1/\xi+1/(2\xi^2)+O(\xi^{-3})$ 得到。
 \end{proof}
 
-在表~\ref{tab:s7} 的基线设定（$\Rbar=1.15$，$v_R=0.04$）下，$\xi=33.06$，$\xi(\xi\psi'(\xi)-1)=0.505$，因此相对标准误在 3 个时期时至少为 0.812，在 10 个时期时至少为 0.445，在 50 个时期时至少为 0.199。常数 0.505 仅对应这一基线，式~(\ref{eq:vr-bound}) 给出一般形式。
+在基线设定（$\Rbar=1.15$，$v_R=0.04$）下，$\xi=33.06$，$\xi(\xi\psi'(\xi)-1)=0.505$，因此相对标准误在 3 个时期时至少为 0.812，在 10 个时期时至少为 0.445，在 50 个时期时至少为 0.199（表~\ref{tab:s7}）。
 
-\subsection{自相关环境下的预算阈值}
+\subsection{自相关环境下的预算分配}
 \label{app:budget-ar}
 
-存在自相关 $\phi$ 时，命题~\ref{prop:allocation} 中的环境项为 $v_Re(T)$，其中 $e(T)=S(\phi,T)/T^2$。将 $T$ 视为连续变量，定义 $g_T=-T^2e'(T)$，于是各期独立时 $g_T=1$；再令 $m_0{}^*=\sqrt{(c_0/c_1)\mx}$ 为式~(\ref{eq:optimal-m}) 给出的最优值。
-
-\begin{proposition}[预算阈值]
-\label{prop:budget-ar}
-在预算约束 $\mathcal{B}=T(c_0+c_1m)$ 下，每期最优病例量满足 $m^*=m_0{}^*(g_{T^*})^{-1/2}$，其中 $T^*$ 为最优时期数。若 $g_T$ 随 $T$ 递增，由 $g_1<1$ 趋向 $(1+\phi)/(1-\phi)>1$，则存在唯一的 $T^\dagger$ 使 $g_{T^\dagger}=1$；当 $T^*<T^\dagger$ 时 $m^*$ 大于 $m_0{}^*$，当 $T^*>T^\dagger$ 时则小于这一取值。两种情形在如下预算处衔接：
+固定 $\rho$。存在自相关 $\phi$ 时，命题~\ref{prop:allocation} 中的环境项为 $v_Re(T)$，其中 $e(T)=S(\phi,T)/T^2$。将 $T$ 视为连续变量，定义 $g_T=-T^2e'(T)$，于是各期独立时 $g_T=1$；再令 $m_0{}^*=\sqrt{(c_0/c_1)\mx}$ 为式~(\ref{eq:optimal-m}) 给出的值。在预算约束 $\mathcal{B}=T(c_0+c_1m)$ 下，把抽样项写为 $Ac_1/(\mathcal{B}-c_0T)$，并将 $v_Re(T)+Ac_1/(\mathcal{B}-c_0T)$ 对 $T$ 求导，得到内点最优的一阶必要条件
 \begin{equation}
-  \mathcal{B}^\dagger=T^\dagger\left(c_0+c_1m_0{}^*\right),
+  v_Rg_{T^*}=\frac{c_0A}{c_1m^{*2}},\qquad\text{即}\qquad m^*=m_0{}^*\,g_{T^*}{}^{-1/2}.
+  \label{eq:ar-foc}
+\end{equation}
+这一条件本身不保证解唯一。若对给定的 $\phi$ 另行验证 $g_T$ 随 $T$ 递增并跨过 1，则存在唯一的 $T^\dagger$ 使 $g_{T^\dagger}=1$；满足条件~(\ref{eq:ar-foc}) 的内点解在 $T^*<T^\dagger$ 时有 $m^*>m_0{}^*$，在 $T^*>T^\dagger$ 时有 $m^*<m_0{}^*$，两种情形在预算
+\begin{equation}
+  \mathcal{B}^\dagger=T^\dagger\left(c_0+c_1m_0{}^*\right)
   \label{eq:b-dagger}
 \end{equation}
-当 $c_1=1$ 时，$\mathcal{B}^\dagger$ 以每个报告病例的成本为单位。
-\end{proposition}
-
-\begin{proof}[证明]
-将抽样项写为 $Ac_1/(\mathcal{B}-c_0T)$，并将 $v_Re(T)+Ac_1/(\mathcal{B}-c_0T)$ 对 $T$ 求导，得一阶条件 $v_Rg_T=c_0A/(c_1m^2)$，因此 $m^{*2}=m_0{}^{*2}/g_{T^*}$。$m^*$ 与 $m_0{}^*$ 的大小关系由 $g_T$ 的单调性得到；当 $T^*=T^\dagger$ 时，由预算约束即得式~(\ref{eq:b-dagger})。
-\end{proof}
-
-当 $\phi=0.8$ 时，$g_T$ 随 $T$ 递增，且 $T^\dagger=4.484$。取 $c_0/c_1=100$ 并采用基线平衡规模，得 $m_0{}^*=72.86$，$\mathcal{B}^\dagger=775.0$；在第~\ref{sec:meth-loss}~节所用的 21.3--49.2 例潜伏平衡规模范围内，$\mathcal{B}^\dagger$ 的取值范围为 655.3--762.8（表~\ref{tab:s7}）。上述计算将 $T$ 视为连续变量，并假定环境过程平稳，因此适用于单个流行季内部，不适用于平均传播强度不同的多个流行季之间。
+处相接。对 $\phi=0.8$ 数值验证了 $g_T$ 的单调性，得 $T^\dagger=4.484$。取 $c_0/c_1=100$ 并采用基线平衡规模，$m_0{}^*=72.86$，$\mathcal{B}^\dagger=775.0$（以每个报告病例的成本为单位）；在 21.3--49.2 例的潜在平衡规模范围内，$\mathcal{B}^\dagger$ 为 655.3--762.8（表~\ref{tab:s7}）。上述计算假定环境过程平稳，适用于单个流行季内部，不适用于平均传播强度不同的多个流行季之间。
 
 \subsection{流行季间方差}
 \label{app:seasons}
@@ -146,30 +219,31 @@
 设 $\delta$ 为基于病例数的无偏估计量。由于给定 $\eta_{1:S}$ 时病例数的条件分布不依赖于 $v_S$，$\E(\delta\mid\eta_{1:S})$ 是流行季效应的函数且对 $v_S$ 无偏，其方差不超过 $\delta$ 的方差。$\eta_{1:S}$ 的样本均值与样本方差构成完备充分统计量，因此样本方差是 $v_S$ 的最小方差无偏估计量，其方差为 $2v_S{}^2/(S-1)$\citep{lehmann2005testing, searle1992variance}。
 \end{proof}
 
-由于跨流行季的均值需要估计，上述下界使用 $S-1$ 个自由度；均值已知时的相应下界 $\sqrt{2/S}$ 更小（表~\ref{tab:s7}）。三个和四个流行季的季别截距另列于表~\ref{tab:s5}。
+由于跨流行季的均值需要估计，上述下界使用 $S-1$ 个自由度；均值已知时的相应下界 $\sqrt{2/S}$ 更小。三个和四个流行季的分季截距列于表~\ref{tab:s5}。
 
 \subsection{检验传播是否超过 1}
 \label{app:ump}
 
-当 $R>R'$ 时，由于 $R/(k+\rho R)$ 随 $R$ 递增，式~(\ref{eq:observed}) 的似然比随 $c$ 递增，因此这一分布族关于 $C_t$ 具有单调似然比。于是，当 $C_t\ge c_\alpha$ 时拒绝 $R_t\le1$ 的检验，其功效函数随 $R_t$ 不减；由 Karlin--Rubin 定理，此检验在实际达到的水平 $\alpha^*=P_{R_t=1}(C_t\ge c_\alpha)\le\alpha$ 上为一致最优势检验\citep{karlin1956theory, lehmann2005testing}。由于 $C_t$ 为离散变量，$\alpha^*$ 一般低于名义水平；除非采用随机化检验或使用 mid-$p$ 值，最优性仅在 $\alpha^*$ 处成立，在 $\alpha$ 处不成立。
+当 $R>R'$ 时，由于 $R/(k+\rho R)$ 随 $R$ 递增，式~(\ref{eq:observed}) 的似然比随 $c$ 递增，因此这一分布族关于 $C_t$ 具有单调似然比。于是，当 $C_t\ge c_\alpha$ 时拒绝 $R_t\le1$ 的检验，其功效函数随 $R_t$ 不减；由 Karlin--Rubin 定理，此检验在实际达到的水平 $\alpha^*=P_{R_t=1}(C_t\ge c_\alpha)\le\alpha$ 上为一致最优势检验\citep{karlin1956theory, lehmann2005testing}。由于 $C_t$ 为离散变量，$\alpha^*$ 一般低于名义水平；除非采用随机化检验或使用 mid-$p$ 值，最优性仅在 $\alpha^*$ 处成立。
 
 \subsection{收缩估计给出的理想下界}
 \label{app:shrinkage}
 
-命题~\ref{prop:average} 的结论（iv）排除了在给定 $R_t$ 时有偏的估计量。考虑 $\hat{\theta}_\lambda=(1-\lambda)\Rhat_t+\lambda\mu_0$，其中 $\mu_0$ 为固定基准，$\Delta=\mu_0-\Rbar$。$\hat{\theta}_\lambda$ 作为 $\Rbar$ 的估计，其均方误差为：
+命题~\ref{prop:average} 的结论（iv）排除了在给定 $R_t$ 时有偏的估计量。考虑 $\hat{\theta}_\lambda=(1-\lambda)\Rhat_t+\lambda\mu_0$，其中 $\mu_0$ 为固定基准，$\Delta=\mu_0-\Rbar$。$\hat{\theta}_\lambda$ 作为 $\Rbar$ 的估计，其均方误差为
 \begin{equation}
   \mathrm{MSE}(\lambda)=(1-\lambda)^2V+\lambda^2\Delta^2,
 \end{equation}
-其中 $V$ 由式~(\ref{eq:var-average}) 给出。最小值在 $\lambda^*=V/(V+\Delta^2)$ 处取得，此时 $\mathrm{MSE}(\lambda^*)=V\Delta^2/(V+\Delta^2)$；当且仅当 $\Delta^2<v_R(1+m/\mx)$ 时，这一最小值低于 $v_R$。权重 $\lambda^*$ 依赖未知的 $\Rbar$ 与 $V$，因此上述结果只构成理想下界，无法作为可行估计量使用；经验贝叶斯估计量或分层估计量从数据中估计权重，无法达到这一下界\citep{stoner2019hierarchical}。
+其中 $V$ 由式~(\ref{eq:var-average}) 给出。最小值在 $\lambda^*=V/(V+\Delta^2)$ 处取得，此时 $\mathrm{MSE}(\lambda^*)=V\Delta^2/(V+\Delta^2)$；当且仅当 $\Delta^2<v_R(1+m/\mx)$ 时，这一最小值低于 $v_R$。权重 $\lambda^*$ 依赖未知的 $\Rbar$ 与 $V$，因此上述结果只构成理想下界；经验贝叶斯估计量或分层估计量从数据中估计权重，无法达到这一下界\citep{stoner2019hierarchical}。
 
+\FloatBarrier
 \clearpage
 \section{补充图}
 \label{app:figure}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.86\linewidth]{figures/fig_07_seasons_pathogens_design.png}
-  \caption{季间不确定性、不同病原体的截距比与所需时期数。（A）加权增长比在日历窗口和按规则界定的早期增长窗口中的分季截距，误差线为双向自助法 95\% 区间；空心菱形为随机效应合并估计。（B）季间方差估计的相对标准误下界随流行季数的变化，并与先前分析报告的数值比较。（C）单周分母与三周等权分母相对于原始权重的截距比；灰条为无环境变异时仅由报告噪声和流行增长所预期的范围，实心标记表示经 Holm 校正后仍显著的单侧检验。（D）不同单期报告住院人数下，达到给定数量无噪声时期的精度所需的时期数；本面板仅作示意，已由图~\ref{fig:design}A 的实证列线图取代。}
+  \includegraphics[width=0.86\linewidth]{figures/fig_07_seasons_pathogens_design.pdf}
+  \caption{季间不确定性与分母权重比。（A）加权增长比的分季截距及双向自助 95\% 百分位区间，实心为规则窗口四季，空心为日历窗口三季；菱形为 DerSimonian--Laird 随机效应合并截距及 $t$ 分布 95\% 区间。（B）季间方差相对标准误的下界 $\sqrt{2/(S-1)}$ 随流行季数的变化，标出 $S=3$ 与 $S=4$。（C）规则窗口中单周分母比值 $q_1$ 与等权三周分母比值 $q_2$ 的估计（双向自助 95\% 百分位区间）与纯报告噪声零模型的比较。灰点为各报告噪声水平下比值的均值，误差线为其 2.5\%--97.5\% 分位范围（每个水平 300 条模拟路径，每条路径重新选择规则窗口），灰带为各水平均值的范围。}
   \label{fig:seasons}
 \end{figure}
 
@@ -181,7 +255,7 @@
 \setcounter{table}{0}
 \renewcommand{\thetable}{S\arabic{table}}
 
-表~\ref{tab:s1}--\ref{tab:s7} 报告图~\ref{fig:floor}--\ref{fig:seasons} 所依据的估计值。表~\ref{tab:s4} 将自愿报告期与强制报告年份中相同日历月份的数据进行比较。表~\ref{tab:s8} 给出反演在各设定下的隐含环境方差（图~\ref{fig:inversion}），表~\ref{tab:s9} 列出本分析各轮所用的设定。全部数值均由分析代码保存的输出生成。
+表~\ref{tab:s1}--\ref{tab:s6} 给出图~\ref{fig:floor}--\ref{fig:design} 与图~\ref{fig:seasons} 所依据的实证估计值，表~\ref{tab:s7} 汇总理论闭式量及其适用条件，表~\ref{tab:s8} 与表~\ref{tab:s9} 给出潜在环境方差反演在各设定下的结果与假设检验（图~\ref{fig:inversion}）。
 
 \input{tables/tab_s1_headline}
 \input{tables/tab_s2_decomposition}
@@ -191,5 +265,4 @@
 \input{tables/tab_s6_pathogens}
 \input{tables/tab_s7_theory}
 \input{tables/tab_s8_inversion_settings}
-\input{tables/tab_s9_analysis_history}
-\input{tables/tab_s10_polish}
+\input{tables/tab_s9_inversion_checks}

@@ -1,23 +1,24 @@
 \begin{table}[htbp]
 \centering
 \footnotesize
-\caption{跨病原截距比与纯报告增长零模型的比较，附 Holm 校正 $p$ 值。}
+\setlength{\tabcolsep}{3pt}
+\caption{流感规则窗口（$S=4$）的权重比 $q_1$、$q_2$ 与纯报告噪声零模型的比较。}
 \label{tab:s6}
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lrllllrrrrr}
+\begin{tabular}{rrrcccc}
 \toprule
-病原，窗口 & $N$ & \begin{tabular}[t]{@{}c@{}}$q_1$\\ \relax[95\% CI]\end{tabular} & \begin{tabular}[t]{@{}c@{}}$q_2$\\ \relax[95\% CI]\end{tabular} & \begin{tabular}[t]{@{}c@{}}零模型\\ $q_1$\end{tabular} & \begin{tabular}[t]{@{}c@{}}零模型\\ $q_2$\end{tabular} & $q_1<1$ & $q_2>1$ & \begin{tabular}[t]{@{}c@{}}$q_1$\\ 越界\end{tabular} & \begin{tabular}[t]{@{}c@{}}$q_2$\\ 越界\end{tabular} & \begin{tabular}[t]{@{}c@{}}超额\\ $>0$\end{tabular} \\
+$\mathrm{CV}^2$ & $R$ & 有效窗口 & $q_1$ 均值（MCSE） & $q_1$ 95\% 范围 & $q_2$ 均值（MCSE） & $q_2$ 95\% 范围 \\
 \midrule
-流感，规则 & 1756 & \begin{tabular}[t]{@{}c@{}}0.68\\ \relax[0.58, 0.81]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.61\\ \relax[1.41, 1.87]\end{tabular} & 0.63--0.89 & 1.13--1.58 & 0.020 & 0.034 & 1.000 & 1.000 & 0.034 \\
-流感，日历 & 1267 & \begin{tabular}[t]{@{}c@{}}0.69\\ \relax[0.53, 0.85]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.54\\ \relax[1.27, 1.88]\end{tabular} & 0.63--0.89 & 1.13--1.58 & 0.020 & 0.020 & 1.000 & 1.000 & 0.020 \\
-流感，增长期 & 2707 & \begin{tabular}[t]{@{}c@{}}0.57\\ \relax[0.47, 0.71]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.88\\ \relax[1.55, 2.45]\end{tabular} & 0.68--0.88 & 1.33--1.58 & 0.034 & 0.020 & 1.000 & 1.000 & 0.020 \\
-流感，增长期（2025-26 季） & 663 & \begin{tabular}[t]{@{}c@{}}0.64\\ \relax[0.45, 0.84]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.56\\ \relax[1.28, 2.33]\end{tabular} & 0.66--0.89 & 1.25--1.57 & 0.116 & 0.075 & 1.000 & 1.000 & 0.046 \\
-COVID-19，日历 & 1479 & \begin{tabular}[t]{@{}c@{}}0.73\\ \relax[n.d., 0.91]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.53\\ \relax[0.67, 1.87]\end{tabular} & 0.61--0.83 & 1.42--1.67 & 0.287 & 0.616 & 1.000 & 1.000 & 1.000 \\
-COVID-19，增长期 & 2862 & \begin{tabular}[t]{@{}c@{}}0.78\\ \relax[0.61, 1.01]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.41\\ \relax[1.21, 2.04]\end{tabular} & 0.60--0.84 & 1.40--1.66 & 0.616 & 0.154 & 1.000 & 1.000 & 1.000 \\
-合胞病毒，日历 & 494 & \begin{tabular}[t]{@{}c@{}}0.70\\ \relax[0.48, 0.93]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.57\\ \relax[1.19, 2.09]\end{tabular} & 0.17--1.11 & 1.01--3.02 & 0.154 & 0.228 & 1.000 & 1.000 & 0.200 \\
-合胞病毒，增长期 & 1073 & \begin{tabular}[t]{@{}c@{}}0.64\\ \relax[0.11, 0.87]\end{tabular} & \begin{tabular}[t]{@{}c@{}}1.69\\ \relax[n.d., 3.06]\end{tabular} & 0.57--1.14 & 0.89--1.69 & 0.182 & 0.660 & 1.000 & 1.000 & 1.000 \\
+0.0036 & 300 & 262 & 0.760 (0.001) & [0.729, 0.786] & 1.464 (0.002) & [1.417, 1.525] \\
+0.0143 & 300 & 231 & 0.900 (0.002) & [0.853, 0.955] & 1.282 (0.003) & [1.211, 1.356] \\
+0.0287 & 300 & 238 & 0.990 (0.002) & [0.913, 1.065] & 1.167 (0.003) & [1.080, 1.267] \\
+0.0574 & 300 & 208 & 1.067 (0.003) & [0.981, 1.158] & 1.055 (0.003) & [0.959, 1.161] \\
+\midrule
+\multicolumn{3}{l}{零模型范围（各格均值的极差）} & \multicolumn{2}{c}{0.760--1.067} & \multicolumn{2}{c}{1.055--1.464} \\
+\multicolumn{3}{l}{敏感性：各季窗口均 $\ge4$ 周} & \multicolumn{2}{c}{0.762--1.077} & \multicolumn{2}{c}{1.051--1.462} \\
+\multicolumn{3}{l}{观测（流感，$N=1756$）} & \multicolumn{2}{c}{0.660 [0.562, 0.792]} & \multicolumn{2}{c}{1.597 [1.384, 1.845]} \\
+\multicolumn{3}{l}{观测落在零模型范围外的 $p$} & \multicolumn{2}{c}{0.120} & \multicolumn{2}{c}{0.217} \\
 \bottomrule
 \end{tabular}
 \par\smallskip
-\begin{minipage}{0.95\linewidth}\scriptsize 其中 $q_1=a_{\text{单周}}/a_{\text{原权重}}$，$q_2=a_{\text{三周等权}}/a_{\text{原权重}}$，区间来自共享的双向自助法（$B=2000$）。零模型范围来自无传播异质性的增长零模拟，涵盖三种代际间隔、三种入院延迟和四档报告噪声；规则窗口一行沿用流感日历窗口的范围。后五列为单侧自助 $p$ 值，对全部 40 个检验做 Holm 校正；标为越界的两列检验比值是否落在零模型范围之外。超额指 $a-v_R/\bar{G}^2$，取 $v_R=0.04$。标为 n.d. 的下限无定义：部分自助重复给出负截距，比值因而没有正的下限；上限按估计值列出。\end{minipage}
+\begin{minipage}{0.95\linewidth}\scriptsize $q_1=a_{\text{单周}}/a_{\text{原权重}}$，$q_2=a_{\text{等权}}/a_{\text{原权重}}$；各权重各自取 $D\ge5$ 且四周覆盖率为正的行。零模型条件于平滑的全国季节曲线与各州份额，只加入对数正态报告率（方差 $\mathrm{CV}^2$）与泊松计数噪声。每条模拟路径都按观测数据的规则重新选择窗口。任一季无法形成窗口的路径记为无效，不参与汇总；无效路径主要来自 2025-26 季起点处增长已低于 1 的情形。95\% 范围为模拟分布的 2.5\% 与 97.5\% 分位数，其分位点 CDF 尺度的 Monte Carlo 误差约 $\sqrt{0.025\cdot0.975/R_{\text{有效}}}\approx0.01$。该零模型不含传播增长、代际间隔与入院延迟。$p$ 为观测自助分布（$B=2000$，与 $G$ 规则窗口同一重抽流）落在零模型范围一侧比例的两倍，未做多重校正。\end{minipage}
 \end{table}
