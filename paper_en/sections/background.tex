@@ -106,10 +106,10 @@ Reporting heterogeneity can reverse the ranking of coverage and completeness as 
 
 \begin{corollary}[Coverage versus completeness]
 \label{cor:switch}
-If $\tau$ does not depend on $\rho$, increasing coverage $n$ reduces $V_H$ more than the same proportional increase in $\rho$. If reporting variation arises from binomial sampling of $\nu$ units, so that $\Var(p_t)=\rho(1-\rho)/(\nu+1)$, increasing $\rho$ is preferable whenever:
+If $\tau$ does not depend on $\rho$, increasing coverage $n$ reduces $V_H$ more than the same proportional increase in $\rho$. If reporting variation arises from binomial sampling of $\nu$ units with $\Var(p_t)=\rho(1-\rho)/\nu$, increasing $\rho$ is preferable whenever:
 \begin{equation}
-  m>\frac{\rho^2\nu}{k},
+  m>\frac{\rho^2(\nu-1)}{k},
   \label{eq:r3-switch}
 \end{equation}
-where $\nu$ is the number of reporting units sampled per period.
+where $\nu$ is the number of reporting units sampled per period (or $m>\rho^2\nu/k$ under a Beta prior $p_t\sim\mathrm{Beta}(\rho\nu,(1-\rho)\nu)$ with variance $\rho(1-\rho)/(\nu+1)$).
 \end{corollary}

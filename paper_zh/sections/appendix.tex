@@ -23,7 +23,7 @@
   \mathcal{I}(R_t)=\frac{n}{R_t/\rho+R_t{}^2/k},
   \label{eq:score}
 \end{equation}
-其中 $\mathcal{I}(R_t)$ 为 Fisher 信息。$\Rhat_t=c/(\rho n)$ 的条件均值为 $R_t$，条件方差为 $R_t/(\rho n)+R_t{}^2/(kn)=1/\mathcal{I}(R_t)$。由于得分函数与 $\Rhat_t-R_t$ 成正比，对任意有限的 $n$，Cram\'er--Rao 下界均可达到。式~(\ref{eq:observed}) 中的分布是关于 $C_t$ 的单参数指数族，其自然参数 $\log[\rho R_t/(k+\rho R_t)]$ 的取值范围为一个开区间，因此 $C_t$ 为完备充分统计量，$\Rhat_t$ 为 $R_t$ 的一致最小方差无偏估计量\citep{lehmann2005testing}。
+其中 $\mathcal{I}(R_t)$ 为 Fisher 信息。$\Rhat_t=c/(\rho n)$ 的条件均值为 $R_t$，条件方差为 $R_t/(\rho n)+R_t{}^2/(kn)=1/\mathcal{I}(R_t)$。由于得分函数与 $\Rhat_t-R_t$ 成正比，对任意有限的 $n$，Cram\'er--Rao 下界均可达到。式~(\ref{eq:observed}) 中的分布是关于 $C_t$ 的单参数指数族，其自然参数 $\log[\rho R_t/(k+\rho R_t)]$ 的取值范围为一个开区间，因此 $C_t$ 为完备充分统计量，由 Lehmann--Scheff\'e 定理，$\Rhat_t$ 为 $R_t$ 的一致最小方差无偏估计量\citep{lehmann1998theory, lehmann2005testing}。
 
 \subsection{命题~\ref{prop:average} 的证明}
 \label{app:prop1}
@@ -90,20 +90,20 @@
   -\frac{\partial V_H}{\partial\log n}=\frac{\Rbar}{\rho n}+\frac{(1+\tau^2)U_0}{kn},\qquad
   -\frac{\partial V_H}{\partial\log\rho}=\frac{\Rbar}{\rho n}-\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}\,U_0\left(1+\frac{1}{kn}\right).
 \end{equation}
-若 $\mathrm{d}\tau^2/\mathrm{d}\rho=0$，第一项收益比第二项收益大 $(1+\tau^2)U_0/(kn)>0$。对 $\nu$ 个单位作二项抽样时，有 $\tau^2=(1-\rho)/[\rho(\nu+1)]$ 及 $\rho\,\mathrm{d}\tau^2/\mathrm{d}\rho=-1/[\rho(\nu+1)]$。此时第二项收益减去第一项收益的差为
+若 $\mathrm{d}\tau^2/\mathrm{d}\rho=0$，第一项收益比第二项收益大 $(1+\tau^2)U_0/(kn)>0$。对 $\nu$ 个单位作二项抽样时，有 $\Var(p_t)=\rho(1-\rho)/\nu$，$\tau^2=(1-\rho)/(\rho\nu)$ 及 $\rho\,\mathrm{d}\tau^2/\mathrm{d}\rho=-1/(\rho\nu)$。此时第二项收益减去第一项收益的差为
 \begin{equation}
-  \frac{U_0}{kn}\left[\frac{kn+\rho}{\rho(\nu+1)}-1\right],
+  \frac{U_0}{kn}\left[\frac{kn+\rho}{\rho\nu}-1\right],
 \end{equation}
-该差值当且仅当 $kn>\rho\nu$，即 $m>\rho^2\nu/k$ 时为正。
+该差值当且仅当 $kn>\rho\nu-\rho$，即 $m=\rho n>\rho^2(\nu-1)/k$ 时为正。若报告概率服从 Beta 先验分布 $\Var(p_t)=\rho(1-\rho)/(\nu+1)$，方括号内的分母相应变为 $\rho(\nu+1)$，切换条件对应为 $m>\rho^2\nu/k$。
 
 \subsection{更新方程表述与二项分母噪声}
 \label{app:renewal}
 
-令 $\bar{\Lambda}=\E(\Lambda_{t+1}\mid\mathcal{F}_t)$，$m=\rho\bar{\Lambda}$。以 $(\Lambda_{t+1},R_{t+1})$ 为条件并应用全方差公式，预测方差为
+令 $\bar{\Lambda}=\E(\Lambda_{t+1}\mid\mathcal{F}_t)$，$m=\rho\bar{\Lambda}$。设给定 $(\Lambda_{t+1},R_{t+1})$ 时新发感染服从负二项分布，且给定 $\mathcal{F}_t$ 时感染压力 $\Lambda_{t+1}$ 与 $R_{t+1}$ 独立，$\E(R_{t+1}\mid\mathcal{F}_t)=\Rbar$，$\Var(R_{t+1}\mid\mathcal{F}_t)=v_R$。以 $(\Lambda_{t+1},R_{t+1})$ 为条件并应用全方差公式，预测方差为
 \begin{equation}
   \Var(C_{t+1}\mid\mathcal{F}_t)=mA+\rho^2\bar{\Lambda}^2\left[v_R+\mathrm{CV}^2(\Lambda_{t+1}\mid\mathcal{F}_t)\,(\Rbar^2+v_R)\right],
 \end{equation}
-除以 $m^2$ 即得式~(\ref{eq:info-decomp})。对于式~(\ref{eq:b-delta})，记 $D_t=m(1+\delta)$，其中 $\E\delta=0$，$\E\delta^2=c_w/m$，$c_w=(1-\rho)\sum_jw_j{}^2$；并令 $Y=C_{t+1}/m$ 与 $\delta$ 独立，其均值为 $\Rbar$，方差为 $v_R+A/m$。将 $G_t=Y(1+\delta)^{-1}$ 展开到二阶，得
+除以 $m^2$ 即得式~(\ref{eq:info-decomp})。对于式~(\ref{eq:b-delta})，设潜在计数处于平坦增长路径（$Z_{t-j}\equiv Z$）且各滞后报告相互独立，记 $D_t=m(1+\delta)$，其中 $\E\delta=0$，$\E\delta^2=c_w/m$，$c_w=(1-\rho)\sum_jw_j{}^2$；并令 $Y=C_{t+1}/m$ 与 $\delta$ 独立，其均值为 $\Rbar$，方差为 $v_R+A/m$。将 $G_t=Y(1+\delta)^{-1}$ 展开到二阶，得
 \begin{equation}
   \E(G_t)=\Rbar\left(1+\frac{c_w}{m}\right)+O(m^{-2}),\qquad
   \Var(G_t)=v_R+\frac{A+(\Rbar^2+3v_R)c_w}{m}+O(m^{-2}),
@@ -205,7 +205,7 @@
   \mathcal{B}^\dagger=T^\dagger\left(c_0+c_1m_0{}^*\right)
   \label{eq:b-dagger}
 \end{equation}
-处相接。对 $\phi=0.8$ 数值验证了 $g_T$ 的单调性，得 $T^\dagger=4.484$。取 $c_0/c_1=100$ 并采用基线平衡规模，$m_0{}^*=72.86$，$\mathcal{B}^\dagger=775.0$（以每个报告病例的成本为单位）；在 21.3--49.2 例的潜在平衡规模范围内，$\mathcal{B}^\dagger$ 为 655.3--762.8（表~\ref{tab:s7}）。上述计算假定环境过程平稳，适用于单个流行季内部，不适用于平均传播强度不同的多个流行季之间。
+处相接。对 $\phi=0.8$ 数值验证了 $g_T$ 的单调性，得 $T^\dagger=4.484$。取 $c_0/c_1=100$ 并采用基线平衡规模，$m_0{}^*=72.86$，$\mathcal{B}^\dagger=775.0$（以每个报告病例的成本为单位）；在 21.3--49.2 例的潜在平衡规模范围内，$\mathcal{B}^\dagger$ 为 655.3--762.9（以 $m_\times=49.2$ 计为 762.85，四舍五入为 762.9，表~\ref{tab:s7}）。上述计算假定环境过程平稳，适用于单个流行季内部，不适用于平均传播强度不同的多个流行季之间。
 
 \subsection{流行季间方差}
 \label{app:seasons}
@@ -216,7 +216,7 @@
 \end{corollary}
 
 \begin{proof}[证明]
-设 $\delta$ 为基于病例数的无偏估计量。由于给定 $\eta_{1:S}$ 时病例数的条件分布不依赖于 $v_S$，$\E(\delta\mid\eta_{1:S})$ 是流行季效应的函数且对 $v_S$ 无偏，其方差不超过 $\delta$ 的方差。$\eta_{1:S}$ 的样本均值与样本方差构成完备充分统计量，因此样本方差是 $v_S$ 的最小方差无偏估计量，其方差为 $2v_S{}^2/(S-1)$\citep{lehmann2005testing, searle1992variance}。
+设 $\delta$ 为基于病例数的无偏估计量。由于给定 $\eta_{1:S}$ 时病例数的条件分布不依赖于未知参数 $(\mu, v_S)$，且无偏性对一切 $(\mu, v_S)$ 均成立，$\E(\delta\mid\eta_{1:S})$ 是流行季效应的函数且对 $v_S$ 无偏，其方差不超过 $\delta$ 的方差。$\eta_{1:S}$ 的样本均值与样本方差构成完备充分统计量，因此样本方差是 $v_S$ 的最小方差无偏估计量，其方差为 $2v_S{}^2/(S-1)$\citep{lehmann1998theory, lehmann2005testing, searle1992variance}。
 \end{proof}
 
 由于跨流行季的均值需要估计，上述下界使用 $S-1$ 个自由度；均值已知时的相应下界 $\sqrt{2/S}$ 更小。三个和四个流行季的分季截距列于表~\ref{tab:s5}。

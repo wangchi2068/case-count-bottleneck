@@ -24,7 +24,7 @@ and the score can be written as:
   \mathcal{I}(R_t)=\frac{n}{R_t/\rho+R_t{}^2/k},
   \label{eq:score}
 \end{equation}
-where $\mathcal{I}(R_t)$ is the Fisher information. The conditional mean of $\Rhat_t=c/(\rho n)$ is $R_t$, and its conditional variance is $R_t/(\rho n)+R_t{}^2/(kn)=1/\mathcal{I}(R_t)$. Because the score is proportional to $\Rhat_t-R_t$, the Cram\'er--Rao bound is attained for every finite $n$. The distribution in Eq.~(\ref{eq:observed}) is a one-parameter exponential family in $C_t$ with natural parameter $\log[\rho R_t/(k+\rho R_t)]$, which ranges over an open interval, so $C_t$ is complete and sufficient and $\Rhat_t$ is the uniformly minimum-variance unbiased estimator of $R_t$ \citep{lehmann2005testing}.
+where $\mathcal{I}(R_t)$ is the Fisher information. The conditional mean of $\Rhat_t=c/(\rho n)$ is $R_t$, and its conditional variance is $R_t/(\rho n)+R_t{}^2/(kn)=1/\mathcal{I}(R_t)$. Because the score is proportional to $\Rhat_t-R_t$, the Cram\'er--Rao bound is attained for every finite $n$. The distribution in Eq.~(\ref{eq:observed}) is a one-parameter exponential family in $C_t$ with natural parameter $\log[\rho R_t/(k+\rho R_t)]$, which ranges over an open interval, so $C_t$ is complete and sufficient and by the Lehmann--Scheff\'e theorem $\Rhat_t$ is the uniformly minimum-variance unbiased estimator of $R_t$ \citep{lehmann1998theory, lehmann2005testing}.
 
 \subsection{Proof of Proposition~\ref{prop:average}}
 \label{app:prop1}
@@ -71,20 +71,20 @@ Write $U_0=\Rbar^2+v_R$. From Eq.~(\ref{eq:vH-AH}), the gains from proportional 
   -\frac{\partial V_H}{\partial\log n}=\frac{\Rbar}{\rho n}+\frac{(1+\tau^2)U_0}{kn},\qquad
   -\frac{\partial V_H}{\partial\log\rho}=\frac{\Rbar}{\rho n}-\rho\frac{\mathrm{d}\tau^2}{\mathrm{d}\rho}\,U_0\left(1+\frac{1}{kn}\right).
 \end{equation}
-If $\mathrm{d}\tau^2/\mathrm{d}\rho=0$, the first gain exceeds the second by $(1+\tau^2)U_0/(kn)>0$. Under binomial sampling of $\nu$ units, $\tau^2=(1-\rho)/[\rho(\nu+1)]$ and $\rho\,\mathrm{d}\tau^2/\mathrm{d}\rho=-1/[\rho(\nu+1)]$, and the second gain minus the first is
+If $\mathrm{d}\tau^2/\mathrm{d}\rho=0$, the first gain exceeds the second by $(1+\tau^2)U_0/(kn)>0$. Under binomial sampling of $\nu$ units, $\Var(p_t)=\rho(1-\rho)/\nu$, $\tau^2=(1-\rho)/(\rho\nu)$ and $\rho\,\mathrm{d}\tau^2/\mathrm{d}\rho=-1/(\rho\nu)$. The second gain minus the first is
 \begin{equation}
-  \frac{U_0}{kn}\left[\frac{kn+\rho}{\rho(\nu+1)}-1\right],
+  \frac{U_0}{kn}\left[\frac{kn+\rho}{\rho\nu}-1\right],
 \end{equation}
-which is positive if and only if $kn>\rho\nu$, that is $m>\rho^2\nu/k$.
+which is positive if and only if $kn>\rho\nu-\rho$, that is $m=\rho n>\rho^2(\nu-1)/k$. Under a Beta prior $\Var(p_t)=\rho(1-\rho)/(\nu+1)$, the denominator inside the brackets becomes $\rho(\nu+1)$ and the condition is $m>\rho^2\nu/k$.
 
 \subsection{Renewal formulation and denominator noise}
 \label{app:renewal}
 
-Let $\bar{\Lambda}=\E(\Lambda_{t+1}\mid\mathcal{F}_t)$ and $m=\rho\bar{\Lambda}$. Conditioning on $(\Lambda_{t+1},R_{t+1})$ and applying the law of total variance, the prediction variance is given by:
+Let $\bar{\Lambda}=\E(\Lambda_{t+1}\mid\mathcal{F}_t)$ and $m=\rho\bar{\Lambda}$. Assuming that given $(\Lambda_{t+1},R_{t+1})$, incident cases follow a negative binomial distribution, and given $\mathcal{F}_t$, $\Lambda_{t+1}$ and $R_{t+1}$ are independent with $\E(R_{t+1}\mid\mathcal{F}_t)=\Rbar$ and $\Var(R_{t+1}\mid\mathcal{F}_t)=v_R$, conditioning on $(\Lambda_{t+1},R_{t+1})$ and applying the law of total variance gives:
 \begin{equation}
   \Var(C_{t+1}\mid\mathcal{F}_t)=mA+\rho^2\bar{\Lambda}^2\left[v_R+\mathrm{CV}^2(\Lambda_{t+1}\mid\mathcal{F}_t)\,(\Rbar^2+v_R)\right],
 \end{equation}
-and dividing by $m^2$ gives Eq.~(\ref{eq:info-decomp}). For Eq.~(\ref{eq:b-delta}), write $D_t=m(1+\delta)$ with $\E\delta=0$ and $\E\delta^2=c_w/m$, where $c_w=(1-\rho)\sum_sw_s{}^2$, and let $Y=C_{t+1}/m$ be independent of $\delta$ with mean $\Rbar$ and variance $v_R+A/m$. Expanding $G_t=Y(1+\delta)^{-1}$ to second order gives:
+and dividing by $m^2$ gives Eq.~(\ref{eq:info-decomp}). For Eq.~(\ref{eq:b-delta}), assuming a flat latent trajectory ($Z_{t-j}\equiv Z$) with independent lagged reporting noise, write $D_t=m(1+\delta)$ with $\E\delta=0$ and $\E\delta^2=c_w/m$, where $c_w=(1-\rho)\sum_sw_s{}^2$, and let $Y=C_{t+1}/m$ be independent of $\delta$ with mean $\Rbar$ and variance $v_R+A/m$. Expanding $G_t=Y(1+\delta)^{-1}$ to second order gives:
 \begin{equation}
   \E(G_t)=\Rbar\left(1+\frac{c_w}{m}\right)+O(m^{-2}),\qquad
   \Var(G_t)=v_R+\frac{A+(\Rbar^2+3v_R)c_w}{m}+O(m^{-2}),
@@ -132,7 +132,7 @@ which is expressed in units of the cost per reported case when $c_1=1$.
 Writing the sampling term as $Ac_1/(\mathcal{B}-c_0T)$ and differentiating $v_Re(T)+Ac_1/(\mathcal{B}-c_0T)$ with respect to $T$ gives the first-order condition $v_Rg_T=c_0A/(c_1m^2)$, so $m^{*2}=m_0{}^{*2}/g_{T^*}$. The ordering of $m^*$ and $m_0{}^*$ follows from the monotonicity of $g_T$, and at $T^*=T^\dagger$ the budget constraint gives Eq.~(\ref{eq:b-dagger}).
 \end{proof}
 
-For $\phi=0.8$, $g_T$ increases in $T$ and $T^\dagger=4.484$. With $c_0/c_1=100$ and the baseline balance scale, $m_0{}^*=72.86$ and $\mathcal{B}^\dagger=775.0$; over the latent balance scales of 21.3 to 49.2 cases used in Section~\ref{sec:meth-loss}, $\mathcal{B}^\dagger$ ranges from 655.3 to 762.8 (Table~\ref{tab:s7}). The calculation treats $T$ as continuous and the environmental process as stationary, so it applies within a season and not across seasons with different mean transmission.
+For $\phi=0.8$, $g_T$ increases in $T$ and $T^\dagger=4.484$. With $c_0/c_1=100$ and the baseline balance scale, $m_0{}^*=72.86$ and $\mathcal{B}^\dagger=775.0$; over the latent balance scales of 21.3 to 49.2 cases used in Section~\ref{sec:meth-loss}, $\mathcal{B}^\dagger$ ranges from 655.3 to 762.9 (762.85 rounded, Table~\ref{tab:s7}). The calculation treats $T$ as continuous and the environmental process as stationary, so it applies within a season and not across seasons with different mean transmission.
 
 \subsection{Between-season variance}
 \label{app:seasons}
@@ -143,7 +143,7 @@ Suppose that season effects $\eta_1,\dots,\eta_S$ are independent Gaussian varia
 \end{corollary}
 
 \begin{proof}
-Let $\delta$ be an unbiased estimator based on the counts. Because the conditional distribution of the counts given $\eta_{1:S}$ does not depend on $v_S$, $\E(\delta\mid\eta_{1:S})$ is a function of the season effects that is unbiased for $v_S$, and its variance does not exceed that of $\delta$. The sample mean and sample variance of $\eta_{1:S}$ are complete and sufficient, so the sample variance is the minimum-variance unbiased estimator of $v_S$, with variance $2v_S{}^2/(S-1)$ \citep{lehmann2005testing, searle1992variance}.
+Let $\delta$ be an unbiased estimator based on the counts. Because the conditional distribution of the counts given $\eta_{1:S}$ does not depend on the unknown parameters $(\mu, v_S)$ and unbiasedness holds for all $(\mu, v_S)$, $\E(\delta\mid\eta_{1:S})$ is a function of the season effects that is unbiased for $v_S$, and its variance does not exceed that of $\delta$. The sample mean and sample variance of $\eta_{1:S}$ are complete and sufficient, so the sample variance is the minimum-variance unbiased estimator of $v_S$, with variance $2v_S{}^2/(S-1)$ \citep{lehmann1998theory, lehmann2005testing, searle1992variance}.
 \end{proof}
 
 The bound uses $S-1$ degrees of freedom because the mean across seasons is estimated; the corresponding bound with a known mean, $\sqrt{2/S}$, is smaller (Table~\ref{tab:s7}). Season-specific intercepts for three and four seasons are reported separately in Table~\ref{tab:s5}.

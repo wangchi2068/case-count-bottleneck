@@ -108,12 +108,12 @@
 
 \begin{corollary}[覆盖规模与报告完整度的比较]
 \label{cor:switch}
-若 $\tau$ 不依赖于 $\rho$，扩大覆盖规模 $n$ 对 $V_H$ 的降幅大于 $\rho$ 同比例提高时的降幅。若报告变异来自对 $\nu$ 个单位的二项抽样，即 $\Var(p_t)=\rho(1-\rho)/(\nu+1)$，则在下式成立时提高 $\rho$ 更为有利
+若 $\tau$ 不依赖于 $\rho$，扩大覆盖规模 $n$ 对 $V_H$ 的降幅大于 $\rho$ 同比例提高时的降幅。若报告变异来自对 $\nu$ 个单位的二项抽样，即 $\Var(p_t)=\rho(1-\rho)/\nu$，则在下式成立时提高 $\rho$ 更为有利
 \begin{equation}
-  m>\frac{\rho^2\nu}{k},
+  m>\frac{\rho^2(\nu-1)}{k},
   \label{eq:r3-switch}
 \end{equation}
-其中 $\nu$ 为每个时期抽样的报告单位数。
+其中 $\nu$ 为每个时期抽样的报告单位数。若报告概率服从 Beta 先验分布 $p_t\sim\mathrm{Beta}(\rho\nu,(1-\rho)\nu)$，其方差为 $\rho(1-\rho)/(\nu+1)$，对应条件为 $m>\rho^2\nu/k$。
 \end{corollary}
 
 理论量的基线取值为 $\Rbar=1.15$、$v_R=0.04$、$k=0.35$、$\rho=0.25$ 与 $\tau=0.15$，闭式量及其适用条件列于表~\ref{tab:s7}。
@@ -133,7 +133,7 @@
   G_t=\frac{C_{t+1}}{D_t},\qquad D_t=0.65\,C_t+0.25\,C_{t-1}+0.10\,C_{t-2}, % qa-allow
   \label{eq:dt}
 \end{equation}
-其中 $C_t$ 为第 $t$ 周的住院人数，$D_t$ 为加权报告规模，权重满足 $\sum_jw_j{}^2=0.495$。$G$ 仅使用 $D_t\ge5$ 的周。更新型比值借助代际间隔将单周增长换算为再生数\citep{wallinga2007how}，其定义为
+其中 $C_t$ 为第 $t$ 周的住院人数，$D_t$ 为加权报告规模，权重满足 $\sum_jw_j{}^2=0.495$。$G$ 仅使用 $D_t\ge5$ 的周。更新型比值将单周增长率通过代际间隔矩母函数代入 \citet{wallinga2007how} 式~(2.9) 换算为再生数闭式解，其定义为
 \begin{equation}
   R_{A,t}=\left(1+r_t\theta\right)^{\alpha},\qquad r_t=\frac{1}{7}\log\frac{C_{t+1}+0.5}{C_t+0.5}, % qa-allow
   \label{eq:ra}
@@ -160,7 +160,7 @@
   b\approx\frac{A+(1-\rho)(\Rbar^2+v_R)\sum_jw_j{}^2}{\Rbar^2}.
   \label{eq:b-delta}
 \end{equation}
-计算潜在平衡规模的情景范围时，$\Rbar$ 取 $G$ 的样本均值，$v_R\in\{0.04,0.08\}$，$k\in\{0.2,0.5\}$\citep{lloydsmith2005superspreading}，每例感染的住院概率 $\rho\in\{0.0056,0.021\}$\citep{tokars2018seasonal}；这些情景下的平衡规模为 21.3--49.2 例。
+计算潜在平衡规模的情景范围时，$\Rbar$ 取 $G$ 的样本均值，$v_R\in\{0.04,0.08\}$，$k\in\{0.2,0.5\}$ 为情景取值（\citet{lloydsmith2005superspreading} 报告了 SARS 的 $k=0.16$），每例感染的住院概率取 $\rho\in\{0.0056,0.021\}$（由 \citet{tokars2018seasonal} 所报有症状感染至住院乘数之倒数确定）；这些情景下的平衡规模为 21.3--49.2 例。
 
 中心 $\bar{X}$ 的定义构成以下层级。每一层在各自的样本上估计，并在每次自助重复中重新估计。
 \begin{enumerate}[label=(\arabic*),leftmargin=2em]
@@ -190,7 +190,7 @@
 \subsection{流行季与分母权重}
 \label{sec:meth-seasons}
 
-各流行季截距采用 DerSimonian--Laird 随机效应模型合并\citep{dersimonian1986meta}；合并截距采用自由度为 $S-1$ 的 $t$ 区间，季间方差采用 Q-profile 区间。推论~\ref{cor:season} 给出任一季间方差估计相对标准误的下界\citep{searle1992variance}。截距比 $q_1=a_{(1,0,0)}/a_{w}$ 与 $q_2=a_{(1/3,1/3,1/3)}/a_{w}$ 分别将单周分母与等权三周分母同式~(\ref{eq:dt}) 的权重相比较，在规则窗口中计算，区间来自与 $G$ 相同的双向自助抽取。比较基准为纯报告噪声零模型：以平滑后的全国流行季曲线和各州固定份额给出期望住院数，乘以对数正态报告率（$\mathrm{CV}^2\in\{0.0036,0.0143,0.0287,0.0574\}$）后作泊松抽样，不含环境变异。在每条模拟的全国路径上按同一规则重新选择窗口，每个噪声水平重复 300 次。零模型范围取各噪声水平下比值均值的极差，观测比值落在范围之外的双侧 $p$ 值由自助分布计算。
+各流行季截距采用 DerSimonian--Laird 随机效应模型合并\citep{dersimonian1986meta}；合并截距采用自由度为 $S-1$ 的 $t$ 区间，季间方差采用 Q-profile 区间\citep{viechtbauer2007confidence}。推论~\ref{cor:season} 给出任一季间方差估计相对标准误的下界\citep{searle1992variance}。截距比 $q_1=a_{(1,0,0)}/a_{w}$ 与 $q_2=a_{(1/3,1/3,1/3)}/a_{w}$ 分别将单周分母与等权三周分母同式~(\ref{eq:dt}) 的权重相比较，在规则窗口中计算，区间来自与 $G$ 相同的双向自助抽取。比较基准为纯报告噪声零模型：以平滑后的全国流行季曲线和各州固定份额给出期望住院数，乘以对数正态报告率（$\mathrm{CV}^2\in\{0.0036,0.0143,0.0287,0.0574\}$）后作泊松抽样，不含环境变异。在每条模拟的全国路径上按同一规则重新选择窗口，每个噪声水平重复 300 次。零模型范围取各噪声水平下比值均值的极差，观测比值落在范围之外的双侧 $p$ 值由自助分布计算。
 
 \subsection{通用独立面板模拟}
 \label{sec:meth-sim}
