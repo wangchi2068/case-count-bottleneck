@@ -58,7 +58,11 @@
 \begin{equation}
   V_H(m)=v_R+\tau^2(\Rbar^2+v_R)+\frac{\Rbar}{m}+\frac{\rho(1+\tau^2)(\Rbar^2+v_R)}{km},
 \end{equation}
-此即式~(\ref{eq:vH-AH})。记 $U_H=(1+\tau^2)(\Rbar{}^2+v_R)$，则极限误差方差为 $v_R+v_H=U_H-\Rbar{}^2$，且 $A_H=\Rbar+\rho U_H/k$，因此 $\Rhat_t$ 的均值与方差仅通过 $U_H$ 依赖于 $v_R$ 与 $\tau$。不等式 $m_{\times,H}<\mx$ 等价于 $\rho v_R/k<A$；由于 $\Rbar^2+v_R>v_R$，后一不等式成立。
+此即式~(\ref{eq:vH-AH})。记 $U_0=\Rbar{}^2+v_R$ 与 $U_H=(1+\tau^2)U_0$，则极限误差方差为 $v_R+v_H=U_H-\Rbar{}^2$，且 $A_H=\Rbar+\rho U_H/k$，因此 $\Rhat_t$ 的均值与方差仅通过 $U_H$ 依赖于 $v_R$ 与 $\tau$。对于广义平衡规模，其代数差值满足
+\begin{equation}
+  m_{\times,H}-\mx = \frac{A_H}{v_R+v_H} - \frac{A}{v_R} = \frac{\tau^2 U_0\left(\frac{\rho v_R}{k}-A\right)}{v_R(v_R+\tau^2 U_0)}.
+\end{equation}
+由于对任意 $\Rbar>0$ 与 $k>0$ 均有 $A=\Rbar+\rho U_0/k > \rho v_R/k$，括号内因子严格为负：$\rho v_R/k - A = -(\Rbar+\rho\Rbar^2/k)<0$。因此 $m_{\times,H}\le\mx$，当且仅当 $\tau=0$ 时等号成立，且在 $\tau>0$ 时严格小于 $m_{\times,H}<\mx$。
 
 \subsection{命题~\ref{prop:allocation} 的证明与报告概率路径}
 \label{app:prop3}
