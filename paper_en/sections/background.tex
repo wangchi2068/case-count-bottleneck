@@ -21,7 +21,33 @@ where $m=\rho n$ is the expected number of reported cases per period when $R_t=1
 
 The model rests on four assumptions. Each infection is reported independently with a probability $\rho$ that does not change over time (H1). Primary cases transmit independently and identically according to Eq.~(\ref{eq:offspring}) (H2). The dispersion $k$ does not depend on $R_t$ or $n$ (H3). The number of primary cases $n$ is fixed by design and is independent of $R_t$ (H4). Assumption H4 holds when $n$ is set by contact tracing; in routine surveillance $n$ is itself the outcome of earlier transmission, and the renewal formulation in Section~\ref{sec:meth-loss} relaxes it.
 
-Transmission potential varies between periods with weather, school terms, holidays and behaviour \citep{dalziel2018urbanization}. Its marginal moments are denoted $\E(R_t)=\Rbar$ and $\Var(R_t)=v_R$. Because this variation acts on every chain of transmission in the same period, it corresponds to environmental stochasticity in population ecology, whereas the offspring and reporting variation of Eq.~(\ref{eq:observed}) corresponds to demographic stochasticity \citep{engen1998demographic, lande2003stochastic}.
+Two scales recur in what follows (Table~\ref{tab:notation}). The quantities of the model, namely $R_t$, its mean $\Rbar$ and variance $v_R$, the case volume $m$ and the balance scale defined below, are latent and refer to one generation of transmission. The weekly statistics computed from admissions in Section~\ref{sec:meth-stats}, and the intercept $a$, slope $b$ and ratio $b/a$ fitted to their relative loss, are apparent quantities defined on the scale of each statistic and on weeks. The ratio $b/a$ would equal the balance scale only if a week were a single generation and the reporting scale were free of noise (Section~\ref{sec:meth-loss}). We therefore call $b/a$ the apparent balance ratio, reserve $\mx$ for the latent balance scale, and link the two through the calibration of Section~\ref{sec:meth-inversion}.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Notation and scale of the main quantities. Latent quantities belong to the transmission model and refer to one generation; apparent quantities are defined on the scale of a weekly statistic.}
+\label{tab:notation}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}}
+\toprule
+Symbol & Meaning & Scale & Values in this study \\
+\midrule
+$R_t$; $\Rbar$; $v_R$ & Instantaneous reproduction number in period $t$; its mean and variance across periods & Latent, per generation & Baseline $\Rbar=1.15$, $v_R=0.04$ \\
+$m$ & Expected reported cases per period when $R_t=1$ (case volume) & Latent, cases per generation & -- \\
+$A$; $\mx=A/v_R$ & Sampling coefficient and balance scale (Proposition~\ref{prop:average}) & Latent, cases per generation & Baseline 53.1; 30.3 (95\% CI 21.7 to 46.3) implied by the data \\
+$\tau$; $v_H$; $m_{\times,H}$ & Relative reporting volatility, variance it adds, generalised balance scale (Proposition~\ref{prop:report-noise}) & Latent & $\tau=0.15$ gives $v_H=0.0307$ and $m_{\times,H}=30.4$ \\
+$m^*$ & Budget-optimal case volume per period (Proposition~\ref{prop:allocation}) & Same as the balance scale used & -- \\
+$G_t$; $R_{A,t}$ & Weighted growth ratio and renewal-type ratio (Eqs.~(\ref{eq:dt}) and (\ref{eq:ra})) & Apparent, weekly & -- \\
+$D_t$ & Reporting scale, a weighted sum of recent weekly admissions & Admissions per week & -- \\
+$a$; $b$ & Intercept and slope of the relative loss (Eq.~(\ref{eq:affine})) & Apparent, scale of each statistic & $a=0.0150$ for $R_A$, 0.0840 for $G$ \\
+$b/a$ & Apparent balance ratio & Admissions per week on the scale of each statistic & 37.4 for $R_A$, 23.5 for $G$ \\
+$\kappa$ & Scale factor $\E(\hat{a})/(v_R/\Rbar^2)$ from the calibration & Ratio & 0.516 for $R_A$, 2.729 for $G$ \\
+$v_R^{\mathrm{impl}}$ & Latent environmental variance implied by the two-step inversion & Latent, per generation & 0.040 for $R_A$, 0.043 for $G$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Transmission potential varies between periods with climatic conditions, school terms and behaviour \citep{cauchemez2008estimating, shaman2009absolute, dalziel2018urbanization}. Its marginal moments are denoted $\E(R_t)=\Rbar$ and $\Var(R_t)=v_R$. Because this variation acts on every chain of transmission in the same period, it corresponds to environmental stochasticity in population ecology, whereas the offspring and reporting variation of Eq.~(\ref{eq:observed}) corresponds to demographic stochasticity \citep{engen1998demographic, lande2003stochastic}.
 
 The scaled count $\Rhat_t=C_t/m$ can be used for two different targets. The first is the period-specific value $R_t$, which is the quantity of interest for situational awareness and for judging whether transmission is currently above one. The second is the mean across periods, $\Rbar$, which is the quantity of interest when describing typical transmission in a season. When $R_t$ is independent across periods, $\Rbar$ is also the best one-step-ahead predictor of next period's value. The error for the first target is $\Rhat_t-R_t$. The error for the second target can be written as:
 \begin{equation}
@@ -52,7 +78,7 @@ where the three terms are the environmental, reporting and offspring contributio
 \end{enumerate}
 \end{proposition}
 
-The balance scale plays the role of the critical population size in ecological models, at which demographic and environmental contributions to the variance of population growth are equal \citep{lande2003stochastic}. It is a reference point for comparing the two contributions and does not by itself define a minimum operating size. Part (iv) is restricted to conditionally unbiased estimators. An estimator that shrinks $\Rhat_t$ towards a prior mean can have smaller error for $\Rbar$, and averaging over $T$ independent periods reduces the environmental term to $v_R/T$ (Proposition~\ref{prop:allocation}).
+The balance scale plays the role of the critical population size in ecological models, at which demographic and environmental contributions to the variance of population growth are equal \citep{lande1993risks, lande2003stochastic}. It is a reference point for comparing the two contributions and does not by itself define a minimum operating size. Part (iv) is restricted to conditionally unbiased estimators. An estimator that shrinks $\Rhat_t$ towards a prior mean can have smaller error for $\Rbar$, and averaging over $T$ independent periods reduces the environmental term to $v_R/T$ (Proposition~\ref{prop:allocation}).
 
 Parts (i) and (ii) show that case volume can be raised in two ways with different limits. Coverage $n$ removes both sampling terms in the limit, whereas full reporting leaves the offspring term. Near the baseline, a small proportional increase in $n$ reduces $V$ by $A/\Rbar$ times as much as the same proportional increase in $\rho$. The limit $v_R$ also assumes that environmental variation is independent between periods and between places. If $R_t$ follows a stationary first-order autoregressive process with autocorrelation $\phi$, the environmental part of one-step prediction error falls to $(1-\phi^2)v_R$. If $J$ jurisdictions share environmental variance $v_R$ with mean pairwise correlation $\bar{c}$, the environmental variance of their average is given by:
 \begin{equation}
@@ -74,12 +100,12 @@ Under H2--H5, the error variance of $\Rhat_t=C_t/m$ about $\Rbar$ can be written
   v_H=\tau^2(\Rbar^2+v_R),\qquad A_H=\Rbar+\frac{\rho(1+\tau^2)(\Rbar^2+v_R)}{k},
   \label{eq:vH-AH}
 \end{equation}
-where $v_H$ is the variance added by reporting heterogeneity. The limiting variance rises to $v_R+v_H$, the balance scale falls to $m_{\times,H}=A_H/(v_R+v_H)<\mx$, and $v_R$ and $v_H$ cannot be separated using the mean and variance of the counts alone, which identify only $(1+\tau^2)(\Rbar^2+v_R)$.
+where $v_H$ is the variance added by reporting heterogeneity. The limiting variance rises to $v_R+v_H$, the generalised balance scale satisfies $m_{\times,H}=A_H/(v_R+v_H)\le\mx$ (with strict inequality if and only if $\tau>0$), and $v_R$ and $v_H$ cannot be separated using the mean and variance of the counts alone, which identify only $(1+\tau^2)(\Rbar^2+v_R)$.
 \end{proposition}
 
-Proposition~\ref{prop:report-noise} is the identification limit for the empirical part of this study. An intercept estimated from counts alone combines transmission and reporting variation unless reporting is measured separately.
+Proposition~\ref{prop:report-noise} is the identification limit for the empirical part of this study. An intercept estimated from counts alone combines transmission and reporting variation unless reporting is measured separately. The same difficulty arises in state-space models of population dynamics, where process and observation variance are often weakly identified from a single series \citep{knape2008estimability, augermethe2016state}.
 
-The balance scale also determines how a fixed budget is best divided. Suppose that $T$ periods are observed with case volume $m$ in each, that each period costs $c_0$ and each reported case costs $c_1$, and that the budget is $\mathcal{B}=T(c_0+c_1m)$.
+The balance scale also determines how a fixed budget is best divided. Suppose that $T$ periods are observed with design case volume $m$ in each (where $m=\rho n$ is the expected reported count when $R_t=1$), that each period incurs a fixed operational cost $c_0$, that surveillance capacity costs $c_1$ per unit of design volume $m$, and that the total budget is $\mathcal{B}=T(c_0+c_1m)$.
 
 \begin{proposition}[Allocation of a fixed budget]
 \label{prop:allocation}
@@ -100,7 +126,7 @@ where $T^*=\mathcal{B}/(c_0+c_1m^*)$, subject to $T^*\ge1$. If $R_t$ follows a s
 \end{equation}
 \end{proposition}
 
-The optimal case volume per period is the geometric mean of $c_0/c_1$ and the balance scale, the same form as the optimal number of secondary units in two-stage sampling \citep{cochran1977sampling}. Once $m$ exceeds $m^*$, additional budget reduces error more when spent on further periods than on further cases. With autocorrelated environments the optimum also depends on the budget, and Appendix~\ref{app:extensions} gives the threshold at which it switches.
+The optimal case volume per period is the geometric mean of the price ratio $c_0/c_1$ and the balance scale, the same form as the optimal number of secondary units in two-stage sampling \citep{cochran1977sampling} and the optimal cluster size in cluster-randomised trials \citep{raudenbush1997statistical}. Once $m$ exceeds the cost-dependent threshold $m^*$, additional budget reduces error more when spent on further periods than on further cases per period. Note that $m > m^*$ is the economic condition for reallocating budget to periods, whereas $m > \mx$ marks the biological crossover scale where doubling cases yields at most a 25\% reduction in variance. With autocorrelated environments the optimum also depends on the budget, and Appendix~\ref{app:extensions} gives the threshold at which it switches.
 
 Reporting heterogeneity can reverse the ranking of coverage and completeness as targets for investment.
 
@@ -111,5 +137,5 @@ If $\tau$ does not depend on $\rho$, increasing coverage $n$ reduces $V_H$ more 
   m>\frac{\rho^2(\nu-1)}{k},
   \label{eq:r3-switch}
 \end{equation}
-where $\nu$ is the number of reporting units sampled per period (or $m>\rho^2\nu/k$ under a Beta prior $p_t\sim\mathrm{Beta}(\rho\nu,(1-\rho)\nu)$ with variance $\rho(1-\rho)/(\nu+1)$).
+where $\nu$ is the number of reporting units sampled per period. Under a Beta prior $p_t\sim\mathrm{Beta}(\rho\nu,(1-\rho)\nu)$ with variance $\rho(1-\rho)/(\nu+1)$, the threshold in Eq.~(\ref{eq:r3-switch}) becomes $m>\rho^2\nu/k$.
 \end{corollary}

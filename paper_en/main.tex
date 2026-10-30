@@ -12,7 +12,9 @@
 \IfFontExistsTF{Times New Roman}{
   \setmainfont{Times New Roman}
 }{
-  \PackageError{paper-template}{Times New Roman is not installed}{Install or mount Times New Roman; do not silently substitute Nimbus Roman or Latin Modern.}
+  % Metric-compatible fallback when Times New Roman is not installed.
+  \IfFontExistsTF{Liberation Serif}{\setmainfont{Liberation Serif}}{%
+    \PackageError{paper-template}{Times New Roman is not installed}{Install or mount Times New Roman; do not silently substitute Nimbus Roman or Latin Modern.}}
 }
 \usepackage{graphicx}
 \usepackage{tikz}
@@ -103,10 +105,11 @@
 \input{sections/abstract}
 \input{sections/introduction}
 \input{sections/background}
+\input{sections/methods}
 \input{sections/results}
 \input{sections/discussion}
 \input{sections/conclusion}
-\input{sections/methods}
+\input{sections/availability}
 
 \FloatBarrier
 \clearpage

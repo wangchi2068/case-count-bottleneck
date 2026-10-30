@@ -24,7 +24,7 @@ and the score can be written as:
   \mathcal{I}(R_t)=\frac{n}{R_t/\rho+R_t{}^2/k},
   \label{eq:score}
 \end{equation}
-where $\mathcal{I}(R_t)$ is the Fisher information. The conditional mean of $\Rhat_t=c/(\rho n)$ is $R_t$, and its conditional variance is $R_t/(\rho n)+R_t{}^2/(kn)=1/\mathcal{I}(R_t)$. Because the score is proportional to $\Rhat_t-R_t$, the Cram\'er--Rao bound is attained for every finite $n$. The distribution in Eq.~(\ref{eq:observed}) is a one-parameter exponential family in $C_t$ with natural parameter $\log[\rho R_t/(k+\rho R_t)]$, which ranges over an open interval, so $C_t$ is complete and sufficient and by the Lehmann--Scheff\'e theorem $\Rhat_t$ is the uniformly minimum-variance unbiased estimator of $R_t$ \citep{lehmann1998theory, lehmann2005testing}.
+where $\mathcal{I}(R_t)$ is the Fisher information. The conditional mean of $\Rhat_t=c/(\rho n)$ is $R_t$, and its conditional variance is $R_t/(\rho n)+R_t{}^2/(kn)=1/\mathcal{I}(R_t)$. Because the score in Eq.~(\ref{eq:score}) is proportional to $\Rhat_t-R_t$, the Cram\'er--Rao bound is attained for every finite $n$. The distribution in Eq.~(\ref{eq:observed}) is a one-parameter exponential family in $C_t$ with natural parameter $\log[\rho R_t/(k+\rho R_t)]$, which ranges over an open interval, so $C_t$ is complete and sufficient. By the Lehmann--Scheff\'e theorem, $\Rhat_t$ is the uniformly minimum-variance unbiased estimator of $R_t$ \citep{lehmann1998theory, lehmann2005testing}.
 
 \subsection{Proof of Proposition~\ref{prop:average}}
 \label{app:prop1}
@@ -48,7 +48,11 @@ The conditional mean is $\rho nR_t$, so $\Rhat_t$ remains unbiased for $\Rbar$. 
 \begin{equation}
   V_H(m)=v_R+\tau^2(\Rbar^2+v_R)+\frac{\Rbar}{m}+\frac{\rho(1+\tau^2)(\Rbar^2+v_R)}{km},
 \end{equation}
-which is Eq.~(\ref{eq:vH-AH}). Writing $U=(1+\tau^2)(\Rbar{}^2+v_R)$, the limiting error variance is $v_R+v_H=U-\Rbar{}^2$ and $A_H=\Rbar+\rho U/k$, so the mean and variance of $\Rhat_t$ depend on $v_R$ and $\tau$ only through $U$. The inequality $m_{\times,H}<\mx$ is equivalent to $\rho v_R/k<A$, which holds because $\Rbar^2+v_R>v_R$.
+which is Eq.~(\ref{eq:vH-AH}). Writing $U_0=\Rbar{}^2+v_R$ and $U=(1+\tau^2)U_0$, the limiting error variance is $v_R+v_H=U-\Rbar{}^2$ and $A_H=\Rbar+\rho U/k$, so the mean and variance of $\Rhat_t$ depend on $v_R$ and $\tau$ only through $U$. For the generalised balance scale, the algebraic difference satisfies
+\begin{equation}
+  m_{\times,H}-\mx = \frac{A_H}{v_R+v_H} - \frac{A}{v_R} = \frac{\tau^2 U_0\left(\frac{\rho v_R}{k}-A\right)}{v_R(v_R+\tau^2 U_0)}.
+\end{equation}
+Because $A=\Rbar+\rho U_0/k > \rho v_R/k$ for all $\Rbar>0$ and $k>0$, the bracketed term is strictly negative: $\rho v_R/k - A = -(\Rbar+\rho\Rbar^2/k)<0$. Thus $m_{\times,H}\le\mx$, with equality holding if and only if $\tau=0$, and strict inequality $m_{\times,H}<\mx$ holding whenever $\tau>0$.
 
 \subsection{Proof of Proposition~\ref{prop:allocation}}
 \label{app:prop3}
@@ -132,7 +136,7 @@ which is expressed in units of the cost per reported case when $c_1=1$.
 Writing the sampling term as $Ac_1/(\mathcal{B}-c_0T)$ and differentiating $v_Re(T)+Ac_1/(\mathcal{B}-c_0T)$ with respect to $T$ gives the first-order condition $v_Rg_T=c_0A/(c_1m^2)$, so $m^{*2}=m_0{}^{*2}/g_{T^*}$. The ordering of $m^*$ and $m_0{}^*$ follows from the monotonicity of $g_T$, and at $T^*=T^\dagger$ the budget constraint gives Eq.~(\ref{eq:b-dagger}).
 \end{proof}
 
-For $\phi=0.8$, $g_T$ increases in $T$ and $T^\dagger=4.484$. With $c_0/c_1=100$ and the baseline balance scale, $m_0{}^*=72.86$ and $\mathcal{B}^\dagger=775.0$; over the latent balance scales of 21.3 to 49.2 cases used in Section~\ref{sec:meth-loss}, $\mathcal{B}^\dagger$ ranges from 655.3 to 762.9 (762.85 rounded, Table~\ref{tab:s7}). The calculation treats $T$ as continuous and the environmental process as stationary, so it applies within a season and not across seasons with different mean transmission.
+For $\phi=0.8$, $g_T$ increases in $T$ and $T^\dagger=4.484$. With $c_0/c_1=100$ and the baseline balance scale, $m_0{}^*=72.86$ and $\mathcal{B}^\dagger=775.0$; over the uncorrected scenario range of 21.3 to 49.2 cases per generation in Section~\ref{sec:meth-loss}, $\mathcal{B}^\dagger$ ranges from 655.3 to 762.9 (762.85 rounded, Table~\ref{tab:s7}). The calculation treats $T$ as continuous and the environmental process as stationary, so it applies within a season and not across seasons with different mean transmission.
 
 \subsection{Between-season variance}
 \label{app:seasons}
@@ -169,7 +173,7 @@ where $V$ is given by Eq.~(\ref{eq:var-average}). The minimum is at $\lambda^*=V
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.86\linewidth]{figures/fig_07_seasons_pathogens_design.png}
-  \caption{Between-season uncertainty, intercept ratios across pathogens and number of periods. (A) Season-specific intercepts of the weighted growth ratio in calendar windows and in rule-defined early-growth windows, with two-way bootstrap 95\% intervals; open diamonds show random-effects pooled estimates. (B) Lower bound on the relative standard error of an estimated between-season variance against the number of seasons, compared with the values reported in the earlier analysis. (C) Intercept ratios for a single-week denominator and an equal three-week denominator relative to the original weights; grey bars give the ranges expected from reporting noise and epidemic growth without environmental variation, and filled markers denote one-sided tests that remain significant after Holm correction. (D) Number of periods needed to match the precision of a given number of noise-free periods, by reported admissions per period; the panel is illustrative and is superseded by the empirical nomogram in Fig.~\ref{fig:design}A.}
+  \caption{Between-season uncertainty, intercept ratios across pathogens and number of periods. (A) Season-specific intercepts of the weighted growth ratio in calendar windows and in rule-defined early-growth windows, with two-way bootstrap 95\% intervals; open diamonds show random-effects pooled estimates. Panel B gives the lower bound on the relative standard error of an estimated between-season variance against the number of seasons, compared with the values reported in the earlier analysis. Panel C gives intercept ratios for a single-week denominator and an equal three-week denominator relative to the original weights; grey bars give the ranges expected from reporting noise and epidemic growth without environmental variation, and filled markers denote one-sided tests that remain significant after Holm correction. Panel D gives the number of periods needed to match the precision of a given number of noise-free periods, by reported admissions per period; the panel is illustrative and is superseded by the empirical nomogram in Fig.~\ref{fig:design}A.}
   \label{fig:seasons}
 \end{figure}
 

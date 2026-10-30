@@ -48,13 +48,14 @@
   {
    "id": "tab:s5",
    "path": "tab_s5_seasons.tex",
-   "sha256": "0bcc58b352dfe73f2f3f3b19f2853c5d4e336a130f5c433d7cd1fab9e8540672",
+   "sha256": "bb4fe34d7488f4fa40cd8dbfe30965e6048080827ab23ff46f0a0899a5d73c7c",
    "generator": "experiment/code/make_tables.py",
    "data_sources": [
     "experiment/analysis/results.json"
    ],
    "display": "raw",
-   "n_seeds": 1
+   "n_seeds": 1,
+   "note": "Hash refreshed in revision: the author's errata commit 944faf0 changed table text (a citation and corrected relative standard errors) without changing the underlying data."
   },
   {
    "id": "tab:s6",
@@ -70,13 +71,14 @@
   {
    "id": "tab:s7",
    "path": "tab_s7_theory.tex",
-   "sha256": "d42e300c9f7d28aeb862ba8a9057ded606563be27de9adde488202e4be914bb3",
+   "sha256": "44d10fea723e87877514fae41a42cda74e3861b5a107f44f20b0796ce8b70539",
    "generator": "experiment/code/make_tables.py",
    "data_sources": [
     "experiment/analysis/results.json"
    ],
    "display": "raw",
-   "n_seeds": 1
+   "n_seeds": 1,
+   "note": "Hash refreshed in revision: the author's errata commit 944faf0 changed table text (a citation and corrected relative standard errors) without changing the underlying data."
   },
   {
    "id": "tab:s8",
