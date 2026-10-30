@@ -141,7 +141,10 @@
 
 滞后 $h$ 的一阶扰动协方差为
 \begin{equation}
-  \frac{\Cov(Y_t,Y_{t-h}\mid Z)}{y_ty_{t-h}}=K(t,t-h)-\sum_kq_{t-h,k}K(t,t-h-k)-\sum_jq_{tj}K(t-j,t-h)+\sum_{j,k}q_{tj}q_{t-h,k}K(t-j,t-h-k)+O(\tau^3).
+\begin{aligned}
+  \frac{\Cov(Y_t,Y_{t-h}\mid Z)}{y_ty_{t-h}} &= K(t,t-h)-\sum_kq_{t-h,k}K(t,t-h-k) \\
+  &\quad -\sum_jq_{tj}K(t-j,t-h)+\sum_{j,k}q_{tj}q_{t-h,k}K(t-j,t-h-k)+O(\tau^3).
+\end{aligned}
 \end{equation}
 对独立同方差的报告冲击，$V_t=\tau^2(1+\sum_jq_{tj}{}^2)$，$B_t=\tau^2\sum_jq_{tj}{}^2$。若 $q$ 不随 $t$ 变化，则 $h\ge1$ 时的扰动协方差为 $\tau^2[-q_h+\sum_{k\ge1}q_{h+k}q_k]$（不存在的 $q$ 记为 0）。单周比值（$q_1=1$）在 $h=1$ 时为 $-\tau^2$，在 $h>1$ 时为 0。负相关来自同一周的报告冲击同时进入本期分子与随后的分母，分母重叠带来的正项会部分抵消这一负交叉项；一般权重或相关的报告率不保证协方差为负。平坦路径下 $q=(0.65,0.25,0.10)$ 时，方差系数为 1.495，相邻协方差系数为 $-0.4625$，均值偏差系数为 0.495；正增长路径下 $q$ 需按路径重新计算。
 
