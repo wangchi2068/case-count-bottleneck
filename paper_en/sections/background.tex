@@ -21,7 +21,7 @@ where $m=\rho n$ is the expected number of reported cases per period when $R_t=1
 
 The model rests on four assumptions. Each infection is reported independently with a probability $\rho$ that does not change over time (H1). Primary cases transmit independently and identically according to Eq.~(\ref{eq:offspring}) (H2). The dispersion $k$ does not depend on $R_t$ or $n$ (H3). The number of primary cases $n$ is fixed by design and is independent of $R_t$ (H4). Assumption H4 holds when $n$ is set by contact tracing; in routine surveillance $n$ is itself the outcome of earlier transmission, and the renewal formulation in Section~\ref{sec:meth-loss} relaxes it.
 
-Two scales recur in what follows (Table~\ref{tab:notation}). The quantities of the model, namely $R_t$, its mean $\Rbar$ and variance $v_R$, the case volume $m$ and the balance scale defined below, are latent and refer to one generation of transmission. The weekly statistics computed from admissions in Section~\ref{sec:meth-stats}, and the intercept $a$, slope $b$ and ratio $b/a$ fitted to their relative loss, are apparent quantities defined on the scale of each statistic and on weeks. The ratio $b/a$ would equal the balance scale only if a week were a single generation and the reporting scale were free of noise (Section~\ref{sec:meth-loss}). We therefore call $b/a$ the apparent balance ratio, reserve $\mx$ for the latent balance scale, and link the two through the calibration of Section~\ref{sec:meth-inversion}.
+Two scales recur in what follows (Table~\ref{tab:notation}). The quantities of the model, namely $R_t$, its mean $\Rbar$ and variance $v_R$, the case volume $m$ and the balance scale defined below, are latent and refer to one generation of transmission. The weekly statistics computed from admissions in Section~\ref{sec:meth-stats}, and the intercept $a$, slope $b$ and ratio $b/a$ fitted to their relative loss, are apparent quantities defined on the scale of each statistic and on weeks. The ratio $b/a$ would equal the balance scale only if a week were a single generation and the case-count scale were free of noise (Section~\ref{sec:meth-loss}). We therefore call $b/a$ the apparent balance ratio, reserve $\mx$ for the latent balance scale, and link the two through the calibration of Section~\ref{sec:meth-inversion}.
 
 \begin{table}[t]
 \centering
@@ -34,7 +34,7 @@ Symbol & Meaning & Scale & Values in this study \\
 \midrule
 $R_t$; $\Rbar$; $v_R$ & Instantaneous reproduction number in period $t$; its mean and variance across periods & Latent, per generation & Baseline $\Rbar=1.15$, $v_R=0.04$ \\
 $m$ & Expected reported cases per period when $R_t=1$ (case volume) & Latent, cases per generation & -- \\
-$A$; $\mx=A/v_R$ & Sampling coefficient and balance scale (Proposition~\ref{prop:average}) & Latent, cases per generation & Baseline 53.1; 30.3 (95\% CI 21.7 to 46.3) implied by the data, 58.9 (95\% CI 42.3 to 90.0) per week \\
+$A$; $\mx=A/v_R$ & Sampling coefficient and balance scale (Proposition~\ref{prop:average}) & Latent, cases per generation & Baseline 53.1; 30.3 per generation (95\% CI 21.7 to 46.3) implied by the data, or 58.9 per week (95\% CI 42.3 to 90.0) \\
 $\tau$; $v_H$; $m_{\times,H}$ & Relative reporting volatility, variance it adds, generalised balance scale (Proposition~\ref{prop:report-noise}) & Latent & $\tau=0.15$ gives $v_H=0.0307$ and $m_{\times,H}=30.4$ \\
 $m^*$ & Budget-optimal case volume per period with independent periods and linear costs (Proposition~\ref{prop:allocation}) & Same as the balance scale used & -- \\
 $G_t$; $R_{A,t}$ & Weighted growth ratio and renewal-type ratio (Eqs.~(\ref{eq:dt}) and (\ref{eq:ra})) & Apparent, weekly & -- \\
@@ -135,7 +135,7 @@ The variances $v_R$ and $v_H$ cannot be separated using the mean and variance of
 
 Proposition~\ref{prop:report-noise} is the identification limit for the empirical part of this study. An intercept estimated from counts alone combines transmission and reporting variation unless reporting is measured separately. The same difficulty arises in state-space models of population dynamics, where process and observation variance are often weakly identified from a single series \citep{knape2008estimability, augermethe2016state}.
 
-The balance scale also determines how a fixed budget is best divided. Suppose that $T$ periods are observed with case volume $m$ in each, that each period costs $c_0$ and each reported case costs $c_1$, and that the budget is $\mathcal{B}=T(c_0+c_1m)$.
+The balance scale also determines how a fixed budget is best divided. Suppose that $T$ periods are observed with case volume $m$ in each, that each period costs $c_0$ and each unit of case volume costs $c_1$, and that the budget is $\mathcal{B}=T(c_0+c_1m)$.
 
 \begin{proposition}[Allocation of a fixed budget]
 \label{prop:allocation}
