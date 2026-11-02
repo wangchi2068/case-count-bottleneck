@@ -4,8 +4,8 @@
   {
    "id": "tab:s1",
    "path": "tab_s1_headline.tex",
-   "sha256": "01468c778331ba2508417af7c7ea933c37ba62ef730dbb8c27c206f25edca0a2",
-   "generator": "experiment/code/make_tables.py",
+   "sha256": "53e1586c635c3471076fc81dbeb66dc94dd7c0a5b43c3c792cbe505f8ca0e9e4",
+   "generator": "experiment/code/make_tables.py; experiment/code/make_tables_r3.py",
    "data_sources": [
     "experiment/analysis/results.json"
    ],
@@ -15,8 +15,8 @@
   {
    "id": "tab:s2",
    "path": "tab_s2_decomposition.tex",
-   "sha256": "e05e8be0967efca9b93dd54f4777da1caf9d13d73d4550be15dc5f8822f4e705",
-   "generator": "experiment/code/make_tables.py",
+   "sha256": "ebfc3fbcac1fc0cff0dfb7f4fc0bfaac95e327607c3cab0e03ba419930bff47f",
+   "generator": "experiment/code/make_tables.py; experiment/code/make_tables_r3.py",
    "data_sources": [
     "experiment/analysis/results.json"
    ],
@@ -26,8 +26,8 @@
   {
    "id": "tab:s3",
    "path": "tab_s3_reporting.tex",
-   "sha256": "6a5bf10ca98fac1365d37949a3b982a693b5d03c53dfb819ebc3177c770f97ec",
-   "generator": "experiment/code/make_tables.py",
+   "sha256": "88f3735862dc056d71d380859b94953d7f407961e111b0370a35fdf5d68816e3",
+   "generator": "experiment/code/make_tables.py; experiment/code/make_tables_r3.py",
    "data_sources": [
     "experiment/analysis/results.json"
    ],
@@ -37,7 +37,7 @@
   {
    "id": "tab:s4",
    "path": "tab_s4_calendar_lab.tex",
-   "sha256": "aad93a62959fa68b4f629728b4da5ffd4bdbc932e99445d304893d968a5ddc2a",
+   "sha256": "386e1f268f1ffb421e4dff9618a7e167176a373b2b0da4eee321264b147110c6",
    "generator": "experiment/code/make_tables.py",
    "data_sources": [
     "experiment/analysis/results.json"
@@ -48,19 +48,20 @@
   {
    "id": "tab:s5",
    "path": "tab_s5_seasons.tex",
-   "sha256": "692402c6d70ed010590f679bb3bfb86e85f21924b315f65e6eca81c0927c1b49",
+   "sha256": "bb4fe34d7488f4fa40cd8dbfe30965e6048080827ab23ff46f0a0899a5d73c7c",
    "generator": "experiment/code/make_tables.py",
    "data_sources": [
     "experiment/analysis/results.json"
    ],
    "display": "raw",
-   "n_seeds": 1
+   "n_seeds": 1,
+   "note": "Hash refreshed in revision: the author's errata commit 944faf0 changed table text (a citation and corrected relative standard errors) without changing the underlying data."
   },
   {
    "id": "tab:s6",
    "path": "tab_s6_pathogens.tex",
-   "sha256": "a297bf54495dd2e77ff2561345dec1a53d3452b9fbf6770447dd4aa1d808fbd9",
-   "generator": "experiment/code/make_tables.py",
+   "sha256": "0ec648d64ee16f2ef9a330791e7371512ebb44265a7282b3867d34a26562fa67",
+   "generator": "experiment/code/make_tables.py; experiment/code/make_tables_r3.py",
    "data_sources": [
     "experiment/analysis/results.json"
    ],
@@ -70,8 +71,31 @@
   {
    "id": "tab:s7",
    "path": "tab_s7_theory.tex",
-   "sha256": "e840f7004fee390439bda2952bc286dfb094487265efa515daf04d12ccbbff70",
+   "sha256": "44d10fea723e87877514fae41a42cda74e3861b5a107f44f20b0796ce8b70539",
    "generator": "experiment/code/make_tables.py",
+   "data_sources": [
+    "experiment/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1,
+   "note": "Hash refreshed in revision: the author's errata commit 944faf0 changed table text (a citation and corrected relative standard errors) without changing the underlying data."
+  },
+  {
+   "id": "tab:s8",
+   "path": "tab_s8_inversion_settings.tex",
+   "sha256": "65b6398877398d49fd9f748229e06dd74b8bd886f9191c727d08ea3184609d49",
+   "generator": "experiment/code/make_tables_r3.py",
+   "data_sources": [
+    "experiment/analysis/parts/inversion.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
+  },
+  {
+   "id": "tab:s9",
+   "path": "tab_s9_analysis_history.tex",
+   "sha256": "7280f439be82a6615f64fbfe9768c6f988df07c65403fec34376e74ceaf8fa38",
+   "generator": "experiment/code/make_tables_r3.py",
    "data_sources": [
     "experiment/analysis/results.json"
    ],
@@ -79,23 +103,24 @@
    "n_seeds": 1
   },
   {
-   "id": "tab:s8",
-   "path": "tab_s8_inversion_settings.tex",
-   "sha256": "f213ff17390402f00c01aa10f58ba8a4c27e5636faaefced78aeb0fa023c84ad",
-   "generator": "sources/repository/experiment/code/make_tables_r3.py (source-stored inversion results)",
+   "id": "tab:s10",
+   "path": "tab_s10_polish.tex",
+   "sha256": "760abe2d5e43bd8c23750d7a36181e8770db89c20e4c8d94fba6014d48fa9514",
+   "generator": "experiment/code/make_tables_polish.py",
    "data_sources": [
-    "sources/repository/experiment (stored inversion outputs)"
+    "experiment/analysis/parts/polish.json",
+    "experiment/analysis/parts/inversion.json"
    ],
    "display": "raw",
    "n_seeds": 1
   },
   {
-   "id": "tab:s9",
-   "path": "tab_s9_inversion_checks.tex",
-   "sha256": "475c30b6d3fe8b4137ea26ea9760fd85e09c06dcc903af099a8ed596158751fb",
-   "generator": "sources/repository/experiment/code/make_tables_r3.py (source-stored inversion results)",
+   "id": "tab:s11",
+   "path": "tab_s11_thinning_fe.tex",
+   "sha256": "a49771424526c3aa8ba6469a682e957eaca9d067035787043c223ef0048cc67f",
+   "generator": "experiment-v4/code/make_table_s11.py",
    "data_sources": [
-    "sources/repository/experiment (stored inversion outputs)"
+    "experiment-v4/analysis/results.json"
    ],
    "display": "raw",
    "n_seeds": 1

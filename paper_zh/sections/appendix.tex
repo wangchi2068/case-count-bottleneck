@@ -86,6 +86,15 @@
 \end{equation}
 成本函数未给定时不存在通用的最优报告概率。若 $c(\rho)=c_0+c_\rho\rho$，由 $f'(\rho)=0$ 得 $c_\rho H\rho^2=c_0Q$，即内点解 $\rho^*=\sqrt{c_0Q/(c_\rho H)}$，再截取到 $(0,1]$。若成本仍按 $c_0+c_1m$ 计价，则 $m=\rho n$ 给出 $c_\rho=c_1n$。
 
+\subsection{推论~\ref{cor:targets} 的证明}
+\label{app:cor-targets}
+
+记 $e_t=\Rhat_t-R_t$。给定 $(R_s)$ 时，$e_t$ 相互独立且均值为零，$\E(e_t{}^2\mid R_t)=R_t/m+\rho R_t{}^2/(km)$，因此 $\E e_t{}^2=A/m$，且 $e_t$ 与 $(R_s)$ 的任何函数均不相关。对于结论 (a)，$T^{-1}\sum_t\Rhat_t-\Rbar=(\Rbar_T-\Rbar)+T^{-1}\sum_te_t$，两项相互正交，因此均方误差为 $\Var(\Rbar_T)+A/(Tm)$。对于满足 $\Cov(R_s,R_t)=v_R\phi^{|s-t|}$ 的平稳一阶自回归过程，有 $T^2\Var(\Rbar_T)=v_R[T+2\sum_{h=1}^{T-1}(T-h)\phi^h]$，对几何级数求和即得式~(\ref{eq:ar-sum})\citep{hamilton1994time}。对于结论 (b)，$T^{-1}\sum_t\Rhat_t-\Rbar_T=T^{-1}\sum_te_t$，对 $(R_t)$ 的任何分布其均方误差严格为 $A/(Tm)$。对于结论 (c)，$\Rhat_t-R_{t+1}=e_t+(R_t-R_{t+1})$，且 $\E(R_t-R_{t+1})^2=2(1-\phi)v_R$，由此给出朴素预测误差。对于预测量 $\Rbar+\lambda(\Rhat_t-\Rbar)$，$\Cov(\Rhat_t,R_{t+1})=\phi v_R$ 且 $\Var(\Rhat_t)=v_R+A/m$，故预测误差为
+\begin{equation}
+  v_R-2\lambda\phi v_R+\lambda^2\left(v_R+\frac{A}{m}\right),
+\end{equation}
+该二次式在 $\lambda=\phi v_R/(v_R+A/m)$ 处取得最小值 $v_R-\phi^2v_R{}^2/(v_R+A/m)$。由 $v_R/(v_R+A/m)=m/(m+\mx)$，此即式~(\ref{eq:forecast})。该值随 $m$ 单调递减并趋于 $(1-\phi^2)v_R$，因此基于 $\Rhat_t$ 构建的任何线性预测误差均不小于该值。
+
 \subsection{推论~\ref{cor:switch} 的证明}
 \label{app:cor1}
 
@@ -247,10 +256,50 @@
 \section{补充图}
 \label{app:figure}
 
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+图~\ref{fig:budget}--\ref{fig:seasons} 给出支持正文主图的详细分析面板。图~\ref{fig:budget} 展示预算示例与最优病例量的理论情景范围，图~\ref{fig:inversion} 展示模拟反演的校准过程。图~\ref{fig:floor} 展示全国序列与实证拟合的敏感性，图~\ref{fig:reporting} 展示报告制度分析，图~\ref{fig:design} 展示监测设计列线图，图~\ref{fig:seasons} 展示流行季间异质性分析。
+
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.86\linewidth]{figures/fig_07_seasons_pathogens_design.pdf}
-  \caption{季间不确定性与分母权重比。（A）加权增长比的分季截距及双向自助 95\% 百分位区间，实心为规则窗口四季，空心为日历窗口三季；菱形为 DerSimonian--Laird 随机效应合并截距及 $t$ 分布 95\% 区间。（B）季间方差相对标准误的下界 $\sqrt{2/(S-1)}$ 随流行季数的变化，标出 $S=3$ 与 $S=4$。（C）规则窗口中单周分母比值 $q_1$ 与等权三周分母比值 $q_2$ 的估计（双向自助 95\% 百分位区间）与纯报告噪声零模型的比较。灰点为各报告噪声水平下比值的均值，误差线为其 2.5\%--97.5\% 分位范围（每个水平 300 条模拟路径，每条路径重新选择规则窗口），灰带为各水平均值的范围。}
+  \includegraphics[width=0.92\linewidth]{figures/fig_05_heterogeneity_budget.pdf}
+  \caption{报告异质性与固定监测预算的分配。（A）四种相对报告波动水平下误差方差随单期期望报告病例数的变化；点线为极限值，由环境方差与报告方差之和决定。（B）广义平衡规模随相对报告波动的变化；虚线为无报告波动时的平衡规模，圆点为面板 D 所用的波动水平。（C）取平衡规模情景范围两端时，单期最优报告病例数随价格比 $c_0/c_1$ 的变化；阴影带覆盖两端之间的范围。（D）环境变异与报告变异均存在自相关时，平均再生数估计量的均方误差随总预算的变化；实线为基线报告，虚线为标准化报告。}
+  \label{fig:budget}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_06_sim_inversion.pdf}
+  \caption{由表观统计量反演潜在动态的数据匹配模拟。（A）基于每格 200 个模拟面板的校准线，复现了观测到的流行季、窗口长度、州规模、全国周冲击与报告延迟。拟合截距按实证截距标准化。虚线交点标出潜在环境方差 $v_R$。（B）各模拟设定下将拟合截距与 $v_R/\Rbar^2$ 相联系的尺度因子 $\kappa$。实心为拟合值，空心为无噪声极限。（C）数据匹配基准设定下隐含 $v_R$ 的分布。不确定性合并了数据的双向自助抽样与校准的蒙特卡罗误差。顶部刻度标出其他设定的点估计。（D）模拟单个面板的 $b/a$ 与校准理论范围，附带实证估计及 95\% 区间。灰带为 $v_R=0.04$--0.08。}
+  \label{fig:inversion}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\linewidth]{figures/fig_07_empirical_loss.pdf}
+  \caption{流感住院数据中两种表观周统计量的相对损失。（A）对数尺度上的全国每周住院数；阴影标出主分析规则早期增长窗口，网格标出日历窗口，三角标出各季全国首个拐点。（B）更新型比值与加权增长比的分箱平均相对损失随报告规模的变化，附带仿射拟合曲线、无截距幂律比较线与拟合截距；分箱误差线不考虑聚类。（C）调整前、去除全国周效应后以及进一步去除州--季效应后的截距，附带双向自助区间。（D）敏感性设定下斜率与截距的比值；阴影带为增长比经分母修正后的未校准理论范围，校准范围见图~\ref{fig:inversion}D。}
+  \label{fig:floor}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\linewidth]{figures/fig_08_reporting.pdf}
+  \caption{报告完整度与实证截距。（A）三种报告制度下报告流感住院的医院占比分布。（B）统计量经报告覆盖率调整后截距的变化，合并及分季展示，附带 90\% 配对自助区间。各统计量按自身等效界标准化，阴影带展示两种报告波动门槛下的等效界。（C）双单侧等效检验随真实变化的功效曲线。（D）三个日历年中 5 月至 10 月增长比对数的四分位距；高亮标出自愿报告年份，标签给出中位数报告完整度。}
+  \label{fig:reporting}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_09_design_nomogram.pdf}
+  \caption{监测设计列线图。（A）单州平均更新型比值 $R_A$ 的相对标准误达到 2\%--8\% 所需的观测周数，按周住院数 $m$ 划分，在统计量尺度上计算并忽略州内自相关。虚线标记 $R_A$ 的表观平衡比 $b/a$（面板中标为 $m_\times$），灰带为其 95\% 区间。在其左侧，增加病例带来绝大部分精度增益；在其右侧，等高线趋于平缓，增加周数或地区带来绝大部分增益。（B）可达精度份额 $m/(m+\mx)$ 与 $m$ 翻倍时的方差相对降幅。（C）$J$ 个州合并周偏差相对单州的方差比，实线与阴影带来自随机州子集，点线为全国周分量。（D）纯泊松更新方差与拟合方差 $a+b/m$ 的相对方差对比。}
+  \label{fig:design}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\linewidth]{figures/fig_10_seasons_pathogens_design.png}
+  \caption{季间不确定性、跨病原截距比与时期数。（A）加权增长比在日历窗口与规则早期增长窗口中的分季截距，附带双向自助 95\% 区间；空心菱形为随机效应合并估计。（B）季间方差相对标准误下界随流行季数的变化，标出 $S=3$ 与 $S=4$。（C）单周分母与等权三周分母相对原始权重的截距比；灰带为仅含报告噪声与流行增长而无环境变异的预期范围，实心标记为 Holm 校正后保持显著的单侧检验。（D）达到给定无噪声时期数精度所需的时期数随单期报告住院数的变化。}
   \label{fig:seasons}
 \end{figure}
 
@@ -262,7 +311,7 @@
 \setcounter{table}{0}
 \renewcommand{\thetable}{S\arabic{table}}
 
-表~\ref{tab:s1}--\ref{tab:s6} 给出图~\ref{fig:floor}--\ref{fig:design} 与图~\ref{fig:seasons} 所依据的实证估计值，表~\ref{tab:s7} 汇总理论闭式量及其适用条件，表~\ref{tab:s8} 与表~\ref{tab:s9} 给出潜在环境方差反演在各设定下的结果与假设检验（图~\ref{fig:inversion}）。
+表~\ref{tab:s1}--\ref{tab:s7} 报告支撑图~\ref{fig:identification}A、图~\ref{fig:envelope}A 及图~\ref{fig:budget}--\ref{fig:seasons} 的实证估计值。表~\ref{tab:s8} 报告模拟反演各设定下的隐含环境方差（图~\ref{fig:envelope}B 与图~\ref{fig:inversion}），表~\ref{tab:s9} 列出分析各轮次使用的规格，表~\ref{tab:s10} 给出反演假定的进一步核查，表~\ref{tab:s11} 给出图~\ref{fig:identification}B 与 C 所对应的二项稀释与州固定效应结果。表~\ref{tab:s4} 比较了自愿报告期与强制报告年份相同日历月份的数据。全部数值均由分析代码的存储输出生成。
 
 \input{tables/tab_s1_headline}
 \input{tables/tab_s2_decomposition}
@@ -273,3 +322,5 @@
 \input{tables/tab_s7_theory}
 \input{tables/tab_s8_inversion_settings}
 \input{tables/tab_s9_inversion_checks}
+\input{tables/tab_s10_polish}
+\input{tables/tab_s11_thinning_fe}

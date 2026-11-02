@@ -113,6 +113,17 @@
    ],
    "display": "raw",
    "n_seeds": 1
+  },
+  {
+   "id": "tab:s11",
+   "path": "tab_s11_thinning_fe.tex",
+   "sha256": "a49771424526c3aa8ba6469a682e957eaca9d067035787043c223ef0048cc67f",
+   "generator": "experiment-v4/code/make_table_s11.py",
+   "data_sources": [
+    "experiment-v4/analysis/results.json"
+   ],
+   "display": "raw",
+   "n_seeds": 1
   }
  ]
 }

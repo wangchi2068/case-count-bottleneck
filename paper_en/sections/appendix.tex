@@ -33,9 +33,9 @@ Under H4, $\E(R_t\mid n)=\Rbar$ and $\Var(R_t\mid n)=v_R$. By the law of total v
 \begin{equation}
   \Var(\Rhat_t\mid n)=\E\!\left[\frac{R_t}{\rho n}+\frac{R_t{}^2}{kn}\right]+\Var(R_t)=v_R+\frac{\Rbar}{\rho n}+\frac{\Rbar^2+v_R}{kn},
 \end{equation}
-and substituting $m=\rho n$ gives Eq.~(\ref{eq:var-average}). Parts (i) and (ii) follow by taking limits. For part (iii), $[V(m)-V(2m)]/V(m)=[A/(2m)]/(v_R+A/m)=1/[2(1+m/\mx)]$, which equals one quarter at $m=\mx$. For part (iv), let $\tilde{\theta}$ be any estimator from data on period $t$ with $\E(\tilde{\theta}\mid R_t)=R_t$. Then $\E(\tilde{\theta}-\Rbar)^2=\E[\Var(\tilde{\theta}\mid R_t)]+v_R\ge\E[1/\mathcal{I}(R_t)]+v_R=V$, with equality for $\Rhat_t$. For one-step prediction of $y=C_{t+1}/m$ when $R_{t+1}$ is independent of the history, $\E(\hat{y}-y)^2=(\hat{y}-\E y)^2+\Var(y)\ge V$, with equality at $\hat{y}=\Rbar$.
+and substituting $m=\rho n$ gives Eq.~(\ref{eq:var-average}). Parts (i) and (ii) follow by taking limits. For part (iii), $[V(m)-V(2m)]/V(m)=[A/(2m)]/(v_R+A/m)=1/[2(1+m/\mx)]$, which equals one quarter at $m=\mx$. For part (iv), let $\tilde{\theta}$ be any estimator from data on period $t$ with $\E(\tilde{\theta}\mid R_t)=R_t$. Then $\E(\tilde{\theta}-\Rbar)^2=\E[\Var(\tilde{\theta}\mid R_t)]+v_R\ge\E[1/\mathcal{I}(R_t)]+v_R=V$, with equality for $\Rhat_t$. The first equality uses the conditional unbiasedness of $\tilde{\theta}$, which makes $\tilde{\theta}-R_t$ uncorrelated with $R_t-\Rbar$; the same argument applied to $\Rhat_t$ gives the difference of exactly $v_R$ between the mean squared errors about $\Rbar$ and about $R_t$. For prediction of the next scaled count $y=C_{t+1}/m$ when $R_{t+1}$ is independent of the history, $\E(\hat{y}-y)^2=(\hat{y}-\E y)^2+\Var(y)\ge V$, with equality at $\hat{y}=\Rbar$.
 
-The marginal effects of coverage and completeness are $-\partial V/\partial\log n=A/m$ and $-\partial V/\partial\log\rho=\Rbar/m$, so their ratio is $A/\Rbar$. If $R_t$ follows a stationary first-order autoregressive process with variance $v_R$ and autocorrelation $\phi$, the best linear predictor of $R_{t+1}$ given $R_t$ has error variance $(1-\phi^2)v_R$ \citep{hamilton1994time}. For $J$ jurisdictions with common variance $v_R$ and mean pairwise correlation $\bar{c}$, the variance of their average is $J^{-2}[Jv_R+J(J-1)\bar{c}v_R]$, which gives Eq.~(\ref{eq:pooling}).
+The marginal effects of coverage and completeness are $-\partial V/\partial\log n=A/m$ and $-\partial V/\partial\log\rho=\Rbar/m$, so their ratio is $A/\Rbar$. If $R_t$ follows a stationary first-order autoregressive process with variance $v_R$ and autocorrelation $\phi$, the best linear predictor of $R_{t+1}$ given $R_t$ itself has error variance $(1-\phi^2)v_R$ \citep{hamilton1994time}; a predictor that sees only $\Rhat_t$ cannot do better (Appendix~\ref{app:cor-targets}). For $J$ jurisdictions with common variance $v_R$ and mean pairwise correlation $\bar{c}$, the variance of their average is $J^{-2}[Jv_R+J(J-1)\bar{c}v_R]$, which gives Eq.~(\ref{eq:pooling}).
 
 \subsection{Proof of Proposition~\ref{prop:report-noise}}
 \label{app:prop2}
@@ -48,11 +48,11 @@ The conditional mean is $\rho nR_t$, so $\Rhat_t$ remains unbiased for $\Rbar$. 
 \begin{equation}
   V_H(m)=v_R+\tau^2(\Rbar^2+v_R)+\frac{\Rbar}{m}+\frac{\rho(1+\tau^2)(\Rbar^2+v_R)}{km},
 \end{equation}
-which is Eq.~(\ref{eq:vH-AH}). Writing $U_0=\Rbar{}^2+v_R$ and $U=(1+\tau^2)U_0$, the limiting error variance is $v_R+v_H=U-\Rbar{}^2$ and $A_H=\Rbar+\rho U/k$, so the mean and variance of $\Rhat_t$ depend on $v_R$ and $\tau$ only through $U$. For the generalised balance scale, the algebraic difference satisfies
+which is Eq.~(\ref{eq:vH-AH}). Writing $U=(1+\tau^2)(\Rbar{}^2+v_R)$, the limiting error variance is $v_R+v_H=U-\Rbar{}^2$ and $A_H=\Rbar+\rho U/k$, so the mean and variance of $\Rhat_t$ depend on $v_R$ and $\tau$ only through $U$. With $Q=\Rbar^2+v_R$, $v_H=\tau^2Q$ and $A_H-A=\rho\tau^2Q/k$, the difference of the two balance scales is:
 \begin{equation}
-  m_{\times,H}-\mx = \frac{A_H}{v_R+v_H} - \frac{A}{v_R} = \frac{\tau^2 U_0\left(\frac{\rho v_R}{k}-A\right)}{v_R(v_R+\tau^2 U_0)}.
+  \mx-m_{\times,H}=\frac{A(v_R+v_H)-A_Hv_R}{v_R(v_R+v_H)}=\frac{\tau^2Q\left[A-\rho v_R/k\right]}{v_R(v_R+v_H)}=\frac{\tau^2Q\,\Rbar\,(1+\rho\Rbar/k)}{v_R(v_R+v_H)},
 \end{equation}
-Because $A=\Rbar+\rho U_0/k > \rho v_R/k$ for all $\Rbar>0$ and $k>0$, the bracketed term is strictly negative: $\rho v_R/k - A = -(\Rbar+\rho\Rbar^2/k)<0$. Thus $m_{\times,H}\le\mx$, with equality holding if and only if $\tau=0$, and strict inequality $m_{\times,H}<\mx$ holding whenever $\tau>0$.
+because $A-\rho v_R/k=\Rbar+\rho\Rbar^2/k$. The right-hand side is zero at $\tau=0$ and positive for $\tau>0$, which gives $m_{\times,H}\le\mx$ with equality if and only if $\tau=0$, and Eq.~(\ref{eq:mx-gap}).
 
 \subsection{Proof of Proposition~\ref{prop:allocation}}
 \label{app:prop3}
@@ -61,11 +61,20 @@ Conditional on $(R_1,\dots,R_T)$, counts in different periods are independent. W
 \begin{equation}
   \Var\!\Big(\frac{1}{T}\sum_{t=1}^T\Rhat_t\Big)=\Var(\bar{R}_T)+\frac{A}{Tm},
 \end{equation}
-where $\Var(\bar{R}_T)=v_R/T$ for independent periods, giving Eq.~(\ref{eq:alloc-indep}). For a stationary first-order autoregressive process with $\Cov(R_s,R_t)=v_R\phi^{|s-t|}$, $T^2\Var(\bar{R}_T)=v_R[T+2\sum_{h=1}^{T-1}(T-h)\phi^h]$, and summing the geometric series gives Eq.~(\ref{eq:ar-sum}) \citep{hamilton1994time}. Substituting $T=\mathcal{B}/(c_0+c_1m)$ into Eq.~(\ref{eq:alloc-indep}) gives the objective:
+where $\Var(\bar{R}_T)=v_R/T$ for independent periods, giving Eq.~(\ref{eq:alloc-indep}). Substituting $T=\mathcal{B}/(c_0+c_1m)$ into Eq.~(\ref{eq:alloc-indep}) gives the objective:
 \begin{equation}
   f(m)=\frac{(c_0+c_1m)(v_R+A/m)}{\mathcal{B}}=\frac{c_0v_R+c_1A+c_1v_Rm+c_0A/m}{\mathcal{B}},
 \end{equation}
-which is strictly convex for $c_0>0$, with $f'(m)=(c_1v_R-c_0A/m^2)/\mathcal{B}$. The unique stationary point is $m^{*2}=c_0A/(c_1v_R)=(c_0/c_1)\mx$, which is Eq.~(\ref{eq:optimal-m}).
+which is strictly convex for $c_0>0$, with $f'(m)=(c_1v_R-c_0A/m^2)/\mathcal{B}$. The unique stationary point is $m^{*2}=c_0A/(c_1v_R)=(c_0/c_1)\mx$, which is Eq.~(\ref{eq:optimal-m}). Because $f$ is strictly convex, $f'(m)>0$ if and only if $m>m^*$, so at a fixed budget the error increases with $m$ exactly when $m>m^*$.
+
+\subsection{Proof of Corollary~\ref{cor:targets}}
+\label{app:cor-targets}
+
+Write $e_t=\Rhat_t-R_t$. Given $(R_s)$, the $e_t$ are independent with mean zero and $\E(e_t{}^2\mid R_t)=R_t/m+\rho R_t{}^2/(km)$, so $\E e_t{}^2=A/m$, and $e_t$ is uncorrelated with every function of $(R_s)$. For part (a), $T^{-1}\sum_t\Rhat_t-\Rbar=(\Rbar_T-\Rbar)+T^{-1}\sum_te_t$, and the two terms are uncorrelated, so the error is $\Var(\Rbar_T)+A/(Tm)$. For a stationary first-order autoregressive process with $\Cov(R_s,R_t)=v_R\phi^{|s-t|}$, $T^2\Var(\Rbar_T)=v_R[T+2\sum_{h=1}^{T-1}(T-h)\phi^h]$, and summing the geometric series gives Eq.~(\ref{eq:ar-sum}) \citep{hamilton1994time}. For part (b), $T^{-1}\sum_t\Rhat_t-\Rbar_T=T^{-1}\sum_te_t$, whose mean square is $A/(Tm)$ for any law of $(R_t)$. For part (c), $\Rhat_t-R_{t+1}=e_t+(R_t-R_{t+1})$, and $\E(R_t-R_{t+1})^2=2(1-\phi)v_R$, which gives the naive error. For a forecast $\Rbar+\lambda(\Rhat_t-\Rbar)$, $\Cov(\Rhat_t,R_{t+1})=\phi v_R$ and $\Var(\Rhat_t)=v_R+A/m$, so the error is:
+\begin{equation}
+  v_R-2\lambda\phi v_R+\lambda^2\left(v_R+\frac{A}{m}\right),
+\end{equation}
+which is minimised at $\lambda=\phi v_R/(v_R+A/m)$ with value $v_R-\phi^2v_R{}^2/(v_R+A/m)$. Since $v_R/(v_R+A/m)=m/(m+\mx)$, this is Eq.~(\ref{eq:forecast}). The value decreases in $m$ towards $(1-\phi^2)v_R$, so no linear forecast from $\Rhat_t$ has a smaller error.
 
 \subsection{Proof of Corollary~\ref{cor:switch}}
 \label{app:cor1}
@@ -167,12 +176,52 @@ Part (iv) of Proposition~\ref{prop:average} excludes estimators that are biased 
 where $V$ is given by Eq.~(\ref{eq:var-average}). The minimum is at $\lambda^*=V/(V+\Delta^2)$, where $\mathrm{MSE}(\lambda^*)=V\Delta^2/(V+\Delta^2)$, which is below $v_R$ if and only if $\Delta^2<v_R(1+m/\mx)$. The weight $\lambda^*$ depends on the unknown $\Rbar$ and $V$, so this is an ideal bound and not a feasible estimator; an empirical Bayes or hierarchical estimator estimates the weight from the data and does not attain it \citep{stoner2019hierarchical}.
 
 \clearpage
-\section{Supplementary figure}
+\section{Supplementary figures}
 \label{app:figure}
+
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+Figures~\ref{fig:budget}--\ref{fig:seasons} give the detailed panels behind the main figures. They show the budget example and the scenario range of the optimal case volume (Fig.~\ref{fig:budget}) and the calibration of the inversion (Fig.~\ref{fig:inversion}). They also show the national series and sensitivity of the empirical fit (Fig.~\ref{fig:floor}), the reporting regimes (Fig.~\ref{fig:reporting}), the design nomogram (Fig.~\ref{fig:design}) and the between-season analysis (Fig.~\ref{fig:seasons}).
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.86\linewidth]{figures/fig_07_seasons_pathogens_design.png}
+  \includegraphics[width=0.92\linewidth]{figures/fig_05_heterogeneity_budget.pdf}
+  \caption{Reporting heterogeneity and the allocation of a fixed surveillance budget. (A) Error variance against expected reported cases per period for four levels of relative reporting volatility; dotted lines mark the corresponding limits as case volume grows, set by environmental plus reporting variance. (B) Generalised balance scale against relative reporting volatility; the dashed line is the balance scale without reporting volatility, and the dot marks the volatility used in panel D. (C) Optimal number of reported cases per period against the price ratio $c_0/c_1$, for the two ends of the uncorrected scenario range of the balance scale, 21.3 and 49.2 cases per generation (labelled $m_\times$ in the panel); the band spans the range between them. (D) Mean squared error of the estimator of the mean reproduction number against total budget, when additional budget buys either more cases per period or more periods, with autocorrelated environmental and reporting variation, under baseline (solid) and standardised (dashed) reporting.}
+  \label{fig:budget}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_06_sim_inversion.pdf}
+  \caption{Simulation-based inversion from apparent statistics to latent dynamics. (A) Calibration lines from 200 simulated panels per cell that reproduce the observed seasons, window lengths, state sizes, national week shocks and reporting delay. Fitted intercepts are scaled by the empirical intercept. Dashed drop lines mark where each line meets the data, giving the implied latent variance $v_R$. (B) Scale factor $\kappa$ linking the fitted intercept to $v_R/\Rbar^2$ for each simulation setting. Filled markers are fitted values and open markers the noise-free limit. (C) Distribution of the implied $v_R$ under the data-matched setting. Uncertainty combines the two-way bootstrap of the data with Monte Carlo error of the calibration. Top ticks show the point values of the other settings. (D) Simulated per-panel $b/a$ and the calibrated theoretical range, against empirical estimates with 95\% intervals. Grey bands mark $v_R=0.04$--0.08.}
+  \label{fig:inversion}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\linewidth]{figures/fig_07_empirical_loss.pdf}
+  \caption{Relative loss of two apparent weekly statistics in influenza hospital admissions. (A) National weekly admissions on a logarithmic scale; shading marks the rule-based early-growth windows of the primary analysis, hatching marks the calendar windows of the earlier analysis, and triangles mark the first national turning point of each season. (B) Binned mean relative loss against reporting scale for the renewal-type ratio and the weighted growth ratio, with the fitted affine curve, a power law without intercept used for comparison and the fitted intercept; bin error bars ignore clustering. (C) Intercept before adjustment, after removing national-week effects and after also removing state-season effects, with two-way bootstrap intervals. (D) Ratio of slope to intercept under sensitivity variants; the band is the uncalibrated theoretical range for the growth ratio with the denominator correction, and Fig.~\ref{fig:inversion}D gives the calibrated range.}
+  \label{fig:floor}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\linewidth]{figures/fig_08_reporting.pdf}
+  \caption{Reporting completeness and the empirical intercept. (A) Distribution of the share of hospitals reporting influenza admissions under the three reporting regimes. (B) Change in the intercept when the statistic is adjusted for reporting coverage, pooled and by season, with 90\% paired bootstrap intervals. Each statistic is expressed relative to its own equivalence margin, and shaded bands show the margins implied by two thresholds of reporting volatility. (C) Power of the two one-sided equivalence test against the true change, for both statistics and both margins, with a conventional power reference. (D) Interquartile range of the logarithm of the growth ratio over May to October in three calendar years; the year with voluntary reporting is highlighted, and labels give median reporting completeness.}
+  \label{fig:reporting}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_09_design_nomogram.pdf}
+  \caption{Surveillance design nomogram. (A) Observation weeks needed for the relative standard error of a single state's mean renewal ratio $R_A$ to reach 2--8\%, by weekly admissions $m$, on the scale of the statistic and ignoring autocorrelation within states. The dashed line marks the apparent balance ratio $b/a$ of $R_A$, labelled $m_\times$ in the panel, and the grey band its 95\% interval. To its left, added cases give most of the gain. To its right, contours flatten and added weeks or regions give most of the gain. (B) Share of attainable precision, $m/(m+\mx)$, and the variance reduction from one doubling of $m$. (C) Variance of the mean weekly deviation pooled over $J$ states, relative to one state, for $R_A$ and the growth ratio $G$. Points and bands come from random state subsets; dotted lines show the national-week component. (D) Relative variance of $R_A$ under the Poisson renewal variance alone and under the fitted $a+b/m$.}
+  \label{fig:design}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\linewidth]{figures/fig_10_seasons_pathogens_design.png}
   \caption{Between-season uncertainty, intercept ratios across pathogens and number of periods. (A) Season-specific intercepts of the weighted growth ratio in calendar windows and in rule-defined early-growth windows, with two-way bootstrap 95\% intervals; open diamonds show random-effects pooled estimates. Panel B gives the lower bound on the relative standard error of an estimated between-season variance against the number of seasons, compared with the values reported in the earlier analysis. Panel C gives intercept ratios for a single-week denominator and an equal three-week denominator relative to the original weights; grey bars give the ranges expected from reporting noise and epidemic growth without environmental variation, and filled markers denote one-sided tests that remain significant after Holm correction. Panel D gives the number of periods needed to match the precision of a given number of noise-free periods, by reported admissions per period; the panel is illustrative and is superseded by the empirical nomogram in Fig.~\ref{fig:design}A.}
   \label{fig:seasons}
 \end{figure}
@@ -185,7 +234,7 @@ where $V$ is given by Eq.~(\ref{eq:var-average}). The minimum is at $\lambda^*=V
 \setcounter{table}{0}
 \renewcommand{\thetable}{S\arabic{table}}
 
-Tables~\ref{tab:s1}--\ref{tab:s7} report the estimates that underlie Figs.~\ref{fig:floor}--\ref{fig:seasons}. Table~\ref{tab:s8} gives the implied environmental variance under each setting of the inversion (Fig.~\ref{fig:inversion}), and Table~\ref{tab:s9} lists the specifications used across the rounds of this analysis. Table~\ref{tab:s4} compares the voluntary reporting period with the same calendar months of the mandatory years. All values were generated from the stored outputs of the analysis code.
+Tables~\ref{tab:s1}--\ref{tab:s7} report the estimates that underlie Figs.~\ref{fig:identification}A, \ref{fig:envelope}A and \ref{fig:budget}--\ref{fig:seasons}. Table~\ref{tab:s8} gives the implied environmental variance under each setting of the inversion (Figs.~\ref{fig:envelope}B and \ref{fig:inversion}), Table~\ref{tab:s9} lists the specifications used across the rounds of this analysis, and Table~\ref{tab:s11} gives the thinning and within-state results of Fig.~\ref{fig:identification}B and C. Table~\ref{tab:s4} compares the voluntary reporting period with the same calendar months of the mandatory years. All values were generated from the stored outputs of the analysis code.
 
 \input{tables/tab_s1_headline}
 \input{tables/tab_s2_decomposition}
@@ -197,3 +246,4 @@ Tables~\ref{tab:s1}--\ref{tab:s7} report the estimates that underlie Figs.~\ref{
 \input{tables/tab_s8_inversion_settings}
 \input{tables/tab_s9_analysis_history}
 \input{tables/tab_s10_polish}
+\input{tables/tab_s11_thinning_fe}
