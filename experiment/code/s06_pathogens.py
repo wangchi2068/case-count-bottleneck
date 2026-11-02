@@ -26,7 +26,8 @@ from cc_common import (EARLY_CAL, EXP, P1_END, P3_START, SEED, WEIGHTS, Log, Par
 
 log = Log("s06_pathogens")
 P = Part("s06_pathogens", "s06_pathogens.py",
-         ["data/external/nhsn_hrd_vintage_2026-10-20.csv.gz", "vintage_2026-10-20/analysis/r4_results.json"],
+         ["data/external/nhsn_hrd_vintage_2026-10-20.csv.gz",
+          "analysis/vintage_r4_results.json | vintage_2026-10-20/analysis/r4_results.json"],
          "measured", SEED + 6)
 import sys
 B = int(sys.argv[1]) if len(sys.argv) > 1 else 2000
@@ -71,7 +72,22 @@ def build_rows(df, w):
 
 
 # ----------------------------------------------------------------------------- null bands
-r4 = json.loads((EXP / "vintage_2026-10-20/analysis/r4_results.json").read_text(encoding="utf-8"))
+# The vintage growth-null bands are shipped under two possible layouts: the released
+# package keeps them at analysis/vintage_r4_results.json, while a full working tree
+# keeps them under the vintage folder. Probe both so a fresh clone runs unchanged.
+R4_CANDIDATES = [
+    EXP / "analysis/vintage_r4_results.json",
+    EXP / "vintage_2026-10-20/analysis/r4_results.json",
+]
+R4_PATH = next((p for p in R4_CANDIDATES if p.exists()), None)
+if R4_PATH is None:
+    raise FileNotFoundError(
+        "Growth-null bands not found. Expected one of:\n  "
+        + "\n  ".join(str(p) for p in R4_CANDIDATES)
+        + "\nRe-run the vintage r4 stage, or copy r4_results.json to analysis/vintage_r4_results.json."
+    )
+log(f"growth-null bands from {R4_PATH}")
+r4 = json.loads(R4_PATH.read_text(encoding="utf-8"))
 gn = r4.get("A_growth_null", {})
 bands = gn.get("bands", {})
 P.put("null_band_source", {"complete": gn.get("complete"), "reps_per_cell": gn.get("reps_per_cell"),
