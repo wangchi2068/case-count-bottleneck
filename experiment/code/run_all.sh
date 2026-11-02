@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
-# Rebuild every number, figure and table of the revision experiments from the downloaded data.
+# Rebuild the analysis, figures and tables from the downloaded data and the shipped
+# vintage growth-null bands (analysis/vintage_r4_results.json).
+#
+# Scope note: this is NOT a fully end-to-end rebuild. The growth-null bands produced by
+# the earlier vintage round are reused rather than regenerated; regenerating them
+# requires the archived vintage workspace. Everything downstream of them is recomputed.
+#
 # Usage: bash code/run_all.sh [--fresh]
 #   --fresh  delete cached analysis parts first (each script otherwise skips blocks already in its part file)
 # Wall time on 8 CPUs: about 10 min without the growth-null rerun (see code/README.md).

@@ -1,13 +1,14 @@
 # Code: revision experiments for "case-count bottleneck"
 
-To rebuild everything with one command, run `bash run_all.sh --fresh` from this folder (`code/`).
-- Inputs: `../data/external/` (see `../data/DATA_MANIFEST.md`) and the vintage growth-null bands in `../vintage_2026-10-20/analysis/r4_results.json`.
+To rebuild the analysis with one command, run `bash run_all.sh --fresh` from this folder (`code/`).
+- Scope: `run_all.sh` rebuilds every analysis number, figure and table **from the downloaded data and the shipped vintage growth-null bands**. It does not regenerate those bands; they come from the earlier vintage round and are committed as `../analysis/vintage_r4_results.json`.
+- Inputs: `../data/external/` (see `../data/DATA_MANIFEST.md`), plus the vintage growth-null bands, which `s06_pathogens.py` locates automatically in `../analysis/vintage_r4_results.json` or `../vintage_2026-10-20/analysis/r4_results.json`.
 - Outputs:
   - `../analysis/parts/*.json`: per-script results with provenance;
   - `../analysis/results.json`: merged results, one record per number with its script, inputs, seed and mode (measured, simulated or analytic);
   - `../figures/{en,zh}/`: figures;
   - `../tables/{en,zh}/`: tables.
-- In the published package (`output/case-count-bottleneck/experiment/`), the vintage results file is shipped as `analysis/vintage_r4_results.json`; point `s06_pathogens.py` at it if the hidden `vintage_2026-10-20/` folder is absent. Tables are in `analysis/tables/`; figures are released with the paper.
+- The growth-null bands are the one intermediate that is reused rather than recomputed. No manual path edit is required; if neither location exists, `s06_pathogens.py` raises a descriptive error naming both expected paths. Tables are in `analysis/tables/`; figures are released with the paper.
 - Base seed: 20261020. Each script adds its own offset, and each bootstrap records its seed.
 
 ## Scripts
